@@ -8,6 +8,7 @@ import { TrustStrip } from "@/components/trust-strip";
 import { business } from "@/lib/business";
 import { pageCitations } from "@/lib/citations/page-citations";
 import { drAngelRivera } from "@/lib/physician";
+import { activeReviewer } from "@/lib/medical-director";
 import { alternatesFor } from "@/lib/hreflangMap";
 import { absoluteUrl } from "@/lib/site";
 import { primaryReviewer } from "@/lib/providers/registry";
@@ -15,6 +16,7 @@ import {
   buildBreadcrumbList,
   buildFaqPage,
   buildMedicalProcedure,
+  buildPageCitationSchema,
   buildService,
 } from "@/lib/schema";
 import type { BreadcrumbItem } from "@/lib/schema/breadcrumb";
@@ -137,6 +139,7 @@ const schemaNodes = [
   }),
   buildFaqPage(faqs, PAGE_PATH),
   buildBreadcrumbList(breadcrumbItems, PAGE_PATH),
+  buildPageCitationSchema(PAGE_PATH, hrtCitations),
 ];
 
 export default function HrtMiamiPage() {
@@ -412,10 +415,10 @@ export default function HrtMiamiPage() {
           </h2>
           <p className="max-w-2xl text-zinc-600 dark:text-zinc-400">
             <span className="font-medium text-zinc-900 dark:text-zinc-100">
-              {drAngelRivera.name}
+              {activeReviewer.name}
             </span>{" "}
-            — {drAngelRivera.jobTitle} at Strong Health Miami.{" "}
-            {drAngelRivera.description}
+            — {activeReviewer.jobTitle} at Strong Health Miami.{" "}
+            {activeReviewer.description}
           </p>
         </section>
 

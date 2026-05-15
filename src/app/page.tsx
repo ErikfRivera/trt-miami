@@ -16,12 +16,14 @@ import { pageCitations } from "@/lib/citations/page-citations";
 import { homepageReviews } from "@/lib/homepage-content";
 import { alternatesFor } from "@/lib/hreflangMap";
 import { drAngelRivera } from "@/lib/physician";
+import { activeReviewer } from "@/lib/medical-director";
 import { primaryReviewer } from "@/lib/providers/registry";
 import {
   aggregateRatingFromReviews,
   buildBreadcrumbList,
   buildFaqPage,
   buildMedicalBusiness,
+  buildPageCitationSchema,
   buildPhysician,
   buildReview,
   reviewId,
@@ -52,6 +54,7 @@ const schemaNodes = [
   ...reviewNodes,
   buildFaqPage(schemaEligible(trtClinicMiamiFaqs), "/"),
   buildBreadcrumbList([{ name: "Home", path: "/" }], "/"),
+  buildPageCitationSchema(HOME_PATH, homeCitations),
 ];
 
 const symptoms = [
@@ -575,14 +578,14 @@ export default function Home() {
                 aria-hidden="true"
                 className="flex h-20 w-20 shrink-0 items-center justify-center rounded-full border border-amber-400/30 bg-slate-950 text-2xl font-semibold text-amber-400"
               >
-                {drAngelRivera.familyName.charAt(0)}
+                {activeReviewer.familyName.charAt(0)}
               </div>
               <div className="flex flex-col gap-2">
                 <h3 className="text-lg font-semibold text-white">
-                  {drAngelRivera.name}
+                  {activeReviewer.name}
                 </h3>
                 <p className="text-sm font-medium text-amber-400">
-                  {drAngelRivera.jobTitle}
+                  {activeReviewer.jobTitle}
                 </p>
                 <p className="text-sm leading-6 text-slate-400">
                   Oversees every patient evaluation, lab review, and treatment

@@ -13,6 +13,7 @@ import {
 } from "@/lib/faq-content";
 import { alternatesFor } from "@/lib/hreflangMap";
 import { drAngelRivera } from "@/lib/physician";
+import { activeReviewer } from "@/lib/medical-director";
 import {
   buildBreadcrumbList,
   buildFaqPage,
@@ -383,10 +384,10 @@ export default function DelrayBeachTrtPage() {
           </h2>
           <p className="max-w-2xl text-zinc-600 dark:text-zinc-400">
             <span className="font-medium text-zinc-900 dark:text-zinc-100">
-              {drAngelRivera.name}
+              {activeReviewer.name}
             </span>{" "}
-            — {drAngelRivera.jobTitle} at Strong Health.{" "}
-            {drAngelRivera.description}
+            — {activeReviewer.jobTitle} at Strong Health.{" "}
+            {activeReviewer.description}
           </p>
         </section>
 
@@ -403,9 +404,9 @@ export default function DelrayBeachTrtPage() {
               href="/contact/"
               className="font-medium text-zinc-700 underline-offset-2 hover:underline dark:text-zinc-300"
             >
-              {drAngelRivera.name}
+              {activeReviewer.name}
             </Link>
-            , {drAngelRivera.jobTitle}. Last reviewed{" "}
+            . Last reviewed{" "}
             <time dateTime={TRT_FAQ_LAST_REVIEWED}>{TRT_FAQ_LAST_REVIEWED}</time>.
           </p>
           <FaqAccordion items={trtClinicDelrayFaqs} />

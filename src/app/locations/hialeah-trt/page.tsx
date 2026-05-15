@@ -6,6 +6,7 @@ import { SchemaGraph } from "@/components/schema-graph";
 import { business } from "@/lib/business";
 import { alternatesFor } from "@/lib/hreflangMap";
 import { drAngelRivera } from "@/lib/physician";
+import { activeReviewer } from "@/lib/medical-director";
 import { absoluteUrl } from "@/lib/site";
 import {
   buildBreadcrumbList,
@@ -181,7 +182,7 @@ export default function HialeahPage() {
             href={physicianPagePath}
             className="font-medium text-zinc-900 underline underline-offset-2 hover:no-underline dark:text-zinc-100"
           >
-            {drAngelRivera.name}
+            {activeReviewer.name}
           </Link>
           ; his bio page covers training, credentials, and the panels we run.
         </p>

@@ -8,10 +8,11 @@ import { primaryReviewer, providers } from "@/lib/providers/registry";
 import {
   buildAboutPage,
   buildMedicalBusiness,
-  buildPhysician,
   buildBreadcrumbList,
 } from "@/lib/schema";
+import { physicianSchemaNode } from "@/lib/schema/physician";
 import { drAngelRivera } from "@/lib/physician";
+import { activeReviewer } from "@/lib/medical-director";
 import type { BreadcrumbItem } from "@/lib/schema/breadcrumb";
 import { pageMetadata } from "@/lib/seo";
 
@@ -39,7 +40,7 @@ const schemaNodes = [
   buildMedicalBusiness({
     physicianUrls: providers.map((p) => p.url),
   }),
-  buildPhysician(),
+  physicianSchemaNode(),
   buildBreadcrumbList(breadcrumbs, PAGE_PATH),
 ];
 
@@ -143,13 +144,13 @@ export default function AboutPage() {
               aria-hidden="true"
               className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-zinc-300 bg-zinc-100 text-lg font-semibold text-zinc-500 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-400"
             >
-              {drAngelRivera.familyName.charAt(0)}
+              {activeReviewer.familyName.charAt(0)}
             </div>
             <div className="flex flex-col gap-1">
-              <p className="font-semibold text-zinc-900 dark:text-zinc-50">{drAngelRivera.name}</p>
-              <p className="text-sm text-zinc-500 dark:text-zinc-400">{drAngelRivera.jobTitle}</p>
+              <p className="font-semibold text-zinc-900 dark:text-zinc-50">{activeReviewer.name}</p>
+              <p className="text-sm text-zinc-500 dark:text-zinc-400">{activeReviewer.jobTitle}</p>
               <p className="mt-1 text-sm leading-6 text-zinc-600 dark:text-zinc-400">
-                {drAngelRivera.description}
+                {activeReviewer.description}
               </p>
             </div>
           </div>

@@ -16,6 +16,7 @@ import {
   trtClinicMiamiFaqs,
 } from "@/lib/faq-content";
 import { drAngelRivera } from "@/lib/physician";
+import { activeReviewer } from "@/lib/medical-director";
 import {
   buildBreadcrumbList,
   buildFaqPage,
@@ -326,10 +327,10 @@ export default function TrtClinicMiamiPage() {
           </h2>
           <p className="max-w-2xl text-zinc-600 dark:text-zinc-400">
             <span className="font-medium text-zinc-900 dark:text-zinc-100">
-              {drAngelRivera.name}
+              {activeReviewer.name}
             </span>{" "}
-            — {drAngelRivera.jobTitle} at Strong Health Miami.{" "}
-            {drAngelRivera.description}
+            — {activeReviewer.jobTitle} at Strong Health Miami.{" "}
+            {activeReviewer.description}
           </p>
         </section>
 
@@ -346,9 +347,9 @@ export default function TrtClinicMiamiPage() {
               href="/contact/"
               className="font-medium text-zinc-700 underline-offset-2 hover:underline dark:text-zinc-300"
             >
-              {drAngelRivera.name}
+              {activeReviewer.name}
             </Link>
-            , {drAngelRivera.jobTitle}. Last reviewed{" "}
+            . Last reviewed{" "}
             <time dateTime={TRT_FAQ_LAST_REVIEWED}>{TRT_FAQ_LAST_REVIEWED}</time>.
           </p>
           <FaqAccordion items={trtClinicMiamiFaqs} />

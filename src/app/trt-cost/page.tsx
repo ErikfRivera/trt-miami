@@ -13,6 +13,7 @@ import {
   trtCostFaqs,
 } from "@/lib/faq-content";
 import { drAngelRivera } from "@/lib/physician";
+import { activeReviewer } from "@/lib/medical-director";
 import {
   buildBreadcrumbList,
   buildFaqPage,
@@ -104,9 +105,9 @@ export default function TrtCostPage() {
               href="/contact/"
               className="font-medium text-zinc-700 underline-offset-2 hover:underline dark:text-zinc-300"
             >
-              {drAngelRivera.name}
+              {activeReviewer.name}
             </Link>
-            , {drAngelRivera.jobTitle}. Last reviewed{" "}
+            . Last reviewed{" "}
             <time dateTime={TRT_FAQ_LAST_REVIEWED}>{TRT_FAQ_LAST_REVIEWED}</time>.
           </p>
           <FaqAccordion items={trtCostFaqs} defaultOpenFirst />

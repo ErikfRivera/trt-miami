@@ -7,6 +7,7 @@ import { SchemaGraph } from "@/components/schema-graph";
 import { business } from "@/lib/business";
 import { pageCitations } from "@/lib/citations/page-citations";
 import { drAngelRivera } from "@/lib/physician";
+import { activeReviewer } from "@/lib/medical-director";
 import { alternatesFor } from "@/lib/hreflangMap";
 import { absoluteUrl } from "@/lib/site";
 import { primaryReviewer } from "@/lib/providers/registry";
@@ -14,6 +15,7 @@ import {
   buildBreadcrumbList,
   buildFaqPage,
   buildMedicalProcedure,
+  buildPageCitationSchema,
   buildService,
 } from "@/lib/schema";
 import type { FaqItem } from "@/lib/schema/types";
@@ -119,6 +121,7 @@ const schemaNodes = [
   }),
   buildFaqPage(faqs, PAGE_PATH),
   buildBreadcrumbList(breadcrumbItems, PAGE_PATH),
+  buildPageCitationSchema(PAGE_PATH, peptideCitations),
 ];
 
 export default function PeptideTherapyPage() {
@@ -136,7 +139,7 @@ export default function PeptideTherapyPage() {
         <p className="max-w-2xl text-lg text-zinc-600 dark:text-zinc-400">
           Physician-supervised peptide therapy at {business.name} — GLP-1
           therapies for weight loss, recovery support, and hormone peptides.
-          Reviewed by {drAngelRivera.name}, {drAngelRivera.jobTitle}.
+          Reviewed by {activeReviewer.name}.
         </p>
         <ul
           aria-label="Clinic highlights"
@@ -314,7 +317,7 @@ export default function PeptideTherapyPage() {
                 Customized protocol from your physician
               </p>
               <p className="text-sm text-zinc-600 dark:text-zinc-400">
-                Designed and reviewed by {drAngelRivera.name}.
+                Designed and reviewed by {activeReviewer.name}.
               </p>
             </div>
           </li>
@@ -374,13 +377,13 @@ export default function PeptideTherapyPage() {
         </h2>
         <div className="rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm dark:border-zinc-800 dark:bg-zinc-950">
           <p className="text-base font-semibold text-zinc-900 dark:text-zinc-50">
-            Medically reviewed by {drAngelRivera.name}
+            Medically reviewed by {activeReviewer.name}
           </p>
           <p className="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
-            {drAngelRivera.jobTitle}, Strong Health Miami
+            {activeReviewer.jobTitle}, Strong Health Miami
           </p>
           <p className="mt-3 text-sm leading-6 text-zinc-700 dark:text-zinc-300">
-            {drAngelRivera.description}
+            {activeReviewer.description}
           </p>
         </div>
         <p className="max-w-3xl text-base leading-7 text-zinc-700 dark:text-zinc-300">
@@ -455,7 +458,7 @@ export default function PeptideTherapyPage() {
           Book your free peptide therapy consultation
         </h2>
         <p className="max-w-2xl text-base leading-7 text-zinc-300 dark:text-zinc-700">
-          Same-week appointments available in Miami. Talk to {drAngelRivera.name}
+          Same-week appointments available in Miami. Talk to {activeReviewer.name}
           {" "}and the Strong Health team about whether peptide therapy is the right
           fit for your goals.
         </p>
