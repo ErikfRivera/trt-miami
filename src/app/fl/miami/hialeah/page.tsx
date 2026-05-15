@@ -36,7 +36,7 @@ const faqs: { question: string; answer: string }[] = [
   {
     question: "Where is the clinic for Hialeah TRT patients?",
     answer:
-      "We see Hialeah patients at our Brickell location at 697 N Miami Avenue, Miami, FL 33136. There is no separate Hialeah office — Brickell is the closest Strong Health clinic and is where Hialeah residents come for testosterone replacement therapy. If we open a dedicated Hialeah location, this page will be updated and the new address listed here.",
+      "We see Hialeah patients at our Miami clinic — there is no separate Hialeah office. Strong Health Miami is the closest location for Hialeah residents seeking testosterone replacement therapy. The exact address is confirmed during booking; if we open a dedicated Hialeah location, this page will be updated.",
   },
   {
     question: "Do you have Spanish-speaking staff for Hialeah patients?",
@@ -96,6 +96,15 @@ const breadcrumbSchema = {
   ],
 };
 
+const hialeahAddress: Record<string, string> = {
+  "@type": "PostalAddress",
+  addressLocality: business.address.addressLocality,
+  addressRegion: business.address.addressRegion,
+  addressCountry: business.address.addressCountry,
+};
+if (business.address.streetAddress) hialeahAddress.streetAddress = business.address.streetAddress;
+if (business.address.postalCode) hialeahAddress.postalCode = business.address.postalCode;
+
 const medicalClinicSchema = {
   "@context": "https://schema.org",
   "@type": "MedicalClinic",
@@ -103,14 +112,7 @@ const medicalClinicSchema = {
   url: absoluteUrl(pagePath),
   telephone: business.phone.e164Hyphenated,
   medicalSpecialty: "Endocrine",
-  address: {
-    "@type": "PostalAddress",
-    streetAddress: business.address.streetAddress,
-    addressLocality: business.address.addressLocality,
-    addressRegion: business.address.addressRegion,
-    postalCode: business.address.postalCode,
-    addressCountry: business.address.addressCountry,
-  },
+  address: hialeahAddress,
   areaServed: {
     "@type": "City",
     name: "Hialeah",

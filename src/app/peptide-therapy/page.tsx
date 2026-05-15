@@ -495,9 +495,9 @@ export default function PeptideTherapyPage() {
           Book your free peptide therapy consultation
         </h2>
         <p className="max-w-2xl text-base leading-7 text-zinc-300 dark:text-zinc-700">
-          Same-week appointments available at our downtown Miami clinic. Talk
-          to {drAngelRivera.name} and the Strong Health team about whether
-          peptide therapy is the right fit for your goals.
+          Same-week appointments available in Miami. Talk to {drAngelRivera.name}
+          {" "}and the Strong Health team about whether peptide therapy is the right
+          fit for your goals.
         </p>
         <div className="flex flex-wrap gap-3">
           <a
