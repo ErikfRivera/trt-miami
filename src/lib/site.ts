@@ -33,8 +33,8 @@ export const routes: readonly SiteRoute[] = [
 
   // Service (head-term) pages
   { path: "/trt-clinic-miami/", changeFrequency: "weekly", priority: 0.95, locale: "en" },
-  { path: "/hrt-miami/", changeFrequency: "monthly", priority: 0.85, noindex: true, locale: "en" },
-  { path: "/bioidentical-hormones-miami/", changeFrequency: "monthly", priority: 0.85, noindex: true, locale: "en" },
+  { path: "/hrt-miami/", changeFrequency: "weekly", priority: 0.9, locale: "en" },
+  { path: "/bioidentical-hormones-miami/", changeFrequency: "weekly", priority: 0.9, locale: "en" },
 
   // Method pages
   { path: "/trt-injections/", changeFrequency: "monthly", priority: 0.8, noindex: true, locale: "en" },

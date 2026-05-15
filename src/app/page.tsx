@@ -19,9 +19,10 @@ import {
 
 export const metadata: Metadata = {
   title: {
-    absolute: "Strong Health TRT Therapy Miami — Testosterone Replacement Therapy in Miami, FL",
+    absolute: "TRT Therapy Miami | Strong Health Miami, FL",
   },
-  description: `${business.name} is a men's health clinic in downtown Miami offering testosterone replacement therapy. Schedule a consultation by calling ${business.phone.display}.`,
+  description:
+    "TRT therapy in Miami at Strong Health: physician-supervised testosterone replacement, full bloodwork, same-week consultations. Call to schedule today.",
   alternates: alternatesFor("/"),
 };
 
@@ -51,19 +52,38 @@ export default function Home() {
             Testosterone Replacement Therapy · Miami, FL
           </p>
           <h1 className="text-4xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-5xl">
-            {business.name}
+            TRT Therapy in Miami at Strong Health
           </h1>
           <p className="max-w-2xl text-lg text-zinc-600 dark:text-zinc-400">
-            A men&apos;s health clinic in downtown Miami focused on testosterone
-            replacement therapy. We also offer{" "}
+            {business.name} is a men&apos;s health clinic in Miami focused on{" "}
+            <Link
+              href="/trt-clinic-miami/"
+              className="font-medium text-zinc-900 underline-offset-2 hover:underline dark:text-zinc-100"
+            >
+              physician-led testosterone replacement therapy
+            </Link>
+            . We also offer{" "}
+            <Link
+              href="/hrt-miami/"
+              className="font-medium text-zinc-900 underline-offset-2 hover:underline dark:text-zinc-100"
+            >
+              full-spectrum hormone replacement therapy
+            </Link>
+            ,{" "}
+            <Link
+              href="/bioidentical-hormones-miami/"
+              className="font-medium text-zinc-900 underline-offset-2 hover:underline dark:text-zinc-100"
+            >
+              bioidentical hormones
+            </Link>
+            , and{" "}
             <Link
               href="/peptide-therapy/"
               className="font-medium text-zinc-900 underline-offset-2 hover:underline dark:text-zinc-100"
             >
               peptide therapy in Miami
             </Link>
-            {" "}for weight loss, recovery, and hormone support. Schedule a
-            consultation to get started.
+            {" "}for weight loss, recovery, and hormone support.
           </p>
           <div className="flex flex-wrap gap-3">
             <a

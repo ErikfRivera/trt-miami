@@ -15,13 +15,29 @@ import type { FaqItem } from "@/lib/schema/types";
 
 const PAGE_PATH = "/trt-clinic-miami/" as const;
 
+const canonicalUrl = `${business.url}${PAGE_PATH}`;
+
 export const metadata: Metadata = {
   title: {
-    absolute: "TRT Clinic in Miami, FL — Strong Health Miami",
+    absolute: "TRT Clinic Miami | Strong Health Miami, FL",
   },
   description:
-    "Strong Health Miami is a physician-supervised testosterone replacement therapy clinic. Visit our contact page or call to schedule a consultation.",
+    "Doctor-led TRT clinic in Miami. Florida-licensed physician supervision, comprehensive bloodwork, transparent self-pay pricing. Same-week consults available.",
   alternates: alternatesFor(PAGE_PATH),
+  openGraph: {
+    type: "website",
+    siteName: "Strong Health TRT Therapy Miami",
+    url: canonicalUrl,
+    title: "TRT Clinic in Miami | Strong Health Miami",
+    description:
+      "Physician-led testosterone replacement therapy clinic in Miami — Florida-licensed MD oversight, full bloodwork, transparent pricing.",
+    locale: "en_US",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "TRT Clinic in Miami | Strong Health Miami",
+    description: "Physician-led TRT clinic in Miami with full bloodwork and transparent pricing.",
+  },
 };
 
 const faqItems: readonly FaqItem[] = [
@@ -142,12 +158,26 @@ export default function TrtClinicMiamiPage() {
             Testosterone Replacement Therapy · Miami, FL
           </p>
           <h1 className="text-4xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-5xl">
-            TRT Clinic in Miami, FL
+            Physician-Led TRT Clinic in Miami
           </h1>
           <p className="max-w-2xl text-lg text-zinc-600 dark:text-zinc-400">
             Physician-supervised testosterone replacement therapy at our Miami
-            clinic. Call to schedule a consultation with our medical team. We
-            also offer{" "}
+            clinic. Call to schedule a consultation with our medical team.
+            Patients with broader endocrine needs can also explore{" "}
+            <Link
+              href="/hrt-miami/"
+              className="font-medium text-zinc-900 underline-offset-2 hover:underline dark:text-zinc-100"
+            >
+              hormone replacement therapy
+            </Link>
+            ,{" "}
+            <Link
+              href="/bioidentical-hormones-miami/"
+              className="font-medium text-zinc-900 underline-offset-2 hover:underline dark:text-zinc-100"
+            >
+              bioidentical hormones
+            </Link>
+            , or{" "}
             <Link
               href="/peptide-therapy/"
               className="font-medium text-zinc-900 underline-offset-2 hover:underline dark:text-zinc-100"
