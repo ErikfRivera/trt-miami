@@ -13,14 +13,6 @@ const navItems: ReadonlyArray<NavGroup> = [
     ],
   },
   {
-    label: "Therapies",
-    children: [
-      { href: "/hrt-miami/", label: "HRT for Women" },
-      { href: "/bioidentical-hormones-miami/", label: "Bioidentical Hormones" },
-      { href: "/peptide-therapy/", label: "Peptide Therapy" },
-    ],
-  },
-  {
     label: "Locations",
     children: [
       { href: "/locations/", label: "Miami TRT Locations" },
@@ -34,6 +26,14 @@ const navItems: ReadonlyArray<NavGroup> = [
       { href: "/locations/key-biscayne-trt/", label: "Key Biscayne" },
       { href: "/locations/pinecrest-trt/", label: "Pinecrest" },
       { href: "/locations/fort-lauderdale-trt/", label: "Fort Lauderdale" },
+    ],
+  },
+  {
+    label: "Therapies",
+    children: [
+      { href: "/hrt-miami/", label: "HRT for Women" },
+      { href: "/bioidentical-hormones-miami/", label: "Bioidentical Hormones" },
+      { href: "/peptide-therapy/", label: "Peptide Therapy" },
     ],
   },
   {
