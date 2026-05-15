@@ -5,6 +5,7 @@ import { SchemaGraph } from "@/components/schema-graph";
 import { drAngelRivera } from "@/lib/physician";
 import { getProviderBySlug, providers, providerDisplayName } from "@/lib/providers/registry";
 import { buildBreadcrumbList, buildPhysician } from "@/lib/schema";
+import { pageMetadata } from "@/lib/seo";
 import type { SitePath } from "@/lib/site";
 
 interface Props {
@@ -21,11 +22,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const provider = getProviderBySlug(slug);
   if (!provider) return {};
-  return {
-    title: { absolute: `${providerDisplayName(provider)} — Strong Health Miami` },
+  return pageMetadata({
+    path: providerPagePath(slug),
+    title: `${providerDisplayName(provider)} — Strong Health Miami`,
     description: provider.summary,
-    alternates: { canonical: providerPagePath(slug) },
-  };
+  });
 }
 
 export default async function ProviderPage({ params }: Props) {
