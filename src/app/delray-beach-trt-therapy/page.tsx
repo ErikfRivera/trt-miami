@@ -224,8 +224,10 @@ export default function DelrayBeachTrtPage() {
           {/* Per STR-100 brief §4 (5 modality H3s) + STR-116 M4 — added oral
               TRT (Kyzatrex®) and Clomid/Enclomiphene to close the entity gap
               vs Gameday Men's Health #1 SERP competitor. Clinical availability
-              of Kyzatrex/Clomid is gated on CEO confirm via [STR-107]; copy is
-              indication-accurate either way. */}
+              of Kyzatrex/Clomid is gated on CEO confirm via STR-118 — if the
+              answer is "we don't offer these", remove the trailing 2 H3 cards
+              and revert the grid to sm:grid-cols-3. Copy is indication-accurate
+              either way. */}
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             <article className="flex flex-col gap-3 rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm dark:border-zinc-800 dark:bg-zinc-950">
               <h3 className="text-lg font-semibold text-zinc-900 dark:text-zinc-50">
