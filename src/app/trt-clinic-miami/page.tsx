@@ -1,17 +1,24 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { FaqAccordion } from "@/components/faq-accordion";
 import { SchemaGraph } from "@/components/schema-graph";
 import { business } from "@/lib/business";
+import {
+  TRT_FAQ_DISCLAIMER,
+  TRT_FAQ_LAST_REVIEWED,
+  schemaEligible,
+  trtClinicMiamiFaqs,
+} from "@/lib/faq-content";
 import { alternatesFor } from "@/lib/hreflangMap";
 import { drAngelRivera } from "@/lib/physician";
 import {
   buildBreadcrumbList,
   buildFaqPage,
   buildMedicalProcedure,
+  buildMedicalWebPage,
   buildService,
 } from "@/lib/schema";
 import type { BreadcrumbItem } from "@/lib/schema/breadcrumb";
-import type { FaqItem } from "@/lib/schema/types";
 
 const PAGE_PATH = "/trt-clinic-miami/" as const;
 
@@ -39,54 +46,6 @@ export const metadata: Metadata = {
     description: "Physician-led TRT clinic in Miami with full bloodwork and transparent pricing.",
   },
 };
-
-const faqItems: readonly FaqItem[] = [
-  {
-    question: "How do I book a consultation at Strong Health Miami?",
-    answer:
-      "Visit our contact page or call our clinic line. Same-week openings are usually available.",
-  },
-  {
-    question: "Where is the Strong Health Miami clinic located?",
-    answer:
-      "Our clinic is in Miami, FL. See our contact page for the full address and parking notes.",
-  },
-  {
-    question: "What are the clinic hours?",
-    answer:
-      "Monday through Friday from 8:00 a.m. to 6:00 p.m., and Saturday from 9:00 a.m. to 1:00 p.m. We are closed on Sundays.",
-  },
-  {
-    question: "Do you offer telehealth follow-ups?",
-    answer:
-      "Initial consultations take place in person at our Miami clinic. Routine follow-up visits can be conducted via secure video.",
-  },
-  {
-    question: "Do you accept insurance?",
-    answer:
-      "Strong Health Miami operates as a self-pay clinic. We can provide an itemized superbill on request so you can pursue out-of-network reimbursement with your insurer.",
-  },
-  {
-    question: "What lab work is required before starting treatment?",
-    answer:
-      "A baseline blood panel is required before any treatment plan is discussed. Your physician will determine and order the specific tests during your initial visit.",
-  },
-  {
-    question: "Which Miami neighborhoods do you serve?",
-    answer:
-      "We see patients from across Miami-Dade, including Brickell, Downtown, Coral Gables, Coconut Grove, Miami Beach, Aventura, Doral, Hialeah, and South Miami.",
-  },
-  {
-    question: "Who will I see for my consultation?",
-    answer:
-      "All consultations are conducted by a licensed physician. Our Medical Director oversees the program.",
-  },
-  {
-    question: "What should I bring to my first visit?",
-    answer:
-      "A government-issued photo ID, a list of any current medications and supplements, and any lab results from the past 12 months if available.",
-  },
-];
 
 const breadcrumbItems: readonly BreadcrumbItem[] = [
   { name: "Home", path: "/" },
@@ -116,7 +75,12 @@ const schemaNodes = [
     // TODO: STR-2 — wire booking URL once /book/ ships; placeholder uses /contact/.
     offers: { bookingUrl: `${business.url}/contact/` },
   }),
-  buildFaqPage(faqItems, PAGE_PATH),
+  buildMedicalWebPage({
+    pagePath: PAGE_PATH,
+    lastReviewed: TRT_FAQ_LAST_REVIEWED,
+    specialty: "Endocrine",
+  }),
+  buildFaqPage(schemaEligible(trtClinicMiamiFaqs), PAGE_PATH),
   buildBreadcrumbList(breadcrumbItems, PAGE_PATH),
 ];
 
@@ -257,23 +221,28 @@ export default function TrtClinicMiamiPage() {
           </p>
         </section>
 
-        <section aria-labelledby="faq-heading" className="flex flex-col gap-6 cv-auto">
+        <section aria-labelledby="faq-heading" className="flex flex-col gap-4 cv-auto">
           <h2
             id="faq-heading"
             className="text-2xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50"
           >
-            Frequently asked questions
+            TRT in Miami — frequently asked questions
           </h2>
-          <dl className="flex flex-col gap-6">
-            {faqItems.map((item) => (
-              <div key={item.question} className="flex flex-col gap-2">
-                <dt className="text-base font-medium text-zinc-900 dark:text-zinc-100">
-                  {item.question}
-                </dt>
-                <dd className="text-zinc-600 dark:text-zinc-400">{item.answer}</dd>
-              </div>
-            ))}
-          </dl>
+          <p className="text-sm text-zinc-500 dark:text-zinc-400">
+            Medically reviewed by{" "}
+            <Link
+              href="/contact/"
+              className="font-medium text-zinc-700 underline-offset-2 hover:underline dark:text-zinc-300"
+            >
+              {drAngelRivera.name}
+            </Link>
+            , {drAngelRivera.jobTitle}. Last reviewed{" "}
+            <time dateTime={TRT_FAQ_LAST_REVIEWED}>{TRT_FAQ_LAST_REVIEWED}</time>.
+          </p>
+          <FaqAccordion items={trtClinicMiamiFaqs} />
+          <p className="text-xs italic text-zinc-500 dark:text-zinc-400">
+            {TRT_FAQ_DISCLAIMER}
+          </p>
         </section>
       </div>
     </>

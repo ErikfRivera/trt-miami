@@ -8,4 +8,5 @@ export * from "./therapy";
 export * from "./service";
 export * from "./review";
 export * from "./faq";
+export * from "./medical-web-page";
 export * from "./breadcrumb";
