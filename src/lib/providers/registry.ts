@@ -34,12 +34,10 @@ export const providers: readonly ProviderRecord[] = [
     jobTitle: drAngelRivera.jobTitle,
     specialty: "Internal Medicine · Men's Hormone Health",
     npi: drAngelRivera.npi,
-    // TODO: STR-50 — replace PENDING with verified FL license number.
-    license: "PENDING_LICENSE",
+    license: drAngelRivera.license,
     licensingBoard: drAngelRivera.licensingBoard,
-    // TODO: STR-37 — replace PENDING with verified board certification details.
-    boardCertification: "PENDING_BOARD",
-    boardYear: "PENDING",
+    boardCertification: drAngelRivera.boardCertification,
+    boardYear: drAngelRivera.boardCertificationYear,
     languages: ["English", "Spanish"],
     description: drAngelRivera.description,
     summary:

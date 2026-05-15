@@ -4,11 +4,16 @@ import { SchemaGraph } from "@/components/schema-graph";
 import { business } from "@/lib/business";
 import { primaryReviewer } from "@/lib/providers/registry";
 import { reviewedPagesByReviewer } from "@/lib/providers/reviewed-pages";
-import { buildMedicalWebPage, buildBreadcrumbList, buildPhysician } from "@/lib/schema";
-// primaryReviewer.url used for MedicalWebPage reviewedBy reference
+import { buildMedicalWebPage, buildBreadcrumbList } from "@/lib/schema";
+import { physicianId } from "@/lib/schema/ids";
 import type { BreadcrumbItem } from "@/lib/schema/breadcrumb";
 
 const PAGE_PATH = "/medical-reviewer/" as const;
+
+// STR-128 §3 — `/medical-reviewer/` is itself a reviewed page about the
+// reviewer. Pin both `lastReviewed` and `dateModified` to one ISO date so
+// the schema reports a coherent review-and-update cadence.
+const PAGE_REVIEW_DATE = "2026-05-15" as const;
 
 export const metadata: Metadata = {
   title: { absolute: `Medical Review Standards | ${business.legalName}` },
@@ -24,14 +29,20 @@ const breadcrumbs: readonly BreadcrumbItem[] = [
 
 const reviewedList = reviewedPagesByReviewer(primaryReviewer.slug);
 
+// STR-128 §4 — single source of truth for the physician entity lives on
+// `/providers/{slug}/`. Here we reference that node by `@id` only via
+// MedicalWebPage's `reviewedBy` / `mainEntity` slots; do not re-emit the
+// full Person JSON-LD or Google will treat the editorial-standards page as
+// two different physicians.
 const schemaNodes = [
   buildMedicalWebPage({
     pagePath: PAGE_PATH,
-    lastReviewed: "2026-05-15",
+    lastReviewed: PAGE_REVIEW_DATE,
+    dateModified: PAGE_REVIEW_DATE,
     specialty: "Endocrine",
     reviewerPhysicianUrl: primaryReviewer.url,
+    mainEntityId: physicianId(primaryReviewer.url),
   }),
-  buildPhysician(),
   buildBreadcrumbList(breadcrumbs, PAGE_PATH),
 ];
 

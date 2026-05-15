@@ -11,16 +11,30 @@ export type MedicalWebPageInput = {
   specialty: string;
   /** Physician URL whose `@id` is referenced as the page's medical reviewer. */
   reviewerPhysicianUrl?: string;
+  /**
+   * Optional `mainEntity` `@id`. For editorial pages whose subject is the
+   * reviewer (e.g. `/medical-reviewer/`), pass the reviewer's `@id` so the
+   * page is self-evidently a record of the named clinician. For clinical
+   * pages whose subject is a condition or therapy, omit and let the page's
+   * Procedure / MedicalTherapy node carry the medical-subject signal.
+   */
+  mainEntityId?: string;
+  /** ISO date (YYYY-MM-DD) the page itself was last modified. */
+  dateModified?: string;
 };
 
 export const buildMedicalWebPage = (input: MedicalWebPageInput): SchemaNode => {
   const reviewerUrl = input.reviewerPhysicianUrl ?? drAngelRivera.url;
-  return {
+  const reviewerNodeId = physicianId(reviewerUrl);
+  const node: Record<string, unknown> = {
     "@type": "MedicalWebPage",
     "@id": `${absoluteUrl(input.pagePath)}#medical-page`,
     url: absoluteUrl(input.pagePath),
     lastReviewed: input.lastReviewed,
-    reviewedBy: { "@id": physicianId(reviewerUrl) },
+    reviewedBy: { "@id": reviewerNodeId },
     specialty: input.specialty,
-  } as SchemaNode;
+  };
+  if (input.mainEntityId) node.mainEntity = { "@id": input.mainEntityId };
+  if (input.dateModified) node.dateModified = input.dateModified;
+  return node as SchemaNode;
 };

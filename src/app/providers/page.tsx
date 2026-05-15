@@ -3,6 +3,12 @@ import Link from "next/link";
 import { SchemaGraph } from "@/components/schema-graph";
 import { business } from "@/lib/business";
 import { providers } from "@/lib/providers/registry";
+import {
+  isVerifiedLicense,
+  isVerifiedNpi,
+  licenseVerificationUrl,
+  npiRegistryUrl,
+} from "@/lib/providers/verification-urls";
 import { buildCollectionPage, buildBreadcrumbList, buildPhysician } from "@/lib/schema";
 import type { BreadcrumbItem } from "@/lib/schema/breadcrumb";
 
@@ -124,13 +130,13 @@ export default function ProvidersPage() {
                       FL License
                     </dt>
                     <dd className="mt-1 text-zinc-700 dark:text-zinc-300">
-                      {provider.license === "PENDING_LICENSE" ? (
+                      {!isVerifiedLicense(provider.license) ? (
                         <span className="italic text-zinc-400">Pending verification (STR-50)</span>
                       ) : (
                         <>
                           FL #{provider.license}{" "}
                           <a
-                            href="https://mqa-internet.doh.state.fl.us/MQASearchServices/HealthCareProviders"
+                            href={licenseVerificationUrl(provider.license)}
                             rel="noopener"
                             target="_blank"
                             className="text-zinc-500 underline underline-offset-2 hover:text-zinc-700 dark:text-zinc-400"
@@ -146,13 +152,13 @@ export default function ProvidersPage() {
                       NPI
                     </dt>
                     <dd className="mt-1 text-zinc-700 dark:text-zinc-300">
-                      {provider.npi === "PENDING_NPI" ? (
+                      {!isVerifiedNpi(provider.npi) ? (
                         <span className="italic text-zinc-400">Pending verification (STR-50)</span>
                       ) : (
                         <>
                           {provider.npi}{" "}
                           <a
-                            href={`https://npiregistry.cms.hhs.gov/provider-view/${provider.npi}`}
+                            href={npiRegistryUrl(provider.npi)}
                             rel="noopener"
                             target="_blank"
                             className="text-zinc-500 underline underline-offset-2 hover:text-zinc-700 dark:text-zinc-400"

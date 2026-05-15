@@ -79,6 +79,7 @@ export const buildMedicalBusiness = (
       latitude: business.geo.latitude,
       longitude: business.geo.longitude,
     },
+    hasMap: `https://www.google.com/maps?cid=${business.gbp.cid}`,
     openingHoursSpecification: openingHours(),
     medicalSpecialty: business.medicalSpecialty,
     areaServed: business.areaServed.map((name) => ({ "@type": "City", name })),
