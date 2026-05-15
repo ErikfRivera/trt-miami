@@ -1,11 +1,14 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { CitationBlock } from "@/components/citation-block";
 import { FaqAccordion } from "@/components/faq-accordion";
 import { LocationMap } from "@/components/location-map";
 import { NapBlock } from "@/components/nap-block";
 import { SchemaGraph } from "@/components/schema-graph";
 import { TrustStrip } from "@/components/trust-strip";
 import { business } from "@/lib/business";
+import { pageCitations } from "@/lib/citations/page-citations";
+import { primaryReviewer } from "@/lib/providers/registry";
 import {
   TRT_FAQ_DISCLAIMER,
   TRT_FAQ_LAST_REVIEWED,
@@ -24,6 +27,7 @@ import {
 import type { BreadcrumbItem } from "@/lib/schema/breadcrumb";
 
 const PAGE_PATH = "/trt-clinic-miami/" as const;
+const { citations: trtMiamiCitations, lastReviewed: trtMiamiLastReviewed } = pageCitations(PAGE_PATH);
 
 const canonicalUrl = `${business.url}${PAGE_PATH}`;
 
@@ -414,6 +418,17 @@ export default function TrtClinicMiamiPage() {
             </Link>
           </div>
         </section>
+
+        <CitationBlock
+          citations={trtMiamiCitations}
+          reviewer={{
+            slug: primaryReviewer.slug,
+            name: primaryReviewer.name,
+            credentials: primaryReviewer.honorificSuffix,
+          }}
+          lastReviewed={trtMiamiLastReviewed}
+          pagePath={PAGE_PATH}
+        />
       </div>
     </>
   );

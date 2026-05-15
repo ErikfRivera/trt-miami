@@ -67,6 +67,11 @@ export const routes: readonly SiteRoute[] = [
   // Adjacent service (already live)
   { path: "/peptide-therapy/", changeFrequency: "weekly", priority: 0.9, locale: "en" },
 
+  // E-E-A-T trust pages (STR-105)
+  { path: "/providers/", changeFrequency: "monthly", priority: 0.8, locale: "en" },
+  { path: "/medical-reviewer/", changeFrequency: "monthly", priority: 0.7, locale: "en" },
+  { path: "/about/", changeFrequency: "monthly", priority: 0.8, locale: "en" },
+
   // Spanish parallels — drafts pending translation, kept noindex per STR-91 carve-out
   { path: "/es/", changeFrequency: "weekly", priority: 0.7, noindex: true, locale: "es" },
   { path: "/es/clinica-trt-miami/", changeFrequency: "weekly", priority: 0.7, noindex: true, locale: "es" },

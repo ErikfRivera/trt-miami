@@ -1,13 +1,16 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { CitationBlock } from "@/components/citation-block";
 import { LocationMap } from "@/components/location-map";
 import { NapBlock } from "@/components/nap-block";
 import { SchemaGraph } from "@/components/schema-graph";
 import { TrustStrip } from "@/components/trust-strip";
 import { business } from "@/lib/business";
+import { pageCitations } from "@/lib/citations/page-citations";
 import { drAngelRivera } from "@/lib/physician";
 import { alternatesFor } from "@/lib/hreflangMap";
 import { absoluteUrl } from "@/lib/site";
+import { primaryReviewer } from "@/lib/providers/registry";
 import {
   buildBreadcrumbList,
   buildFaqPage,
@@ -19,6 +22,7 @@ import type { FaqItem } from "@/lib/schema/types";
 
 const PAGE_PATH = "/hrt-miami/" as const;
 const canonicalUrl = absoluteUrl(PAGE_PATH);
+const { citations: hrtCitations, lastReviewed: hrtLastReviewed } = pageCitations(PAGE_PATH);
 
 const title = "HRT Miami | Strong Health Miami, FL";
 const description =
@@ -483,6 +487,17 @@ export default function HrtMiamiPage() {
             </Link>
           </div>
         </section>
+
+        <CitationBlock
+          citations={hrtCitations}
+          reviewer={{
+            slug: primaryReviewer.slug,
+            name: primaryReviewer.name,
+            credentials: primaryReviewer.honorificSuffix,
+          }}
+          lastReviewed={hrtLastReviewed}
+          pagePath={PAGE_PATH}
+        />
       </div>
     </>
   );

@@ -47,6 +47,14 @@ const navItems: ReadonlyArray<NavGroup> = [
     ],
   },
   {
+    label: "About",
+    children: [
+      { href: "/providers/", label: "Our Providers" },
+      { href: "/medical-reviewer/", label: "Medical Reviewer" },
+      { href: "/about/", label: "About Us" },
+    ],
+  },
+  {
     label: "Contact",
     href: "/contact/",
   },

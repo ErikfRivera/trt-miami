@@ -1,12 +1,15 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { CitationBlock } from "@/components/citation-block";
 import { LocationMap } from "@/components/location-map";
 import { NapBlock } from "@/components/nap-block";
 import { SchemaGraph } from "@/components/schema-graph";
 import { business } from "@/lib/business";
+import { pageCitations } from "@/lib/citations/page-citations";
 import { drAngelRivera } from "@/lib/physician";
 import { alternatesFor } from "@/lib/hreflangMap";
 import { absoluteUrl } from "@/lib/site";
+import { primaryReviewer } from "@/lib/providers/registry";
 import {
   buildBreadcrumbList,
   buildFaqPage,
@@ -17,6 +20,7 @@ import type { FaqItem } from "@/lib/schema/types";
 
 const PAGE_PATH = "/peptide-therapy/" as const;
 const canonicalUrl = absoluteUrl(PAGE_PATH);
+const { citations: peptideCitations, lastReviewed: peptideLastReviewed } = pageCitations(PAGE_PATH);
 
 const title = "Peptide Therapy in Miami | Physician-Prescribed | Strong Health";
 const description =
@@ -470,6 +474,17 @@ export default function PeptideTherapyPage() {
           </Link>
         </div>
       </section>
+
+      <CitationBlock
+        citations={peptideCitations}
+        reviewer={{
+          slug: primaryReviewer.slug,
+          name: primaryReviewer.name,
+          credentials: primaryReviewer.honorificSuffix,
+        }}
+        lastReviewed={peptideLastReviewed}
+        pagePath={PAGE_PATH}
+      />
     </div>
   );
 }

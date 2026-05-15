@@ -1,8 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { CitationBlock } from "@/components/citation-block";
 import { FaqAccordion } from "@/components/faq-accordion";
 import { SchemaGraph } from "@/components/schema-graph";
 import { business } from "@/lib/business";
+import { pageCitations } from "@/lib/citations/page-citations";
+import { primaryReviewer } from "@/lib/providers/registry";
 import {
   TRT_FAQ_DISCLAIMER,
   TRT_FAQ_LAST_REVIEWED,
@@ -18,6 +21,7 @@ import {
 import type { BreadcrumbItem } from "@/lib/schema/breadcrumb";
 
 const PAGE_PATH = "/trt-cost/" as const;
+const { citations: trtCostCitations, lastReviewed: trtCostLastReviewed } = pageCitations(PAGE_PATH);
 
 export const metadata: Metadata = {
   title: { absolute: "TRT Cost in Miami: 2026 Pricing Guide" },
@@ -165,6 +169,17 @@ export default function TrtCostPage() {
             </li>
           </ul>
         </section>
+
+        <CitationBlock
+          citations={trtCostCitations}
+          reviewer={{
+            slug: primaryReviewer.slug,
+            name: primaryReviewer.name,
+            credentials: primaryReviewer.honorificSuffix,
+          }}
+          lastReviewed={trtCostLastReviewed}
+          pagePath={PAGE_PATH}
+        />
       </div>
     </>
   );

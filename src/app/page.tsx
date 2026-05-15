@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { CitationBlock } from "@/components/citation-block";
 import { DarkFaqAccordion } from "@/components/home/dark-faq-accordion";
 import { DarkMapPanel } from "@/components/home/dark-map-panel";
 import { FloatingCallChip } from "@/components/home/floating-call-chip";
@@ -11,9 +12,11 @@ import {
   schemaEligible,
   trtClinicMiamiFaqs,
 } from "@/lib/faq-content";
+import { pageCitations } from "@/lib/citations/page-citations";
 import { homepageReviews } from "@/lib/homepage-content";
 import { alternatesFor } from "@/lib/hreflangMap";
 import { drAngelRivera } from "@/lib/physician";
+import { primaryReviewer } from "@/lib/providers/registry";
 import {
   aggregateRatingFromReviews,
   buildBreadcrumbList,
@@ -23,6 +26,9 @@ import {
   buildReview,
   reviewId,
 } from "@/lib/schema";
+
+const HOME_PATH = "/" as const;
+const { citations: homeCitations, lastReviewed: homeLastReviewed } = pageCitations(HOME_PATH);
 
 export const metadata: Metadata = {
   title: {
@@ -811,6 +817,19 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      <div className="mx-auto w-full max-w-4xl px-6 pb-16">
+        <CitationBlock
+          citations={homeCitations}
+          reviewer={{
+            slug: primaryReviewer.slug,
+            name: primaryReviewer.name,
+            credentials: primaryReviewer.honorificSuffix,
+          }}
+          lastReviewed={homeLastReviewed}
+          pagePath={HOME_PATH}
+        />
+      </div>
     </div>
   );
 }

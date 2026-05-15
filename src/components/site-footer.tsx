@@ -8,6 +8,9 @@ const footerLinks = [
   { href: "/bioidentical-hormones-miami/", label: "Bioidentical Hormones Miami" },
   { href: "/peptide-therapy/", label: "Peptide Therapy Miami" },
   { href: "/locations/", label: "Locations" },
+  { href: "/providers/", label: "Our Providers" },
+  { href: "/about/", label: "About" },
+  { href: "/medical-reviewer/", label: "Medical Reviewer" },
   { href: "/contact/", label: "Contact" },
 ] as const;
 

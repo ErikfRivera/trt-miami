@@ -10,3 +10,6 @@ export * from "./review";
 export * from "./faq";
 export * from "./medical-web-page";
 export * from "./breadcrumb";
+export * from "./collection-page";
+export * from "./about-page";
+export * from "./citation";
