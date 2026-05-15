@@ -7,6 +7,9 @@ const nextConfig: NextConfig = {
   turbopack: {
     root: path.resolve(__dirname),
   },
+  experimental: {
+    inlineCss: true,
+  },
   async redirects() {
     return toNextRedirects();
   },
