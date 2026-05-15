@@ -1,7 +1,5 @@
 import type { MetadataRoute } from "next";
-
-const siteUrl =
-  process.env.NEXT_PUBLIC_SITE_URL ?? "https://trt-miami.vercel.app";
+import { SITE_URL } from "@/lib/site-url";
 
 // Disallow indexing of Vercel preview deployments so non-production URLs do
 // not compete with the canonical domain in search results.
@@ -18,7 +16,7 @@ export default function robots(): MetadataRoute.Robots {
 
   return {
     rules: { userAgent: "*", allow: "/" },
-    sitemap: `${siteUrl}/sitemap.xml`,
-    host: siteUrl,
+    sitemap: `${SITE_URL}/sitemap.xml`,
+    host: SITE_URL,
   };
 }
