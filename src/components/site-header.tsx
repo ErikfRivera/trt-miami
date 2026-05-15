@@ -5,9 +5,8 @@ import { business } from "@/lib/business";
 const navItems: ReadonlyArray<NavGroup> = [
   {
     label: "TRT",
-    href: "/trt-clinic-miami/",
     children: [
-      { href: "/trt-clinic-miami/", label: "TRT Clinic Miami" },
+      { href: "/trt-clinic-miami/", label: "TRT Therapy Miami" },
       { href: "/trt-injections/", label: "TRT Injections" },
       { href: "/trt-pellets/", label: "TRT Pellets" },
       { href: "/trt-gels/", label: "TRT Gels" },
@@ -23,8 +22,8 @@ const navItems: ReadonlyArray<NavGroup> = [
   },
   {
     label: "Locations",
-    href: "/locations/",
     children: [
+      { href: "/locations/", label: "Miami TRT Locations" },
       { href: "/locations/brickell-trt/", label: "Brickell" },
       { href: "/locations/coral-gables-trt/", label: "Coral Gables" },
       { href: "/locations/coconut-grove-trt/", label: "Coconut Grove" },
