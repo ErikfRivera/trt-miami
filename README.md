@@ -54,9 +54,11 @@ Use one of:
 - **Vercel project env vars** — set in the Vercel dashboard; available in
   preview and production deploys.
 
-| Variable               | Where             | Why                                                                                 |
-| ---------------------- | ----------------- | ----------------------------------------------------------------------------------- |
-| `NEXT_PUBLIC_SITE_URL` | dev / prev / prod | Canonical absolute URL used by `metadataBase`, sitemap, and OG links. Required in production once a custom domain is attached. |
+| Variable                   | Where             | Why                                                                                                                            |
+| -------------------------- | ----------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| `NEXT_PUBLIC_SITE_URL`     | dev / prev / prod | Canonical absolute URL used by `metadataBase`, sitemap, and OG links. Required in production once a custom domain is attached. |
+| `NEXT_PUBLIC_GA4_ID`       | prod              | GA4 measurement ID (`G-XXXXXXXXXX`). When unset, the GA4 script is not rendered.                                               |
+| `GOOGLE_SITE_VERIFICATION` | prod              | Content of the `google-site-verification` meta tag for GSC ownership verification.                                             |
 
 Conventions:
 
@@ -80,18 +82,30 @@ new pages:
 - Canonical URLs are declared via `metadata.alternates.canonical` on each page.
 - `robots: { index: true, follow: true }` site-wide. If you ever add a route
   that should not be indexed (e.g. admin), opt it out at the route level.
+- `app/sitemap.ts` generates `/sitemap.xml` from the canonical site URL. Add
+  new top-level routes there so they appear in GSC.
+- `app/robots.ts` generates `/robots.txt`. Production allows all crawlers and
+  references the sitemap; non-production (`VERCEL_ENV !== "production"`)
+  disallows everything so preview URLs do not get indexed.
+- GA4 is wired via `@next/third-parties/google`'s `GoogleAnalytics` component
+  in the root layout. The script only renders when `NEXT_PUBLIC_GA4_ID` is
+  set, so previews stay analytics-clean by default.
+- Google Search Console verification ships via the `verification.google`
+  metadata key, driven by `GOOGLE_SITE_VERIFICATION`.
 
-Sitemap, robots.txt, GA4, GSC, and schema.org markup are tracked as separate
-follow-up tickets — do not roll them into UI feature work.
+Schema.org markup is tracked in a separate follow-up ticket — do not roll it
+into UI feature work.
 
 ## Repo layout
 
 ```
 src/
   app/
-    layout.tsx          # root layout + site metadata + viewport
+    layout.tsx          # root layout + site metadata + viewport + GA4 + GSC verification
     page.tsx            # homepage
     opengraph-image.tsx # default 1200×630 OG image
+    sitemap.ts          # /sitemap.xml
+    robots.ts           # /robots.txt
     globals.css         # Tailwind v4 + shadcn theme tokens
   components/
     ui/                 # shadcn primitives
