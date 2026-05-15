@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     // Override sitewide "Strong Health TRT Therapy Miami" siteName on this
     // non-Miami city page so Facebook/LinkedIn shares don't anchor Delray
     // socials to a Miami brand label (STR-116 M3). Sitewide cleanup of the
-    // Miami-anchored siteName tracked separately in STR-119.
+    // Miami-anchored siteName tracked separately in STR-120.
     siteName: "Strong Health TRT Therapy",
     url: canonicalUrl,
     title: "TRT Delray Beach, FL | Strong Health TRT Therapy Clinic",
