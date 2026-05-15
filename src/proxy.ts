@@ -3,7 +3,10 @@ import type { NextRequest } from "next/server";
 import { isIndexableHost } from "@/lib/seo";
 
 export function proxy(request: NextRequest) {
-  const response = NextResponse.next();
+  const requestHeaders = new Headers(request.headers);
+  requestHeaders.set("x-pathname", request.nextUrl.pathname);
+
+  const response = NextResponse.next({ request: { headers: requestHeaders } });
   const host = request.headers.get("host");
   if (!isIndexableHost(host)) {
     response.headers.set("X-Robots-Tag", "noindex, nofollow");

@@ -2,11 +2,14 @@ import type { Metadata } from "next";
 import { NapBlock } from "@/components/nap-block";
 import { LocationMap } from "@/components/location-map";
 import { business } from "@/lib/business";
+import { alternatesFor } from "@/lib/hreflangMap";
+
+const PAGE_PATH = "/contact/" as const;
 
 export const metadata: Metadata = {
   title: "Contact",
   description: `Contact ${business.name} in Miami, FL. Call ${business.phone.display} to schedule a consultation.`,
-  alternates: { canonical: "/contact" },
+  alternates: alternatesFor(PAGE_PATH),
 };
 
 export default function ContactPage() {

@@ -31,7 +31,15 @@ export function SiteFooter() {
             </li>
             <li>
               <Link
-                href="/peptide-therapy"
+                href="/trt-clinic-miami/"
+                className="hover:text-zinc-900 dark:hover:text-zinc-100"
+              >
+                TRT Clinic
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/peptide-therapy/"
                 className="hover:text-zinc-900 dark:hover:text-zinc-100"
               >
                 Peptide Therapy
@@ -39,10 +47,27 @@ export function SiteFooter() {
             </li>
             <li>
               <Link
-                href="/contact"
+                href="/locations/"
+                className="hover:text-zinc-900 dark:hover:text-zinc-100"
+              >
+                Locations
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/contact/"
                 className="hover:text-zinc-900 dark:hover:text-zinc-100"
               >
                 Contact
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/es/"
+                className="hover:text-zinc-900 dark:hover:text-zinc-100"
+                hrefLang="es"
+              >
+                Español
               </Link>
             </li>
           </ul>

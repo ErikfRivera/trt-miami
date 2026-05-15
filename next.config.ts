@@ -1,9 +1,14 @@
 import path from "node:path";
 import type { NextConfig } from "next";
+import { toNextRedirects } from "./src/lib/redirects";
 
 const nextConfig: NextConfig = {
+  trailingSlash: true,
   turbopack: {
     root: path.resolve(__dirname),
+  },
+  async redirects() {
+    return toNextRedirects();
   },
 };
 

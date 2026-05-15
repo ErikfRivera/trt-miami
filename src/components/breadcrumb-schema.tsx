@@ -1,26 +1,16 @@
-import { JsonLd } from "@/components/json-ld";
-import { absoluteUrl, type SitePath } from "@/lib/site";
+import { SchemaGraph } from "@/components/schema-graph";
+import { buildBreadcrumbList, type BreadcrumbItem } from "@/lib/schema/breadcrumb";
 
-export type BreadcrumbItem = {
-  name: string;
-  path: SitePath;
-};
+export type { BreadcrumbItem };
 
 type BreadcrumbSchemaProps = {
   items: readonly BreadcrumbItem[];
 };
 
+// Thin compatibility wrapper around the schema package. New code should call
+// `buildBreadcrumbList` and pass it through `<SchemaGraph>` directly.
 export function BreadcrumbSchema({ items }: BreadcrumbSchemaProps) {
-  const data = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: items.map((item, index) => ({
-      "@type": "ListItem",
-      position: index + 1,
-      name: item.name,
-      item: absoluteUrl(item.path),
-    })),
-  };
-
-  return <JsonLd data={data} />;
+  if (items.length === 0) return null;
+  const pagePath = items[items.length - 1].path;
+  return <SchemaGraph nodes={[buildBreadcrumbList(items, pagePath)]} />;
 }

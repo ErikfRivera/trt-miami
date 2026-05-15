@@ -1,26 +1,28 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { BreadcrumbSchema } from "@/components/breadcrumb-schema";
-import { FaqSchema, type FaqItem } from "@/components/faq-schema";
+import { SchemaGraph } from "@/components/schema-graph";
 import { business } from "@/lib/business";
+import { alternatesFor } from "@/lib/hreflangMap";
 import { drAngelRivera } from "@/lib/physician";
+import {
+  buildBreadcrumbList,
+  buildFaqPage,
+  buildMedicalProcedure,
+  buildService,
+} from "@/lib/schema";
+import type { BreadcrumbItem } from "@/lib/schema/breadcrumb";
+import type { FaqItem } from "@/lib/schema/types";
 
-const PAGE_PATH = "/fl/miami/trt-therapy" as const;
+const PAGE_PATH = "/trt-clinic-miami/" as const;
 
 export const metadata: Metadata = {
   title: {
-    absolute: "TRT Therapy in Miami, FL — Strong Health Miami",
+    absolute: "TRT Clinic in Miami, FL — Strong Health Miami",
   },
   description:
     "Strong Health Miami is a physician-supervised testosterone replacement therapy clinic. Visit our contact page or call to schedule a consultation.",
-  alternates: { canonical: PAGE_PATH },
+  alternates: alternatesFor(PAGE_PATH),
 };
-
-// Identity-bearing schemas (MedicalClinic, Physician) are intentionally NOT emitted
-// here yet. STR-37 (physician identity) and STR-2 / STR-32 (canonical NAP + phone)
-// resolve the placeholder values in `business.ts` and `physician.ts`. Re-enable
-// `<MedicalClinicSchema />` and `<PhysicianSchema />` (already implemented in
-// `src/components/`) once those issues land — no other change needed here.
 
 const faqItems: readonly FaqItem[] = [
   {
@@ -70,18 +72,42 @@ const faqItems: readonly FaqItem[] = [
   },
 ];
 
-const breadcrumbItems = [
-  { name: "Home", path: "/" as const },
-  { name: "Florida", path: "/fl" as const },
-  { name: "Miami", path: "/fl/miami" as const },
-  { name: "TRT Therapy", path: PAGE_PATH },
+const breadcrumbItems: readonly BreadcrumbItem[] = [
+  { name: "Home", path: "/" },
+  { name: "TRT Clinic Miami", path: PAGE_PATH },
 ];
 
-export default function MiamiTrtTherapyPage() {
+const schemaNodes = [
+  buildMedicalProcedure({
+    pagePath: PAGE_PATH,
+    name: "Testosterone Replacement Therapy (TRT)",
+    alternateNames: ["TRT", "Testosterone therapy"],
+    howPerformed:
+      "Bioidentical testosterone is administered via intramuscular injection, subcutaneous pellet, or transdermal preparation after lab-confirmed diagnosis of low testosterone. Treatment is supervised by a Florida-licensed physician with quarterly bloodwork.",
+    preparation:
+      "Baseline labs include total testosterone (morning draw, fasted), free testosterone, SHBG, estradiol, CBC, CMP, PSA (males ≥40), and lipid panel.",
+    followup:
+      "Quarterly bloodwork and clinical review for the first year; biannual thereafter.",
+    indications: ["Hypogonadism (low testosterone)", "Andropause symptoms"],
+    bodyLocation: "Endocrine system",
+    performerPhysicianUrl: drAngelRivera.url,
+  }),
+  buildService({
+    pagePath: PAGE_PATH,
+    serviceType: "Testosterone Replacement Therapy",
+    areaServed: business.areaServed,
+    audience: { suggestedGender: "male", suggestedMinAge: 30 },
+    // TODO: STR-2 — wire booking URL once /book/ ships; placeholder uses /contact/.
+    offers: { bookingUrl: `${business.url}/contact/` },
+  }),
+  buildFaqPage(faqItems, PAGE_PATH),
+  buildBreadcrumbList(breadcrumbItems, PAGE_PATH),
+];
+
+export default function TrtClinicMiamiPage() {
   return (
     <>
-      <FaqSchema items={faqItems} />
-      <BreadcrumbSchema items={breadcrumbItems} />
+      <SchemaGraph nodes={schemaNodes} />
 
       <div className="mx-auto flex w-full max-w-5xl flex-col gap-12 px-6 py-16 sm:py-24">
         <nav aria-label="Breadcrumb" className="text-sm text-zinc-500 dark:text-zinc-400">
@@ -116,14 +142,14 @@ export default function MiamiTrtTherapyPage() {
             Testosterone Replacement Therapy · Miami, FL
           </p>
           <h1 className="text-4xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-5xl">
-            TRT Therapy in Miami, FL
+            TRT Clinic in Miami, FL
           </h1>
           <p className="max-w-2xl text-lg text-zinc-600 dark:text-zinc-400">
             Physician-supervised testosterone replacement therapy at our Miami
             clinic. Call to schedule a consultation with our medical team. We
             also offer{" "}
             <Link
-              href="/peptide-therapy"
+              href="/peptide-therapy/"
               className="font-medium text-zinc-900 underline-offset-2 hover:underline dark:text-zinc-100"
             >
               peptide therapy in Miami
@@ -138,7 +164,7 @@ export default function MiamiTrtTherapyPage() {
               Call {business.phone.display}
             </a>
             <Link
-              href="/contact"
+              href="/contact/"
               className="inline-flex h-11 items-center justify-center rounded-full border border-zinc-300 px-6 text-sm font-medium text-zinc-900 transition-colors hover:bg-zinc-100 dark:border-zinc-700 dark:text-zinc-50 dark:hover:bg-zinc-900"
             >
               Request a consultation

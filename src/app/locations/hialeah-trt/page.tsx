@@ -2,14 +2,21 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { NapBlock } from "@/components/nap-block";
 import { LocationMap } from "@/components/location-map";
+import { SchemaGraph } from "@/components/schema-graph";
 import { business } from "@/lib/business";
+import { alternatesFor } from "@/lib/hreflangMap";
 import { drAngelRivera } from "@/lib/physician";
 import { absoluteUrl } from "@/lib/site";
+import {
+  buildBreadcrumbList,
+  buildFaqPage,
+  buildServiceAreaService,
+} from "@/lib/schema";
 
-const pagePath = "/fl/miami/hialeah" as const;
-const moneyPagePath = "/fl/miami/trt-therapy" as const;
-const physicianPagePath = "/about/dr-angel-rivera" as const;
-const flHubPath = "/fl" as const;
+const pagePath = "/locations/hialeah-trt/" as const;
+const moneyPagePath = "/trt-clinic-miami/" as const;
+const physicianPagePath = "/about/dr-angel-rivera/" as const;
+const locationsHubPath = "/locations/" as const;
 
 export const metadata: Metadata = {
   title: {
@@ -17,7 +24,7 @@ export const metadata: Metadata = {
   },
   description:
     "Hialeah men can see Strong Health for testosterone replacement therapy at our Brickell clinic — short drive from Westland Mall, bilingual care, easy parking.",
-  alternates: { canonical: pagePath },
+  alternates: alternatesFor(pagePath),
   openGraph: {
     type: "website",
     url: absoluteUrl(pagePath),
@@ -66,93 +73,30 @@ const faqs: { question: string; answer: string }[] = [
   },
 ];
 
-const breadcrumbSchema = {
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  itemListElement: [
-    {
-      "@type": "ListItem",
-      position: 1,
-      name: "Home",
-      item: absoluteUrl("/"),
-    },
-    {
-      "@type": "ListItem",
-      position: 2,
-      name: "Florida",
-      item: absoluteUrl(flHubPath),
-    },
-    {
-      "@type": "ListItem",
-      position: 3,
-      name: "Miami",
-      item: absoluteUrl("/fl/miami"),
-    },
-    {
-      "@type": "ListItem",
-      position: 4,
-      name: "Hialeah",
-      item: absoluteUrl(pagePath),
-    },
-  ],
-};
-
-const hialeahAddress: Record<string, string> = {
-  "@type": "PostalAddress",
-  addressLocality: business.address.addressLocality,
-  addressRegion: business.address.addressRegion,
-  addressCountry: business.address.addressCountry,
-};
-if (business.address.streetAddress) hialeahAddress.streetAddress = business.address.streetAddress;
-if (business.address.postalCode) hialeahAddress.postalCode = business.address.postalCode;
-
-const medicalClinicSchema = {
-  "@context": "https://schema.org",
-  "@type": "MedicalClinic",
-  name: `${business.name} — Serving Hialeah, FL`,
-  url: absoluteUrl(pagePath),
-  telephone: business.phone.e164Hyphenated,
-  medicalSpecialty: "Endocrine",
-  address: hialeahAddress,
-  areaServed: {
-    "@type": "City",
-    name: "Hialeah",
-    containedInPlace: {
-      "@type": "AdministrativeArea",
-      name: "Miami-Dade County",
-    },
-  },
-  availableLanguage: ["English", "Spanish"],
-};
-
-const faqSchema = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  mainEntity: faqs.map((f) => ({
-    "@type": "Question",
-    name: f.question,
-    acceptedAnswer: {
-      "@type": "Answer",
-      text: f.answer,
-    },
-  })),
-};
+// Hialeah is a service-area page with no physical satellite — per brief §2.4
+// we ship a `Service` node tied to the parent `MedicalBusiness` rather than
+// fabricating a branch `LocalBusiness` (doorway-page risk).
+const schemaNodes = [
+  buildServiceAreaService({
+    pagePath,
+    serviceType: "Testosterone Replacement Therapy",
+    areaName: "Hialeah, FL",
+  }),
+  buildFaqPage(faqs, pagePath),
+  buildBreadcrumbList(
+    [
+      { name: "Home", path: "/" },
+      { name: "Locations", path: locationsHubPath },
+      { name: "Hialeah", path: pagePath },
+    ],
+    pagePath,
+  ),
+];
 
 export default function HialeahPage() {
   return (
     <div className="mx-auto flex w-full max-w-4xl flex-col gap-12 px-6 py-16 sm:py-24">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(medicalClinicSchema) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
-      />
+      <SchemaGraph nodes={schemaNodes} />
 
       <nav aria-label="Breadcrumb" className="text-sm text-zinc-500 dark:text-zinc-400">
         <ol className="flex flex-wrap items-center gap-1">
@@ -165,16 +109,8 @@ export default function HialeahPage() {
             </span>
           </li>
           <li>
-            <Link href={flHubPath} className="hover:text-zinc-900 dark:hover:text-zinc-100">
-              Florida
-            </Link>
-            <span aria-hidden="true" className="px-1">
-              /
-            </span>
-          </li>
-          <li>
-            <Link href="/fl/miami" className="hover:text-zinc-900 dark:hover:text-zinc-100">
-              Miami
+            <Link href={locationsHubPath} className="hover:text-zinc-900 dark:hover:text-zinc-100">
+              Locations
             </Link>
             <span aria-hidden="true" className="px-1">
               /
@@ -208,7 +144,7 @@ export default function HialeahPage() {
             Call {business.phone.display}
           </a>
           <Link
-            href="/contact"
+            href="/contact/"
             className="inline-flex h-11 items-center justify-center rounded-full border border-zinc-300 px-6 text-sm font-medium text-zinc-900 transition-colors hover:bg-zinc-100 dark:border-zinc-700 dark:text-zinc-50 dark:hover:bg-zinc-900"
           >
             Visit our clinic
@@ -257,7 +193,7 @@ export default function HialeahPage() {
             href={moneyPagePath}
             className="font-medium text-zinc-900 underline underline-offset-2 hover:no-underline dark:text-zinc-100"
           >
-            TRT therapy at our Miami Brickell clinic
+            Miami TRT clinic
           </Link>{" "}
           — what changes from city to city is the logistics of getting to a
           visit, which is what the rest of this page is about.
@@ -422,13 +358,12 @@ export default function HialeahPage() {
           >
             {business.phone.display}
           </a>{" "}
-          to schedule a Hialeah-area consultation, or browse the rest of our
-          Florida service areas on our{" "}
+          to schedule a Hialeah-area consultation, or browse the rest of our{" "}
           <Link
-            href={flHubPath}
+            href={locationsHubPath}
             className="font-medium text-zinc-900 underline underline-offset-2 hover:no-underline dark:text-zinc-100"
           >
-            Florida hub
+            Miami-area locations
           </Link>
           .
         </p>

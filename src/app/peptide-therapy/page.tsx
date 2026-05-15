@@ -1,17 +1,22 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { JsonLd } from "@/components/json-ld";
 import { LocationMap } from "@/components/location-map";
 import { NapBlock } from "@/components/nap-block";
+import { SchemaGraph } from "@/components/schema-graph";
 import { business } from "@/lib/business";
 import { drAngelRivera } from "@/lib/physician";
+import { alternatesFor } from "@/lib/hreflangMap";
 import { absoluteUrl } from "@/lib/site";
+import {
+  buildBreadcrumbList,
+  buildFaqPage,
+  buildMedicalProcedure,
+  buildService,
+} from "@/lib/schema";
+import type { FaqItem } from "@/lib/schema/types";
 
-const canonicalPath = "/peptide-therapy";
-const canonicalUrl = absoluteUrl(canonicalPath);
-const clinicId = `${business.url}/#clinic`;
-const physicianId = `${business.url}/#medical-director`;
-const serviceId = `${canonicalUrl}#service`;
+const PAGE_PATH = "/peptide-therapy/" as const;
+const canonicalUrl = absoluteUrl(PAGE_PATH);
 
 const title = "Peptide Therapy in Miami | Physician-Prescribed | Strong Health";
 const description =
@@ -20,7 +25,7 @@ const description =
 export const metadata: Metadata = {
   title: { absolute: title },
   description,
-  alternates: { canonical: canonicalPath },
+  alternates: alternatesFor(PAGE_PATH),
   openGraph: {
     type: "website",
     siteName: "Strong Health TRT Therapy Miami",
@@ -38,9 +43,7 @@ export const metadata: Metadata = {
   },
 };
 
-type Faq = { question: string; answer: string };
-
-const faqs: readonly Faq[] = [
+const faqs: readonly FaqItem[] = [
   {
     question: "What is peptide therapy?",
     answer:
@@ -83,88 +86,39 @@ const faqs: readonly Faq[] = [
   },
 ];
 
-const clinicAddress: Record<string, string> = {
-  "@type": "PostalAddress",
-  addressLocality: business.address.addressLocality,
-  addressRegion: business.address.addressRegion,
-  addressCountry: business.address.addressCountry,
-};
-if (business.address.streetAddress) clinicAddress.streetAddress = business.address.streetAddress;
-if (business.address.postalCode) clinicAddress.postalCode = business.address.postalCode;
+const breadcrumbItems = [
+  { name: "Home", path: "/" as const },
+  { name: "Peptide Therapy", path: PAGE_PATH },
+];
 
-const clinicSchema = {
-  "@context": "https://schema.org",
-  "@type": ["MedicalBusiness", "MedicalClinic"],
-  "@id": clinicId,
-  name: business.schemaName,
-  url: business.url,
-  telephone: business.phone.e164Hyphenated,
-  image: business.image,
-  priceRange: business.priceRange,
-  address: clinicAddress,
-  geo: {
-    "@type": "GeoCoordinates",
-    latitude: business.geo.latitude,
-    longitude: business.geo.longitude,
-  },
-  areaServed: business.areaServed,
-  medicalSpecialty: business.medicalSpecialty,
-  openingHoursSpecification: business.openingHours.map((h) => ({
-    "@type": "OpeningHoursSpecification",
-    dayOfWeek: h.dayOfWeek,
-    opens: h.opens,
-    closes: h.closes,
-  })),
-};
-
-const serviceSchema = {
-  "@context": "https://schema.org",
-  "@type": "MedicalProcedure",
-  "@id": serviceId,
-  name: "Peptide Therapy",
-  alternateName: ["Peptide Injections", "Peptide Treatment"],
-  procedureType: "https://schema.org/TherapeuticProcedure",
-  howPerformed:
-    "Physician-prescribed peptides administered via subcutaneous injection following clinical evaluation, lab review, and a customized protocol.",
-  indication:
-    "Body composition and weight management, recovery support, hormone optimization.",
-  provider: { "@id": clinicId },
-  url: canonicalUrl,
-};
-
-const physicianSchema: Record<string, unknown> = {
-  "@context": "https://schema.org",
-  "@type": "Physician",
-  "@id": physicianId,
-  name: drAngelRivera.name,
-  givenName: drAngelRivera.givenName,
-  familyName: drAngelRivera.familyName,
-  honorificSuffix: drAngelRivera.honorificSuffix,
-  jobTitle: drAngelRivera.jobTitle,
-  medicalSpecialty: drAngelRivera.medicalSpecialty,
-  description: drAngelRivera.description,
-  url: drAngelRivera.url,
-  memberOf: { "@id": clinicId },
-};
-if (drAngelRivera.image) physicianSchema.image = drAngelRivera.image;
-
-const faqSchema = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  mainEntity: faqs.map((faq) => ({
-    "@type": "Question",
-    name: faq.question,
-    acceptedAnswer: { "@type": "Answer", text: faq.answer },
-  })),
-};
+const schemaNodes = [
+  buildMedicalProcedure({
+    pagePath: PAGE_PATH,
+    name: "Peptide Therapy",
+    alternateNames: ["Peptide Injections", "Peptide Treatment"],
+    howPerformed:
+      "Physician-prescribed peptides administered via subcutaneous injection following clinical evaluation, lab review, and a customized protocol.",
+    indications: [
+      "Body composition and weight management",
+      "Recovery support",
+      "Hormone optimization",
+    ],
+  }),
+  buildService({
+    pagePath: PAGE_PATH,
+    serviceType: "Peptide Therapy",
+    areaServed: business.areaServed,
+    // TODO: STR-2 — wire booking URL once /book/ ships; placeholder uses /contact.
+    offers: { bookingUrl: `${business.url}/contact` },
+  }),
+  buildFaqPage(faqs, PAGE_PATH),
+  buildBreadcrumbList(breadcrumbItems, PAGE_PATH),
+];
 
 export default function PeptideTherapyPage() {
   return (
     <div className="mx-auto flex w-full max-w-5xl flex-col gap-16 px-6 py-16 sm:py-24">
-      <JsonLd data={serviceSchema} />
-      <JsonLd data={physicianSchema} />
-      <JsonLd data={faqSchema} />
-      <JsonLd data={clinicSchema} />
+      <SchemaGraph nodes={schemaNodes} />
 
       <header className="flex flex-col gap-4">
         <p className="text-sm font-medium uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
@@ -194,7 +148,7 @@ export default function PeptideTherapyPage() {
             Call {business.phone.display}
           </a>
           <Link
-            href="/contact"
+            href="/contact/"
             className="inline-flex h-11 items-center justify-center rounded-full border border-zinc-300 px-6 text-sm font-medium text-zinc-900 transition-colors hover:bg-zinc-100 dark:border-zinc-700 dark:text-zinc-50 dark:hover:bg-zinc-900"
           >
             Book a free consultation
@@ -263,7 +217,7 @@ export default function PeptideTherapyPage() {
             <p className="text-sm leading-6 text-zinc-600 dark:text-zinc-400">
               Often paired with{" "}
               <Link
-                href="/fl/miami/trt-therapy"
+                href="/trt-clinic-miami/"
                 className="font-medium text-zinc-900 underline-offset-2 hover:underline dark:text-zinc-100"
               >
                 testosterone replacement therapy in Miami
@@ -507,7 +461,7 @@ export default function PeptideTherapyPage() {
             Call {business.phone.display}
           </a>
           <Link
-            href="/contact"
+            href="/contact/"
             className="inline-flex h-11 items-center justify-center rounded-full border border-white/30 px-6 text-sm font-medium text-white transition-colors hover:bg-white/10 dark:border-zinc-900/20 dark:text-zinc-900 dark:hover:bg-zinc-900/10"
           >
             Visit our clinic
