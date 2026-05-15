@@ -2,14 +2,14 @@ import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { GoogleAnalytics } from "@/components/google-analytics";
 import { SiteFooter } from "@/components/site-footer";
-import { MedicalClinicSchema } from "@/components/medical-clinic-schema";
+import { LocalBusinessSchema } from "@/components/local-business-schema";
 import { gscVerificationToken } from "@/lib/analytics";
 import { business } from "@/lib/business";
 import { siteUrl } from "@/lib/site";
 import "./globals.css";
 
-const defaultDescription = `${business.name} provides testosterone replacement therapy in Miami, FL. Call ${business.phone.display} or visit us at ${business.address.streetAddress}.`;
-const socialDescription = `Testosterone replacement therapy in Miami, FL. Call ${business.phone.display} or visit us at ${business.address.streetAddress}.`;
+const defaultDescription = `${business.name} provides testosterone replacement therapy and peptide therapy in Miami, FL. Call ${business.phone.display} to schedule a consultation.`;
+const socialDescription = `Testosterone replacement therapy and peptide therapy in Miami, FL. Call ${business.phone.display} to schedule a consultation.`;
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -78,7 +78,7 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col bg-zinc-50 text-zinc-900 dark:bg-black dark:text-zinc-50">
         <main className="flex-1">{children}</main>
         <SiteFooter />
-        <MedicalClinicSchema />
+        <LocalBusinessSchema />
         <GoogleAnalytics />
       </body>
     </html>

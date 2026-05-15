@@ -1,25 +1,55 @@
 export const business = {
   name: "Strong Health TRT Therapy Miami",
+  schemaName: "Strong Health Miami",
   legalName: "Strong Health",
+  url: "https://stronghealth.com",
+  image: "https://stronghealth.com/images/strong-health-miami-clinic.jpg",
+  priceRange: "$$",
+  // Scaffolding placeholders per CEO policy on STR-26. Real NAP + phone land via
+  // STR-47 (publish gate) and STR-32 (call tracking). Do not change without
+  // checking those tickets.
   phone: {
-    raw: "6197461616",
-    e164: "+16197461616",
-    display: "(619) 746-1616",
-    href: "tel:+16197461616",
+    raw: "3055550100",
+    e164: "+13055550100",
+    e164Hyphenated: "+1-305-555-0100",
+    display: "(305) 555-0100",
+    href: "tel:+13055550100",
   },
   address: {
-    streetAddress: "697 N Miami Avenue",
+    streetAddress: "",
     addressLocality: "Miami",
     addressRegion: "FL",
-    postalCode: "33136",
+    postalCode: "",
     addressCountry: "US",
-    displayLine1: "697 N Miami Avenue",
-    displayLine2: "Miami, FL 33136",
+    displayLine1: "TBD — Miami, FL",
+    displayLine2: "",
   },
+  geo: {
+    latitude: 25.7617,
+    longitude: -80.1918,
+  },
+  openingHours: [
+    { dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], opens: "08:00", closes: "18:00" },
+    { dayOfWeek: ["Saturday"], opens: "09:00", closes: "13:00" },
+  ],
+  medicalSpecialty: ["Endocrine", "PrimaryCare", "Urologic"],
+  areaServed: [
+    "Miami",
+    "Miami Beach",
+    "Coral Gables",
+    "Brickell",
+    "Doral",
+    "Aventura",
+    "Wynwood",
+    "Pinecrest",
+    "Coconut Grove",
+    "Kendall",
+    "Fort Lauderdale",
+  ],
   map: {
     embedSrc:
-      "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d22530153.459896617!2d-129.94270855!3d46.423669000000004!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80d955255e79dcf9%3A0x56b869070579702c!2sStrong%20Health!5e0!3m2!1sen!2sus!4v1778814072848!5m2!1sen!2sus",
-    title: "Map showing Strong Health TRT Therapy Miami at 697 N Miami Avenue, Miami, FL 33136",
+      "https://maps.google.com/maps?q=Miami%2C+FL&t=&z=11&ie=UTF8&iwloc=&output=embed",
+    title: "Map of Miami, FL — Strong Health Miami service area",
   },
 } as const;
 

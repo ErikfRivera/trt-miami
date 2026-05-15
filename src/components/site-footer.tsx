@@ -11,7 +11,9 @@ export function SiteFooter() {
           </p>
           <address className="mt-2 not-italic text-sm leading-6 text-zinc-600 dark:text-zinc-400">
             <span className="block">{business.address.displayLine1}</span>
-            <span className="block">{business.address.displayLine2}</span>
+            {business.address.displayLine2 ? (
+              <span className="block">{business.address.displayLine2}</span>
+            ) : null}
             <a
               href={business.phone.href}
               className="mt-1 inline-block font-medium text-zinc-900 underline-offset-2 hover:underline dark:text-zinc-100"

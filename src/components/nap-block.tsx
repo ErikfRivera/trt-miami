@@ -24,7 +24,9 @@ export function NapBlock() {
           <dd className="mt-1 text-zinc-600 dark:text-zinc-400">
             <address className="not-italic leading-6">
               <span className="block">{business.address.displayLine1}</span>
-              <span className="block">{business.address.displayLine2}</span>
+              {business.address.displayLine2 ? (
+                <span className="block">{business.address.displayLine2}</span>
+              ) : null}
             </address>
           </dd>
         </div>

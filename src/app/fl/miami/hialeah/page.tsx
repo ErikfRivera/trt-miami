@@ -101,7 +101,7 @@ const medicalClinicSchema = {
   "@type": "MedicalClinic",
   name: `${business.name} — Serving Hialeah, FL`,
   url: absoluteUrl(pagePath),
-  telephone: business.phone.e164,
+  telephone: business.phone.e164Hyphenated,
   medicalSpecialty: "Endocrine",
   address: {
     "@type": "PostalAddress",

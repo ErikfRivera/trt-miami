@@ -5,7 +5,7 @@ import { business } from "@/lib/business";
 
 export const metadata: Metadata = {
   title: "Contact",
-  description: `Contact ${business.name} in Miami, FL. Call ${business.phone.display} or visit us at ${business.address.displayLine1}, ${business.address.displayLine2}.`,
+  description: `Contact ${business.name} in Miami, FL. Call ${business.phone.display} to schedule a consultation.`,
   alternates: { canonical: "/contact" },
 };
 

@@ -49,7 +49,7 @@ const faqs: readonly Faq[] = [
   {
     question: "How much does peptide therapy cost in Miami?",
     answer:
-      "Pricing depends on the peptide, dosing, and length of treatment, and we review a transparent quote with you during your free consultation. Most patients pay out-of-pocket; HSA and FSA cards may be eligible.",
+      "Transparent pricing is reviewed with you during your free consultation, based on the peptide, dosing, and length of treatment. Most patients pay out-of-pocket; HSA and FSA cards may be eligible.",
   },
   {
     question: "Is peptide therapy safe?",
@@ -79,9 +79,18 @@ const faqs: readonly Faq[] = [
   {
     question: "How soon will I see results?",
     answer:
-      "Results vary by peptide, protocol, and individual response. Patients on GLP-1 weight-loss protocols often see meaningful changes within 8–12 weeks; hormone peptides typically show effects over 2–3 months. We measure progress at 30, 60, and 90 days.",
+      "Results vary by peptide, protocol, and individual response. Patients on GLP-1 weight-loss protocols often see meaningful changes within 8–12 weeks; hormone peptides typically show effects over 2–3 months. We measure progress at 30, 60, and 90 days. Outcomes are not guaranteed and your physician will set realistic expectations during consultation.",
   },
 ];
+
+const clinicAddress: Record<string, string> = {
+  "@type": "PostalAddress",
+  addressLocality: business.address.addressLocality,
+  addressRegion: business.address.addressRegion,
+  addressCountry: business.address.addressCountry,
+};
+if (business.address.streetAddress) clinicAddress.streetAddress = business.address.streetAddress;
+if (business.address.postalCode) clinicAddress.postalCode = business.address.postalCode;
 
 const clinicSchema = {
   "@context": "https://schema.org",
@@ -89,17 +98,10 @@ const clinicSchema = {
   "@id": clinicId,
   name: business.schemaName,
   url: business.url,
-  telephone: business.phone.e164,
+  telephone: business.phone.e164Hyphenated,
   image: business.image,
   priceRange: business.priceRange,
-  address: {
-    "@type": "PostalAddress",
-    streetAddress: business.address.streetAddress,
-    addressLocality: business.address.addressLocality,
-    addressRegion: business.address.addressRegion,
-    postalCode: business.address.postalCode,
-    addressCountry: business.address.addressCountry,
-  },
+  address: clinicAddress,
   geo: {
     "@type": "GeoCoordinates",
     latitude: business.geo.latitude,
@@ -130,7 +132,7 @@ const serviceSchema = {
   url: canonicalUrl,
 };
 
-const physicianSchema = {
+const physicianSchema: Record<string, unknown> = {
   "@context": "https://schema.org",
   "@type": "Physician",
   "@id": physicianId,
@@ -141,10 +143,10 @@ const physicianSchema = {
   jobTitle: drAngelRivera.jobTitle,
   medicalSpecialty: drAngelRivera.medicalSpecialty,
   description: drAngelRivera.description,
-  image: drAngelRivera.image,
   url: drAngelRivera.url,
   memberOf: { "@id": clinicId },
 };
+if (drAngelRivera.image) physicianSchema.image = drAngelRivera.image;
 
 const faqSchema = {
   "@context": "https://schema.org",
@@ -270,18 +272,6 @@ export default function PeptideTherapyPage() {
             </p>
           </article>
 
-          <article className="flex flex-col gap-3 rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm dark:border-zinc-800 dark:bg-zinc-950 sm:col-span-2">
-            <h3 className="text-lg font-semibold text-zinc-900 dark:text-zinc-50">
-              Recovery, repair &amp; performance
-            </h3>
-            <p className="text-sm leading-6 text-zinc-700 dark:text-zinc-300">
-              Additional peptides aimed at tissue repair and recovery may be
-              discussed during your consultation, depending on indication,
-              regulatory status, and the available evidence. Your physician will
-              review which options are appropriate for you, including their
-              regulatory status and risks.
-            </p>
-          </article>
         </div>
       </section>
 
@@ -336,8 +326,8 @@ export default function PeptideTherapyPage() {
                 Free 15-minute consultation
               </p>
               <p className="text-sm text-zinc-600 dark:text-zinc-400">
-                In-person at our downtown Miami clinic or by telehealth where
-                state law permits.
+                In-person at our Miami clinic or by telehealth statewide in
+                Florida.
               </p>
             </div>
           </li>
@@ -406,9 +396,7 @@ export default function PeptideTherapyPage() {
           Pricing &amp; insurance
         </h2>
         <p className="max-w-3xl text-base leading-7 text-zinc-700 dark:text-zinc-300">
-          The initial consultation is free. Transparent monthly pricing is
-          reviewed with you during your free consultation, based on the
-          specific peptide, dose, and treatment length.
+          Transparent pricing reviewed during your free consultation.
         </p>
         <p className="max-w-3xl text-base leading-7 text-zinc-700 dark:text-zinc-300">
           Most peptide therapies are paid out-of-pocket; HSA and FSA cards may
@@ -456,7 +444,7 @@ export default function PeptideTherapyPage() {
           Strong Health Miami serves patients across the Miami metro, including{" "}
           {business.areaServed.slice(0, -1).join(", ")}, and{" "}
           {business.areaServed[business.areaServed.length - 1]}. Telehealth
-          follow-ups are offered where state law permits.
+          follow-ups are offered statewide in Florida.
         </p>
         <div className="grid gap-8 lg:grid-cols-2 lg:items-start">
           <NapBlock />

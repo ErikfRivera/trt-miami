@@ -1,16 +1,17 @@
+// Scaffolding placeholder per CEO policy on STR-26. Real medical director
+// identity, license #, and photo land via STR-47 (publish gate). Do not ship
+// to public crawl/index until that resolves.
 export const drAngelRivera = {
-  name: "Dr. Angel Rivera, M.D.",
-  givenName: "Angel",
-  familyName: "Rivera",
-  honorificSuffix: "M.D.",
+  name: "Dr. Placeholder, MD",
+  givenName: "Placeholder",
+  familyName: "Placeholder",
+  honorificSuffix: "MD",
   jobTitle: "Medical Director",
   medicalSpecialty: ["Endocrine", "PrimaryCare"],
   description:
-    "Medical Director at Strong Health Miami. Oversees the testosterone replacement therapy program and supervises every patient evaluation, lab review, and treatment plan.",
-  image: "https://stronghealth.com/images/dr-angel-rivera.jpg",
-  url: "https://stronghealth.com/about/dr-angel-rivera/",
-  // NPI is pending CEO confirmation. Schema uses sentinel "PENDING_NPI" until provided.
-  // See STR-33; replace `npi` and remove this comment when the value is supplied.
+    "Medical Director at Strong Health Miami. Oversees every patient evaluation, lab review, and treatment plan. Real identity and credentials pending board confirmation.",
+  image: "",
+  url: "https://stronghealth.com/about/medical-director/",
   npi: "PENDING_NPI",
 } as const;
 
