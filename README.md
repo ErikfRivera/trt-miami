@@ -31,9 +31,8 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 
 ## Deploy on Vercel
 
-This repo is wired to Vercel's Git integration on the `trt-miami` project (team `team_Yxc4Z9WREhXc67eTWl2r2nNr`):
+The `trt-miami` Vercel project (team `team_Yxc4Z9WREhXc67eTWl2r2nNr`) targets `trt-miami.vercel.app` and `miami.stronghealth.com`.
 
-- Pushing to `main` triggers a production deploy.
-- Pushing any other branch / opening a PR triggers a preview deploy with a unique URL.
+> ⚠️ **STR-130:** Native GitHub auto-deploy is currently broken — the Vercel project is not linked to the GitHub repo because the Vercel GitHub App install does not include `trt-miami`. Until that is fixed, **CLI deploys are the break-glass path**: `vercel deploy --prod --cwd site`. Keep your worktree clean so `meta.gitDirty` is not set. Once the App grant lands and `link.productionBranch` shows `main` on the project, switch back to push-driven auto-deploy and stop running CLI deploys.
 
-There is no manual deploy step. Do **not** run `vercel deploy --prod` from the CLI — CLI deploys bypass the commit graph and can ship a different worktree snapshot than what's on `main`. If a production deploy is missing or broken, check the Vercel project deployments tab to see the failed build.
+A drift guard at `.github/workflows/deploy-drift-guard.yml` checks every 10 minutes and on every push whether the production deploy SHA matches `origin/main`; it fails loudly if they drift.
