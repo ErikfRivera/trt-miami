@@ -222,7 +222,7 @@ export default function BioidenticalHormonesMiamiPage() {
           </p>
         </section>
 
-        <section aria-labelledby="modalities" className="flex flex-col gap-4">
+        <section aria-labelledby="modalities" className="flex flex-col gap-4 cv-auto">
           <h2
             id="modalities"
             className="text-2xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-3xl"
@@ -282,7 +282,7 @@ export default function BioidenticalHormonesMiamiPage() {
           </div>
         </section>
 
-        <section aria-labelledby="process" className="flex flex-col gap-4">
+        <section aria-labelledby="process" className="flex flex-col gap-4 cv-auto">
           <h2
             id="process"
             className="text-2xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-3xl"
@@ -350,7 +350,7 @@ export default function BioidenticalHormonesMiamiPage() {
           </ol>
         </section>
 
-        <section aria-labelledby="safety" className="flex flex-col gap-4">
+        <section aria-labelledby="safety" className="flex flex-col gap-4 cv-auto">
           <h2
             id="safety"
             className="text-2xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-3xl"
@@ -373,7 +373,7 @@ export default function BioidenticalHormonesMiamiPage() {
           </p>
         </section>
 
-        <section aria-labelledby="physician" className="flex flex-col gap-3">
+        <section aria-labelledby="physician" className="flex flex-col gap-3 cv-auto">
           <h2
             id="physician"
             className="text-2xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-3xl"
@@ -389,7 +389,7 @@ export default function BioidenticalHormonesMiamiPage() {
           </p>
         </section>
 
-        <section aria-labelledby="location" className="flex flex-col gap-6">
+        <section aria-labelledby="location" className="flex flex-col gap-6 cv-auto">
           <h2
             id="location"
             className="text-2xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-3xl"
@@ -408,7 +408,7 @@ export default function BioidenticalHormonesMiamiPage() {
           </div>
         </section>
 
-        <section aria-labelledby="faq-heading" className="flex flex-col gap-6">
+        <section aria-labelledby="faq-heading" className="flex flex-col gap-6 cv-auto">
           <h2
             id="faq-heading"
             className="text-2xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50"
@@ -429,7 +429,7 @@ export default function BioidenticalHormonesMiamiPage() {
 
         <section
           aria-labelledby="cta"
-          className="flex flex-col gap-4 rounded-3xl bg-zinc-900 p-8 text-white sm:p-12 dark:bg-zinc-50 dark:text-zinc-900"
+          className="flex flex-col gap-4 rounded-3xl bg-zinc-900 p-8 text-white sm:p-12 dark:bg-zinc-50 dark:text-zinc-900 cv-auto"
         >
           <h2
             id="cta"
