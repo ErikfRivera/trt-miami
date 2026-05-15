@@ -114,3 +114,5 @@ src/
   lib/
     utils.ts            # cn() helper
 ```
+
+<!-- Preview deploy smoke test for STR-74 (Vercel preview workflow). Safe to delete. -->
