@@ -1,65 +1,83 @@
-import Image from "next/image";
+import type { Metadata } from "next";
+import { buttonVariants } from "@/components/ui/button";
 
-export default function Home() {
+export const metadata: Metadata = {
+  title: "Testosterone Replacement Therapy (TRT) in Miami, FL",
+  description:
+    "A Miami clinic specializing in testosterone replacement therapy (TRT) for men. Comprehensive bloodwork, physician-supervised protocols, and ongoing follow-up.",
+  alternates: { canonical: "/" },
+};
+
+export default function HomePage() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
+    <main className="flex-1">
+      <section className="mx-auto flex max-w-3xl flex-col items-start gap-6 px-6 py-24 sm:py-32">
+        <span className="rounded-full border px-3 py-1 text-xs font-medium text-muted-foreground">
+          Miami, FL
+        </span>
+        <h1 className="text-4xl font-semibold tracking-tight sm:text-5xl">
+          Testosterone Replacement Therapy in Miami
+        </h1>
+        <p className="text-lg text-muted-foreground sm:text-xl">
+          A new Miami practice focused on testosterone replacement therapy for
+          men. Comprehensive bloodwork, physician-supervised protocols, and
+          ongoing follow-up. We&apos;re building the site now — full pricing,
+          clinical details, and online booking coming soon.
+        </p>
+        <div className="flex flex-wrap items-center gap-3">
           <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="mailto:hello@miamitrt.com?subject=TRT%20inquiry"
+            className={buttonVariants({ size: "lg" })}
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
+            Request an intake call
           </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+          <span className="text-sm text-muted-foreground">
+            Replies within one business day
+          </span>
         </div>
-      </main>
-    </div>
+      </section>
+
+      <section className="border-t">
+        <div className="mx-auto grid max-w-3xl gap-8 px-6 py-12 sm:grid-cols-3">
+          <div>
+            <h2 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+              Bloodwork first
+            </h2>
+            <p className="mt-2 text-sm">
+              Treatment decisions start with a complete hormone panel, not a
+              questionnaire.
+            </p>
+          </div>
+          <div>
+            <h2 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+              Physician-supervised
+            </h2>
+            <p className="mt-2 text-sm">
+              Every patient is managed by a licensed physician with regular
+              follow-up and dose review.
+            </p>
+          </div>
+          <div>
+            <h2 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+              Local to Miami
+            </h2>
+            <p className="mt-2 text-sm">
+              Serving men across Miami-Dade and Broward, with in-person and
+              telehealth visits.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <footer className="mt-auto border-t">
+        <div className="mx-auto flex max-w-3xl flex-col gap-2 px-6 py-8 text-sm text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
+          <span>© {new Date().getFullYear()} Miami TRT</span>
+          <span>
+            Informational only. Treatment decisions require a licensed physician
+            and individualized evaluation.
+          </span>
+        </div>
+      </footer>
+    </main>
   );
 }

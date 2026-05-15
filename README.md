@@ -1,36 +1,100 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Miami TRT
 
-## Getting Started
+Marketing site for a Miami testosterone replacement therapy clinic. The single
+goal of this site is to rank #1 for "TRT Therapy" in the Miami area and convert
+that organic demand into qualified leads.
 
-First, run the development server:
+- **Framework:** Next.js 16 (App Router, TypeScript)
+- **Styling:** Tailwind CSS v4 + shadcn/ui (`base-nova` style, Lucide icons)
+- **Hosting:** Vercel
+- **Source dir:** `src/`
+
+## Run locally
+
+Requires Node 20+ (Node 22 LTS recommended). Install dependencies and start the
+dev server:
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open <http://localhost:3000>.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Other scripts:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Command         | What it does                          |
+| --------------- | ------------------------------------- |
+| `npm run dev`   | Local dev server (Turbopack)          |
+| `npm run build` | Production build + type-check + lint  |
+| `npm run start` | Serve the production build            |
+| `npm run lint`  | ESLint (Next.js + TypeScript presets) |
 
-## Learn More
+## Deploy
 
-To learn more about Next.js, take a look at the following resources:
+The repo is linked to the Vercel project **`trt-miami`** in the
+`Erik's projects` team.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **Production** branch: `main` → auto-deploys on every push
+- **Preview** deploys: every PR against `main` gets its own `*-preview.vercel.app` URL
+- **Manual deploy from CLI:**
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+  ```bash
+  npx vercel             # preview deploy
+  npx vercel --prod      # production deploy
+  ```
 
-## Deploy on Vercel
+To run a one-off deploy from a fresh clone, install the Vercel CLI and authenticate first (`npx vercel login`), then run `npx vercel link` to attach the working tree to the existing project.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Environment variables
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Use one of:
+
+- **`.env.local`** — never committed, used in `npm run dev`.
+- **Vercel project env vars** — set in the Vercel dashboard; available in
+  preview and production deploys.
+
+| Variable               | Where             | Why                                                                                 |
+| ---------------------- | ----------------- | ----------------------------------------------------------------------------------- |
+| `NEXT_PUBLIC_SITE_URL` | dev / prev / prod | Canonical absolute URL used by `metadataBase`, sitemap, and OG links. Required in production once a custom domain is attached. |
+
+Conventions:
+
+- `NEXT_PUBLIC_*` is the only namespace that ships to the browser. Anything
+  secret must NOT use this prefix.
+- Commit a `.env.example` alongside any new variable so future devs (and
+  preview builds) know what to set.
+- Never commit `.env*` files. `.gitignore` already excludes them.
+
+## SEO baseline
+
+The site ships with the following SEO defaults — keep them in mind when adding
+new pages:
+
+- `metadataBase` is set from `NEXT_PUBLIC_SITE_URL` (falls back to the
+  `trt-miami.vercel.app` preview URL).
+- Each page defines its own `<title>` and `<meta name="description">` via the
+  `metadata` export.
+- Default Open Graph image is generated at `/opengraph-image` (Next.js
+  `ImageResponse`).
+- Canonical URLs are declared via `metadata.alternates.canonical` on each page.
+- `robots: { index: true, follow: true }` site-wide. If you ever add a route
+  that should not be indexed (e.g. admin), opt it out at the route level.
+
+Sitemap, robots.txt, GA4, GSC, and schema.org markup are tracked as separate
+follow-up tickets — do not roll them into UI feature work.
+
+## Repo layout
+
+```
+src/
+  app/
+    layout.tsx          # root layout + site metadata + viewport
+    page.tsx            # homepage
+    opengraph-image.tsx # default 1200×630 OG image
+    globals.css         # Tailwind v4 + shadcn theme tokens
+  components/
+    ui/                 # shadcn primitives
+  lib/
+    utils.ts            # cn() helper
+```
