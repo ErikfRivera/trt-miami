@@ -4,10 +4,26 @@ import {
   absoluteUrl,
   indexableRoutesForSegment,
   SITEMAP_SEGMENTS,
+  type SiteRoute,
   type SitemapSegment,
 } from "@/lib/site";
 import { isIndexableHost } from "@/lib/seo";
 import { activePairFor } from "@/lib/hreflangMap";
+import { providers } from "@/lib/providers/registry";
+
+// STR-132 §6 — provider bio pages live at `/providers/{slug}/` and are
+// generated dynamically from the registry, so they don't appear in the static
+// `routes` table. The English segment owns them because they're indexable
+// E-E-A-T pages on the Miami host. Keep this colocated with the sitemap so a
+// new physician in the registry shows up in the next crawl without a second
+// edit in `lib/site.ts`.
+const providerSitemapRoutes = (): SiteRoute[] =>
+  providers.map((p) => ({
+    path: `/providers/${p.slug}/`,
+    changeFrequency: "monthly",
+    priority: 0.75,
+    locale: "en",
+  }));
 
 // Per STR-62, the sitemap is segmented at /sitemap/en.xml, /sitemap/es.xml,
 // and /sitemap/locations.xml via Next.js' generateSitemaps API. The sitemap
@@ -28,7 +44,11 @@ export default async function sitemap(props: {
   const segment = (await props.id) as SitemapSegment;
   const lastModified = new Date();
 
-  return indexableRoutesForSegment(segment).map((route) => {
+  const baseRoutes = indexableRoutesForSegment(segment);
+  const extras = segment === "en" ? providerSitemapRoutes() : [];
+  const allRoutes: readonly SiteRoute[] = [...baseRoutes, ...extras];
+
+  return allRoutes.map((route) => {
     const entry: MetadataRoute.Sitemap[number] = {
       url: absoluteUrl(route.path),
       lastModified,

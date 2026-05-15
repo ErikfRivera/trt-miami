@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { PageStub } from "@/components/page-stub";
 import { SchemaGraph } from "@/components/schema-graph";
 import { drAngelRivera } from "@/lib/physician";
-import { getProviderBySlug, providers } from "@/lib/providers/registry";
+import { getProviderBySlug, providers, providerDisplayName } from "@/lib/providers/registry";
 import { buildBreadcrumbList, buildPhysician } from "@/lib/schema";
 import type { SitePath } from "@/lib/site";
 
@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const provider = getProviderBySlug(slug);
   if (!provider) return {};
   return {
-    title: { absolute: `${provider.name}, ${provider.honorificSuffix} — Strong Health Miami` },
+    title: { absolute: `${providerDisplayName(provider)} — Strong Health Miami` },
     description: provider.summary,
     alternates: { canonical: providerPagePath(slug) },
   };
@@ -57,7 +57,7 @@ export default async function ProviderPage({ params }: Props) {
       <SchemaGraph nodes={schemaNodes} />
       <PageStub
         eyebrow="Medical Provider · Strong Health Miami"
-        heading={`${provider.name}, ${provider.honorificSuffix}`}
+        heading={providerDisplayName(provider)}
         intro={provider.summary}
         breadcrumbs={[
           { name: "Home", path: "/" },

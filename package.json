@@ -9,6 +9,8 @@
     "lint": "eslint",
     "validate:citations": "npx tsx scripts/validate-citations.ts",
     "validate:schema-ids": "npx tsx scripts/validate-schema-ids.ts",
+    "validate:schema-dedup": "npx tsx scripts/validate-schema-dedup.ts",
+    "validate:template-tokens": "npx tsx scripts/validate-template-tokens.ts",
     "lhci": "lhci autorun",
     "lhci:collect": "lhci collect",
     "lhci:assert": "lhci assert"

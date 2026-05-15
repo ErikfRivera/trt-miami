@@ -40,8 +40,12 @@ export const providers: readonly ProviderRecord[] = [
     boardYear: drAngelRivera.boardCertificationYear,
     languages: ["English", "Spanish"],
     description: drAngelRivera.description,
-    summary:
-      "{PHYSICIAN_NAME} is a Florida-licensed physician who leads the testosterone replacement therapy program at our Miami clinic. He focuses on protocol design, patient safety monitoring, and individualized dose titration based on free and total testosterone, hematocrit, estradiol, and PSA. He reviews every clinical page on this site.",
+    // STR-132 §4 — interpolate the physician's display name directly from the
+    // shared fixture so the `{PHYSICIAN_NAME}` template token cannot leak into
+    // rendered HTML. Once STR-131 (real identity) lands, `drAngelRivera.name`
+    // is updated in one place and every surface that reads `provider.summary`
+    // picks up the new name.
+    summary: `${drAngelRivera.name} is a Florida-licensed physician who leads the testosterone replacement therapy program at our Miami clinic. He focuses on protocol design, patient safety monitoring, and individualized dose titration based on free and total testosterone, hematocrit, estradiol, and PSA. He reviews every clinical page on this site.`,
     image: drAngelRivera.image,
     url: drAngelRivera.url,
   },
@@ -49,6 +53,29 @@ export const providers: readonly ProviderRecord[] = [
 
 export function getProviderBySlug(slug: string): ProviderRecord | undefined {
   return providers.find((p) => p.slug === slug);
+}
+
+// STR-132 §5 — render the provider's display name without double-stamping the
+// post-nominal suffix when `name` already carries it (e.g. "Dr. Placeholder,
+// MD" with `honorificSuffix: "MD"` must not become "…, MD, MD"). Returns
+// `name` unchanged when the suffix is empty or already present at the tail;
+// otherwise appends `", <suffix>"`. Once STR-131 lands a real-name fixture
+// without an embedded suffix, the published case ("Jane Doe" + "MD") becomes
+// "Jane Doe, MD" with no template changes.
+export function providerDisplayName(
+  provider: Pick<ProviderRecord, "name" | "honorificSuffix">,
+): string {
+  const name = provider.name.trim();
+  const suffix = provider.honorificSuffix.trim();
+  if (!suffix) return name;
+  if (
+    name === suffix ||
+    name.endsWith(`, ${suffix}`) ||
+    name.endsWith(` ${suffix}`)
+  ) {
+    return name;
+  }
+  return `${name}, ${suffix}`;
 }
 
 // The primary medical reviewer — defaults to lead physician per STR-98 brief §3.3.
