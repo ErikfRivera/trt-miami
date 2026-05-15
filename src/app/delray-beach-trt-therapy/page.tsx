@@ -40,10 +40,8 @@ export const metadata: Metadata = {
   alternates: alternatesFor(PAGE_PATH),
   openGraph: {
     type: "website",
-    // Override sitewide "Strong Health TRT Therapy Miami" siteName on this
-    // non-Miami city page so Facebook/LinkedIn shares don't anchor Delray
-    // socials to a Miami brand label (STR-116 M3). Sitewide cleanup of the
-    // Miami-anchored siteName tracked separately in STR-120.
+    // Next.js shallow-replaces openGraph at the page segment, so any page that
+    // sets openGraph must redeclare siteName to keep og:site_name in the head.
     siteName: "Strong Health TRT Therapy",
     url: canonicalUrl,
     title: "TRT Delray Beach, FL | Strong Health TRT Therapy Clinic",
