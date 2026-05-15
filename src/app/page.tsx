@@ -14,7 +14,6 @@ import {
 } from "@/lib/faq-content";
 import { pageCitations } from "@/lib/citations/page-citations";
 import { homepageReviews } from "@/lib/homepage-content";
-import { alternatesFor } from "@/lib/hreflangMap";
 import { drAngelRivera } from "@/lib/physician";
 import { activeReviewer } from "@/lib/medical-director";
 import { primaryReviewer } from "@/lib/providers/registry";
@@ -28,18 +27,20 @@ import {
   reviewId,
 } from "@/lib/schema";
 import { physicianSchemaNode } from "@/lib/schema/physician";
+import { pageMetadata } from "@/lib/seo";
 
 const HOME_PATH = "/" as const;
+const HOME_TITLE = "TRT Therapy Miami | Strong Health Miami, FL";
+const HOME_DESCRIPTION =
+  "TRT therapy in Miami at Strong Health — physician-supervised testosterone replacement, full bloodwork, transparent self-pay, same-week consultations.";
 const { citations: homeCitations, lastReviewed: homeLastReviewed } = pageCitations(HOME_PATH);
 
-export const metadata: Metadata = {
-  title: {
-    absolute: "TRT Therapy Miami | Strong Health Miami, FL",
-  },
-  description:
-    "TRT therapy in Miami at Strong Health — physician-supervised testosterone replacement, full bloodwork, transparent self-pay, same-week consultations.",
-  alternates: alternatesFor("/"),
-};
+export const metadata: Metadata = pageMetadata({
+  path: HOME_PATH,
+  title: HOME_TITLE,
+  description: HOME_DESCRIPTION,
+  socialTitle: HOME_TITLE,
+});
 
 const reviewNodes = homepageReviews.map((review) => buildReview(review));
 const aggregate = aggregateRatingFromReviews(homepageReviews);
