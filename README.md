@@ -54,11 +54,11 @@ Use one of:
 - **Vercel project env vars** — set in the Vercel dashboard; available in
   preview and production deploys.
 
-| Variable                   | Where             | Why                                                                                                                            |
-| -------------------------- | ----------------- | ------------------------------------------------------------------------------------------------------------------------------ |
-| `NEXT_PUBLIC_SITE_URL`     | dev / prev / prod | Canonical absolute URL used by `metadataBase`, sitemap, and OG links. Required in production once a custom domain is attached. |
-| `NEXT_PUBLIC_GA4_ID`       | prod              | GA4 measurement ID (`G-XXXXXXXXXX`). When unset, the GA4 script is not rendered.                                               |
-| `GOOGLE_SITE_VERIFICATION` | prod              | Content of the `google-site-verification` meta tag for GSC ownership verification.                                             |
+| Variable                 | Where             | Why                                                                                                                                       |
+| ------------------------ | ----------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| `NEXT_PUBLIC_SITE_URL`   | dev / prev / prod | Canonical absolute URL used by `metadataBase`, sitemap, and OG links. Required in production once a custom domain is attached.            |
+| `NEXT_PUBLIC_GA4_ID`     | prod              | GA4 measurement ID (`G-XXXXXXXXXX`). When unset or `G-PLACEHOLDER`, the GA4 script is not rendered, keeping analytics clean of junk hits. |
+| `GSC_VERIFICATION_TOKEN` | prod              | Content of the `google-site-verification` meta tag for GSC ownership verification. When unset or `PLACEHOLDER`, no meta tag is rendered.  |
 
 Conventions:
 
@@ -89,9 +89,11 @@ new pages:
   disallows everything so preview URLs do not get indexed.
 - GA4 is wired via `@next/third-parties/google`'s `GoogleAnalytics` component
   in the root layout. The script only renders when `NEXT_PUBLIC_GA4_ID` is
-  set, so previews stay analytics-clean by default.
+  set to a real ID (the sentinel `G-PLACEHOLDER` is treated as unset), so
+  previews and pre-procurement deploys stay analytics-clean by default.
 - Google Search Console verification ships via the `verification.google`
-  metadata key, driven by `GOOGLE_SITE_VERIFICATION`.
+  metadata key, driven by `GSC_VERIFICATION_TOKEN`. The sentinel
+  `PLACEHOLDER` is treated as unset.
 
 Schema.org markup is tracked in a separate follow-up ticket — do not roll it
 into UI feature work.

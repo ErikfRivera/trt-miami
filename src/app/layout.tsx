@@ -14,9 +14,17 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const gaMeasurementId = process.env.NEXT_PUBLIC_GA4_ID?.trim() || undefined;
-const googleSiteVerification =
-  process.env.GOOGLE_SITE_VERIFICATION?.trim() || undefined;
+const rawGaMeasurementId = process.env.NEXT_PUBLIC_GA4_ID?.trim();
+const gaMeasurementId =
+  rawGaMeasurementId && rawGaMeasurementId !== "G-PLACEHOLDER"
+    ? rawGaMeasurementId
+    : undefined;
+
+const rawGscVerification = process.env.GSC_VERIFICATION_TOKEN?.trim();
+const gscVerificationToken =
+  rawGscVerification && rawGscVerification !== "PLACEHOLDER"
+    ? rawGscVerification
+    : undefined;
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -43,8 +51,8 @@ export const metadata: Metadata = {
       "Testosterone replacement therapy (TRT) for men in the Miami area. Bloodwork, physician-supervised protocols, and ongoing follow-up.",
   },
   robots: { index: true, follow: true },
-  verification: googleSiteVerification
-    ? { google: googleSiteVerification }
+  verification: gscVerificationToken
+    ? { google: gscVerificationToken }
     : undefined,
 };
 
