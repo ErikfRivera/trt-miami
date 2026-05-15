@@ -31,6 +31,9 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 
 ## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+This repo is wired to Vercel's Git integration on the `trt-miami` project (team `team_Yxc4Z9WREhXc67eTWl2r2nNr`):
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Pushing to `main` triggers a production deploy.
+- Pushing any other branch / opening a PR triggers a preview deploy with a unique URL.
+
+There is no manual deploy step. Do **not** run `vercel deploy --prod` from the CLI — CLI deploys bypass the commit graph and can ship a different worktree snapshot than what's on `main`. If a production deploy is missing or broken, check the Vercel project deployments tab to see the failed build.
