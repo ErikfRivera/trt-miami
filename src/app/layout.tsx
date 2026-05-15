@@ -1,9 +1,15 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { GoogleAnalytics } from "@/components/google-analytics";
 import { SiteFooter } from "@/components/site-footer";
-import { LocalBusinessSchema } from "@/components/local-business-schema";
+import { MedicalClinicSchema } from "@/components/medical-clinic-schema";
+import { gscVerificationToken } from "@/lib/analytics";
+import { business } from "@/lib/business";
 import { siteUrl } from "@/lib/site";
 import "./globals.css";
+
+const defaultDescription = `${business.name} provides testosterone replacement therapy in Miami, FL. Call ${business.phone.display} or visit us at ${business.address.streetAddress}.`;
+const socialDescription = `Testosterone replacement therapy in Miami, FL. Call ${business.phone.display} or visit us at ${business.address.streetAddress}.`;
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -23,8 +29,7 @@ export const metadata: Metadata = {
     default: "Strong Health TRT Therapy Miami",
     template: "%s · Strong Health TRT Therapy Miami",
   },
-  description:
-    "Strong Health TRT Therapy Miami provides testosterone replacement therapy in Miami, FL. Call (619) 746-1616 or visit us at 697 N Miami Avenue.",
+  description: defaultDescription,
   applicationName: "Strong Health TRT Therapy Miami",
   robots: {
     index: true,
@@ -42,16 +47,17 @@ export const metadata: Metadata = {
     siteName: "Strong Health TRT Therapy Miami",
     url: siteUrl,
     title: "Strong Health TRT Therapy Miami",
-    description:
-      "Testosterone replacement therapy in Miami, FL. Call (619) 746-1616 or visit us at 697 N Miami Avenue.",
+    description: socialDescription,
     locale: "en_US",
   },
   twitter: {
     card: "summary_large_image",
     title: "Strong Health TRT Therapy Miami",
-    description:
-      "Testosterone replacement therapy in Miami, FL. Call (619) 746-1616 or visit us at 697 N Miami Avenue.",
+    description: socialDescription,
   },
+  ...(gscVerificationToken
+    ? { verification: { google: gscVerificationToken } }
+    : {}),
 };
 
 export const viewport: Viewport = {
@@ -72,7 +78,8 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col bg-zinc-50 text-zinc-900 dark:bg-black dark:text-zinc-50">
         <main className="flex-1">{children}</main>
         <SiteFooter />
-        <LocalBusinessSchema />
+        <MedicalClinicSchema />
+        <GoogleAnalytics />
       </body>
     </html>
   );

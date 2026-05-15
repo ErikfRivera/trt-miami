@@ -1,6 +1,8 @@
 const INDEXABLE_HOSTS = new Set([
   "stronghealth.com",
   "www.stronghealth.com",
+  "miami.stronghealth.com",
+  "trt-miami.vercel.app",
 ]);
 
 export function normalizeHost(host: string | null | undefined): string | null {

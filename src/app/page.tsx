@@ -8,8 +8,7 @@ export const metadata: Metadata = {
   title: {
     absolute: "Strong Health TRT Therapy Miami — Testosterone Replacement Therapy in Miami, FL",
   },
-  description:
-    "Strong Health TRT Therapy Miami is a men's health clinic in downtown Miami offering testosterone replacement therapy. Schedule a consultation by calling (619) 746-1616.",
+  description: `${business.name} is a men's health clinic in downtown Miami offering testosterone replacement therapy. Schedule a consultation by calling ${business.phone.display}.`,
   alternates: { canonical: "/" },
 };
 
@@ -25,7 +24,15 @@ export default function Home() {
         </h1>
         <p className="max-w-2xl text-lg text-zinc-600 dark:text-zinc-400">
           A men&apos;s health clinic in downtown Miami focused on testosterone
-          replacement therapy. Schedule a consultation to get started.
+          replacement therapy. We also offer{" "}
+          <Link
+            href="/peptide-therapy"
+            className="font-medium text-zinc-900 underline-offset-2 hover:underline dark:text-zinc-100"
+          >
+            peptide therapy in Miami
+          </Link>
+          {" "}for weight loss, recovery, and hormone support. Schedule a
+          consultation to get started.
         </p>
         <div className="flex flex-wrap gap-3">
           <a

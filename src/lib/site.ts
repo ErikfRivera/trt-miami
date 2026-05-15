@@ -19,6 +19,7 @@ export type SiteRoute = {
 export const routes: readonly SiteRoute[] = [
   { path: "/", changeFrequency: "weekly", priority: 1 },
   { path: "/contact", changeFrequency: "monthly", priority: 0.8 },
+  { path: "/fl/miami/hialeah", changeFrequency: "monthly", priority: 0.7 },
 ] as const;
 
 export const absoluteUrl = (path: SitePath): string =>
