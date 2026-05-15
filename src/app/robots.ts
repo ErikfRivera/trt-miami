@@ -1,5 +1,7 @@
 import type { MetadataRoute } from "next";
+import { headers } from "next/headers";
 import { siteUrl } from "@/lib/site";
+import { isIndexableHost } from "@/lib/seo";
 
 const allowedAgents = [
   "Googlebot",
@@ -18,7 +20,15 @@ const allowedAgents = [
   "CCBot",
 ];
 
-export default function robots(): MetadataRoute.Robots {
+export default async function robots(): Promise<MetadataRoute.Robots> {
+  const host = (await headers()).get("host");
+
+  if (!isIndexableHost(host)) {
+    return {
+      rules: { userAgent: "*", disallow: "/" },
+    };
+  }
+
   return {
     rules: [
       { userAgent: "*", allow: "/" },
