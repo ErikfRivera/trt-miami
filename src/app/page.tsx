@@ -24,10 +24,10 @@ import {
   buildFaqPage,
   buildMedicalBusiness,
   buildPageCitationSchema,
-  buildPhysician,
   buildReview,
   reviewId,
 } from "@/lib/schema";
+import { physicianSchemaNode } from "@/lib/schema/physician";
 
 const HOME_PATH = "/" as const;
 const { citations: homeCitations, lastReviewed: homeLastReviewed } = pageCitations(HOME_PATH);
@@ -50,7 +50,7 @@ const schemaNodes = [
     reviewIds: homepageReviews.map((r) => reviewId(r.slug)),
     aggregateRating: aggregate,
   }),
-  buildPhysician(),
+  physicianSchemaNode(),
   ...reviewNodes,
   buildFaqPage(schemaEligible(trtClinicMiamiFaqs), "/"),
   buildBreadcrumbList([{ name: "Home", path: "/" }], "/"),
