@@ -61,6 +61,9 @@ export const routes: readonly SiteRoute[] = [
   { path: "/trt-side-effects/", changeFrequency: "monthly", priority: 0.85, locale: "en" },
   { path: "/trt-before-and-after/", changeFrequency: "monthly", priority: 0.85, locale: "en" },
 
+  // South-FL geo expansion spoke (STR-100)
+  { path: "/delray-beach-trt-therapy/", changeFrequency: "monthly", priority: 0.85, locale: "en" },
+
   // Adjacent service (already live)
   { path: "/peptide-therapy/", changeFrequency: "weekly", priority: 0.9, locale: "en" },
 

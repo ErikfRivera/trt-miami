@@ -11,6 +11,7 @@ export type LangPair = { en: SitePath; es: SitePath };
 export const hreflangPairs: readonly LangPair[] = [
   { en: "/", es: "/es/" },
   { en: "/trt-clinic-miami/", es: "/es/clinica-trt-miami/" },
+  { en: "/delray-beach-trt-therapy/", es: "/es/delray-beach-trt-therapy/" },
   { en: "/contact/", es: "/es/contacto/" },
 ] as const;
 

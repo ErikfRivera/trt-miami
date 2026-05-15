@@ -175,6 +175,39 @@ export const trtClinicMiamiFaqs: readonly FaqEntry[] = [
 
 export const trtCostFaqs: readonly FaqEntry[] = [faqCost, faqInsurance] as const;
 
+// Delray Beach-specific variants (per STR-100 brief §5).
+// Two items need fresh geo-specific copy; six are reused verbatim from
+// trtClinicMiamiFaqs (see trtClinicDelrayFaqs below).
+
+export const faqSideEffectsDelray: FaqEntry = {
+  id: "trt-side-effects-delray",
+  inSchema: true,
+  question: "What are the side effects of TRT?",
+  answer:
+    "Common side effects of testosterone replacement therapy include acne, oily skin, fluid retention, mild breast tenderness, testicular shrinkage, and reduced sperm production. Lab-detected effects can include elevated red blood cell counts (polycythemia) — reported in roughly 20% of men on TRT — and a small rise in PSA. Serious risks are rare in monitored patients, but TRT is contraindicated in untreated prostate or male breast cancer, untreated severe sleep apnea, recent heart attack or stroke, and men actively trying to conceive. Our Delray Beach patients are monitored with quarterly bloodwork to catch and manage these changes early.",
+};
+
+export const faqCostDelray: FaqEntry = {
+  id: "trt-cost-delray-beach",
+  inSchema: false,
+  question: "How much does TRT cost in Delray Beach?",
+  answer:
+    "TRT costs in Delray Beach typically range from $150 to $400 per month depending on the delivery method (injection, gel, or pellet) and whether labs are bundled. Strong Health offers transparent flat-rate monthly programs that cover medication, labs, and follow-up visits — the same pricing model we use in Miami. Many Palm Beach County patients use HSA/FSA funds or pay out of pocket. Exact pricing is available on our /trt-cost page.",
+};
+
+// 8-item FAQ set for /delray-beach-trt-therapy/ per STR-100 brief §5.
+// Order: foundation → diagnosis → safety → fertility → commitment → cost.
+export const trtClinicDelrayFaqs: readonly FaqEntry[] = [
+  faqWhatIsTrt,
+  faqLowTSymptoms,
+  faqBloodTests,
+  faqHowAdministered,
+  faqHowLongResults,
+  faqSideEffectsDelray,
+  faqFertility,
+  faqCostDelray,
+] as const;
+
 export const schemaEligible = (
   entries: readonly FaqEntry[],
 ): readonly FaqItem[] =>
