@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { SchemaGraph } from "@/components/schema-graph";
 import { business } from "@/lib/business";
+import { activeReviewer, hasVerifiedMedicalDirector } from "@/lib/medical-director";
 import { primaryReviewer } from "@/lib/providers/registry";
 import { reviewedPagesByReviewer } from "@/lib/providers/reviewed-pages";
 import { buildMedicalWebPage, buildBreadcrumbList } from "@/lib/schema";
@@ -16,12 +17,18 @@ const PAGE_PATH = "/medical-reviewer/" as const;
 // the schema reports a coherent review-and-update cadence.
 const PAGE_REVIEW_DATE = "2026-05-15" as const;
 
-export const metadata: Metadata = pageMetadata({
-  path: PAGE_PATH,
-  title: `Medical Review Standards | ${business.legalName}`,
-  description:
-    "How we review medical content at Strong Health Miami: named physician reviewer, 180-day refresh, primary-source citations.",
-});
+// STR-137 — this route identifies the medical reviewer. Until a real
+// medical director is published, noindex,nofollow keeps it out of Google's
+// index alongside `/providers/` and the provider bio routes.
+export const metadata: Metadata = {
+  ...pageMetadata({
+    path: PAGE_PATH,
+    title: `Medical Review Standards | ${business.legalName}`,
+    description:
+      "How we review medical content at Strong Health Miami: named physician reviewer, 180-day refresh, primary-source citations.",
+  }),
+  robots: hasVerifiedMedicalDirector ? undefined : { index: false, follow: false },
+};
 
 const breadcrumbs: readonly BreadcrumbItem[] = [
   { name: "Home", path: "/" },
@@ -35,6 +42,10 @@ const reviewedList = reviewedPagesByReviewer(primaryReviewer.slug);
 // MedicalWebPage's `reviewedBy` / `mainEntity` slots; do not re-emit the
 // full Person JSON-LD or Google will treat the editorial-standards page as
 // two different physicians.
+//
+// STR-137 — when no verified medical director is published, the
+// MedicalWebPage builder suppresses both `reviewedBy` and `mainEntity`
+// references so the dangling @id never reaches the graph.
 const schemaNodes = [
   buildMedicalWebPage({
     pagePath: PAGE_PATH,
@@ -82,7 +93,8 @@ export default function MedicalReviewerPage() {
           </h1>
         </header>
 
-        {/* Reviewer card */}
+        {/* Reviewer card — STR-137 renders the generic clinical-team surface
+            when no verified medical director has been published yet. */}
         <section aria-labelledby="reviewer-heading">
           <h2
             id="reviewer-heading"
@@ -95,22 +107,26 @@ export default function MedicalReviewerPage() {
               aria-hidden="true"
               className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full border border-zinc-300 bg-zinc-100 text-xl font-semibold text-zinc-500 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-400"
             >
-              {primaryReviewer.familyName.charAt(0)}
+              {hasVerifiedMedicalDirector ? activeReviewer.familyName.charAt(0) : "SH"}
             </div>
             <div className="flex flex-col gap-2">
               <p className="text-xl font-semibold text-zinc-900 dark:text-zinc-50">
-                {primaryReviewer.name}
+                {activeReviewer.name}
               </p>
-              <p className="text-sm text-zinc-500 dark:text-zinc-400">{primaryReviewer.jobTitle}</p>
+              {activeReviewer.jobTitle ? (
+                <p className="text-sm text-zinc-500 dark:text-zinc-400">{activeReviewer.jobTitle}</p>
+              ) : null}
               <p className="text-sm leading-6 text-zinc-600 dark:text-zinc-400">
-                {primaryReviewer.description}
+                {activeReviewer.description}
               </p>
-              <Link
-                href={`/providers/${primaryReviewer.slug}/`}
-                className="mt-1 self-start text-sm font-medium text-zinc-900 underline-offset-2 hover:underline dark:text-zinc-100"
-              >
-                Read full bio →
-              </Link>
+              {hasVerifiedMedicalDirector ? (
+                <Link
+                  href={activeReviewer.href}
+                  className="mt-1 self-start text-sm font-medium text-zinc-900 underline-offset-2 hover:underline dark:text-zinc-100"
+                >
+                  Read full bio →
+                </Link>
+              ) : null}
             </div>
           </article>
         </section>
@@ -125,7 +141,7 @@ export default function MedicalReviewerPage() {
           </h2>
           <ul className="flex flex-col gap-3 text-base leading-7 text-zinc-700 dark:text-zinc-300">
             {[
-              `Every page that describes a medical condition, treatment, dosage, side effect, or clinical outcome is reviewed by ${primaryReviewer.name} before publication.`,
+              `Every page that describes a medical condition, treatment, dosage, side effect, or clinical outcome is reviewed by ${activeReviewer.name} before publication.`,
               'Each page carries a "Medically reviewed by … on YYYY-MM-DD" line at the top.',
               "Pages are re-reviewed every 180 days or sooner if guidelines change.",
               "Citations are tied to primary sources (peer-reviewed journals, FDA labeling, NIH, Endocrine Society, AUA, Mayo Clinic).",
@@ -146,7 +162,7 @@ export default function MedicalReviewerPage() {
             id="reviewed-heading"
             className="text-2xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50"
           >
-            Pages reviewed by {primaryReviewer.name}
+            Pages reviewed by {activeReviewer.name}
           </h2>
           <ul className="flex flex-col gap-2 text-sm">
             {reviewedList.map((page) => (

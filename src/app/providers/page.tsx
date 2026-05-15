@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { SchemaGraph } from "@/components/schema-graph";
 import { business } from "@/lib/business";
+import { hasVerifiedMedicalDirector } from "@/lib/medical-director";
 import { providers } from "@/lib/providers/registry";
 import {
   isVerifiedLicense,
@@ -9,17 +10,23 @@ import {
   licenseVerificationUrl,
   npiRegistryUrl,
 } from "@/lib/providers/verification-urls";
-import { buildCollectionPage, buildBreadcrumbList, buildPhysician } from "@/lib/schema";
+import { buildCollectionPage, buildBreadcrumbList } from "@/lib/schema";
+import { physicianSchemaNode } from "@/lib/schema/physician";
 import type { BreadcrumbItem } from "@/lib/schema/breadcrumb";
 import { pageMetadata } from "@/lib/seo";
 
 const PAGE_PATH = "/providers/" as const;
 
+// STR-137 — until `hasVerifiedMedicalDirector` flips to true (STR-50), the
+// providers index surfaces only placeholder identities. Emit noindex,nofollow
+// so search engines don't index that scaffolding; the flag flip will restore
+// indexability in the same commit that publishes the real medical director.
 export const metadata: Metadata = pageMetadata({
   path: PAGE_PATH,
   title: `Our Medical Providers | ${business.legalName} Miami`,
   description:
     "Meet the Florida-licensed physicians behind Strong Health Miami. Board-certified, NPI-verified, and accountable for every clinical page on this site.",
+  noindex: !hasVerifiedMedicalDirector,
 });
 
 const breadcrumbs: readonly BreadcrumbItem[] = [
@@ -27,6 +34,8 @@ const breadcrumbs: readonly BreadcrumbItem[] = [
   { name: "Our Providers", path: PAGE_PATH },
 ];
 
+// STR-137 — `physicianSchemaNode()` returns null when no verified medical
+// director is published; `SchemaGraph` filters nulls out of the @graph.
 const schemaNodes = [
   buildCollectionPage({
     pagePath: PAGE_PATH,
@@ -35,7 +44,7 @@ const schemaNodes = [
       "Every clinical page on this site is written or reviewed by a licensed physician. Below are the credentialed clinicians responsible for our medical content and patient care.",
     physicianUrls: providers.map((p) => p.url),
   }),
-  buildPhysician(),
+  physicianSchemaNode(),
   buildBreadcrumbList(breadcrumbs, PAGE_PATH),
 ];
 
@@ -79,131 +88,161 @@ export default function ProvidersPage() {
           </p>
         </header>
 
-        <ul className="flex flex-col gap-10">
-          {providers.map((provider) => (
-            <li key={provider.slug}>
-              <article className="flex flex-col gap-5 rounded-2xl border border-zinc-200 bg-white p-7 shadow-sm dark:border-zinc-800 dark:bg-zinc-950">
-                <div className="flex gap-5">
-                  {provider.image ? (
-                    // eslint-disable-next-line @next/next/no-img-element
-                    <img
-                      src={provider.image}
-                      alt={`Headshot of ${provider.name}`}
-                      width={80}
-                      height={80}
-                      className="h-20 w-20 shrink-0 rounded-full object-cover"
-                    />
-                  ) : (
-                    <div
-                      aria-hidden="true"
-                      className="flex h-20 w-20 shrink-0 items-center justify-center rounded-full border border-zinc-300 bg-zinc-100 text-2xl font-semibold text-zinc-500 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-400"
-                    >
-                      {provider.familyName.charAt(0)}
+        {/*
+          STR-137 — until a real medical director is published, render the
+          generic clinical-team card instead of the per-provider table. The
+          per-provider table reads PENDING_* values out of the registry and
+          would leak "Dr. Placeholder", "Pending verification (STR-50)",
+          and similar strings into rendered HTML. Acceptance criteria for
+          this route forbid those strings on production.
+        */}
+        {hasVerifiedMedicalDirector ? (
+          <ul className="flex flex-col gap-10">
+            {providers.map((provider) => (
+              <li key={provider.slug}>
+                <article className="flex flex-col gap-5 rounded-2xl border border-zinc-200 bg-white p-7 shadow-sm dark:border-zinc-800 dark:bg-zinc-950">
+                  <div className="flex gap-5">
+                    {provider.image ? (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img
+                        src={provider.image}
+                        alt={`Headshot of ${provider.name}`}
+                        width={80}
+                        height={80}
+                        className="h-20 w-20 shrink-0 rounded-full object-cover"
+                      />
+                    ) : (
+                      <div
+                        aria-hidden="true"
+                        className="flex h-20 w-20 shrink-0 items-center justify-center rounded-full border border-zinc-300 bg-zinc-100 text-2xl font-semibold text-zinc-500 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-400"
+                      >
+                        {provider.familyName.charAt(0)}
+                      </div>
+                    )}
+                    <div className="flex flex-col gap-1">
+                      <h2 className="text-2xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50">
+                        {provider.name}
+                      </h2>
+                      <p className="text-sm font-medium text-zinc-500 dark:text-zinc-400">
+                        {provider.jobTitle}
+                      </p>
                     </div>
-                  )}
-                  <div className="flex flex-col gap-1">
-                    <h2 className="text-2xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50">
-                      {provider.name}
-                    </h2>
-                    <p className="text-sm font-medium text-zinc-500 dark:text-zinc-400">
-                      {provider.jobTitle}
-                    </p>
                   </div>
-                </div>
 
-                <dl className="grid gap-y-2 gap-x-6 text-sm sm:grid-cols-2">
-                  <div>
-                    <dt className="text-xs font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">
-                      Specialty
-                    </dt>
-                    <dd className="mt-1 text-zinc-700 dark:text-zinc-300">{provider.specialty}</dd>
-                  </div>
-                  <div>
-                    <dt className="text-xs font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">
-                      Languages
-                    </dt>
-                    <dd className="mt-1 text-zinc-700 dark:text-zinc-300">
-                      {provider.languages.join(", ")}
-                    </dd>
-                  </div>
-                  <div>
-                    <dt className="text-xs font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">
-                      FL License
-                    </dt>
-                    <dd className="mt-1 text-zinc-700 dark:text-zinc-300">
-                      {!isVerifiedLicense(provider.license) ? (
-                        <span className="italic text-zinc-400">Pending verification (STR-50)</span>
-                      ) : (
-                        <>
-                          FL #{provider.license}{" "}
-                          <a
-                            href={licenseVerificationUrl(provider.license)}
-                            rel="noopener"
-                            target="_blank"
-                            className="text-zinc-500 underline underline-offset-2 hover:text-zinc-700 dark:text-zinc-400"
-                          >
-                            verify
-                          </a>
-                        </>
-                      )}
-                    </dd>
-                  </div>
-                  <div>
-                    <dt className="text-xs font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">
-                      NPI
-                    </dt>
-                    <dd className="mt-1 text-zinc-700 dark:text-zinc-300">
-                      {!isVerifiedNpi(provider.npi) ? (
-                        <span className="italic text-zinc-400">Pending verification (STR-50)</span>
-                      ) : (
-                        <>
-                          {provider.npi}{" "}
-                          <a
-                            href={npiRegistryUrl(provider.npi)}
-                            rel="noopener"
-                            target="_blank"
-                            className="text-zinc-500 underline underline-offset-2 hover:text-zinc-700 dark:text-zinc-400"
-                          >
-                            NPI Registry
-                          </a>
-                        </>
-                      )}
-                    </dd>
-                  </div>
-                  <div>
-                    <dt className="text-xs font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">
-                      Board Certification
-                    </dt>
-                    <dd className="mt-1 text-zinc-700 dark:text-zinc-300">
-                      {provider.boardCertification === "PENDING_BOARD" ? (
-                        <span className="italic text-zinc-400">Pending verification (STR-37)</span>
-                      ) : (
-                        `${provider.boardCertification}, ${provider.boardYear}`
-                      )}
-                    </dd>
-                  </div>
-                  <div>
-                    <dt className="text-xs font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">
-                      Licensing Board
-                    </dt>
-                    <dd className="mt-1 text-zinc-700 dark:text-zinc-300">{provider.licensingBoard}</dd>
-                  </div>
-                </dl>
+                  <dl className="grid gap-y-2 gap-x-6 text-sm sm:grid-cols-2">
+                    <div>
+                      <dt className="text-xs font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">
+                        Specialty
+                      </dt>
+                      <dd className="mt-1 text-zinc-700 dark:text-zinc-300">{provider.specialty}</dd>
+                    </div>
+                    <div>
+                      <dt className="text-xs font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">
+                        Languages
+                      </dt>
+                      <dd className="mt-1 text-zinc-700 dark:text-zinc-300">
+                        {provider.languages.join(", ")}
+                      </dd>
+                    </div>
+                    <div>
+                      <dt className="text-xs font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">
+                        FL License
+                      </dt>
+                      <dd className="mt-1 text-zinc-700 dark:text-zinc-300">
+                        {isVerifiedLicense(provider.license) ? (
+                          <>
+                            FL #{provider.license}{" "}
+                            <a
+                              href={licenseVerificationUrl(provider.license)}
+                              rel="noopener"
+                              target="_blank"
+                              className="text-zinc-500 underline underline-offset-2 hover:text-zinc-700 dark:text-zinc-400"
+                            >
+                              verify
+                            </a>
+                          </>
+                        ) : null}
+                      </dd>
+                    </div>
+                    <div>
+                      <dt className="text-xs font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">
+                        NPI
+                      </dt>
+                      <dd className="mt-1 text-zinc-700 dark:text-zinc-300">
+                        {isVerifiedNpi(provider.npi) ? (
+                          <>
+                            {provider.npi}{" "}
+                            <a
+                              href={npiRegistryUrl(provider.npi)}
+                              rel="noopener"
+                              target="_blank"
+                              className="text-zinc-500 underline underline-offset-2 hover:text-zinc-700 dark:text-zinc-400"
+                            >
+                              NPI Registry
+                            </a>
+                          </>
+                        ) : null}
+                      </dd>
+                    </div>
+                    <div>
+                      <dt className="text-xs font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">
+                        Board Certification
+                      </dt>
+                      <dd className="mt-1 text-zinc-700 dark:text-zinc-300">
+                        {provider.boardCertification !== "PENDING_BOARD"
+                          ? `${provider.boardCertification}, ${provider.boardYear}`
+                          : null}
+                      </dd>
+                    </div>
+                    <div>
+                      <dt className="text-xs font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">
+                        Licensing Board
+                      </dt>
+                      <dd className="mt-1 text-zinc-700 dark:text-zinc-300">{provider.licensingBoard}</dd>
+                    </div>
+                  </dl>
 
-                <p className="text-base leading-7 text-zinc-700 dark:text-zinc-300">
-                  {provider.summary}
+                  <p className="text-base leading-7 text-zinc-700 dark:text-zinc-300">
+                    {provider.summary}
+                  </p>
+
+                  <Link
+                    href={`/providers/${provider.slug}/`}
+                    className="self-start text-sm font-medium text-zinc-900 underline-offset-2 hover:underline dark:text-zinc-100"
+                  >
+                    Read full bio →
+                  </Link>
+                </article>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <article className="flex flex-col gap-5 rounded-2xl border border-zinc-200 bg-white p-7 shadow-sm dark:border-zinc-800 dark:bg-zinc-950">
+            <div className="flex gap-5">
+              <div
+                aria-hidden="true"
+                className="flex h-20 w-20 shrink-0 items-center justify-center rounded-full border border-zinc-300 bg-zinc-100 text-2xl font-semibold text-zinc-500 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-400"
+              >
+                SH
+              </div>
+              <div className="flex flex-col gap-1">
+                <h2 className="text-2xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50">
+                  Strong Health Miami&apos;s clinical team
+                </h2>
+                <p className="text-sm font-medium text-zinc-500 dark:text-zinc-400">
+                  Florida-licensed physicians
                 </p>
-
-                <Link
-                  href={`/providers/${provider.slug}/`}
-                  className="self-start text-sm font-medium text-zinc-900 underline-offset-2 hover:underline dark:text-zinc-100"
-                >
-                  Read full bio →
-                </Link>
-              </article>
-            </li>
-          ))}
-        </ul>
+              </div>
+            </div>
+            <p className="text-base leading-7 text-zinc-700 dark:text-zinc-300">
+              Every patient at Strong Health Miami is evaluated by a Florida-licensed
+              physician on our clinical team. Treatment plans, lab review, and
+              follow-ups happen under physician supervision in our Miami clinic.
+              Named-provider profiles will be published here once board credential
+              verification is complete.
+            </p>
+          </article>
+        )}
 
         <p className="text-sm text-zinc-500 dark:text-zinc-400">
           Our clinicians review every page within 180 days. See our editorial standards on the{" "}
