@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "eslint",
     "validate:citations": "npx tsx scripts/validate-citations.ts",
+    "validate:schema-ids": "npx tsx scripts/validate-schema-ids.ts",
     "lhci": "lhci autorun",
     "lhci:collect": "lhci collect",
     "lhci:assert": "lhci assert"

@@ -1,3 +1,5 @@
+import { siteUrl } from "@/lib/site";
+
 // Scaffolding placeholders per CEO policy. Real NAP, phone, and Google Business
 // Profile values land via STR-2 (publish gate) and STR-32 (call tracking). Do
 // not change without coordinating with those tickets.
@@ -11,9 +13,12 @@ export const business = {
   name: "Strong Health TRT Therapy",
   schemaName: "Strong Health Miami",
   legalName: "Strong Health",
-  url: "https://stronghealth.com",
-  image: "https://stronghealth.com/images/strong-health-miami-clinic.jpg",
-  logo: "https://stronghealth.com/images/strong-health-logo-512.png",
+  // STR-133 — the Miami clinic entity lives on miami.stronghealth.com. Pulling
+  // from `siteUrl` keeps JSON-LD `@id` / `url` on the canonical host so the
+  // structured-data graph, GBP listing, and crawlable canonical all agree.
+  url: siteUrl,
+  image: `${siteUrl}/images/strong-health-miami-clinic.jpg`,
+  logo: `${siteUrl}/images/strong-health-logo-512.png`,
   priceRange: "$$",
   // TODO: STR-2 — replace placeholder phone with the canonical NAP phone.
   phone: {

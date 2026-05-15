@@ -25,10 +25,9 @@ import { absoluteUrl } from "@/lib/site";
 
 const PAGE_PATH = "/delray-beach-trt-therapy/" as const;
 
-// og:url must match the page canonical (which Next derives from
-// `metadataBase = siteUrl`, the canonical Miami subdomain). `business.url`
-// is the bare apex `stronghealth.com` used for JSON-LD identity and would
-// leak a non-canonical OG host. Per STR-116 M3.
+// og:url must match the page canonical. Prefer `absoluteUrl` over
+// `${business.url}${PAGE_PATH}` so segment routes stay routed through the
+// canonical host helper rather than a copy of `business.url`.
 const canonicalUrl = absoluteUrl(PAGE_PATH);
 
 export const metadata: Metadata = {
