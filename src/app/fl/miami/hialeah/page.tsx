@@ -3,6 +3,7 @@ import Link from "next/link";
 import { NapBlock } from "@/components/nap-block";
 import { LocationMap } from "@/components/location-map";
 import { business } from "@/lib/business";
+import { drAngelRivera } from "@/lib/physician";
 import { absoluteUrl } from "@/lib/site";
 
 const pagePath = "/fl/miami/hialeah" as const;
@@ -244,7 +245,7 @@ export default function HialeahPage() {
             href={physicianPagePath}
             className="font-medium text-zinc-900 underline underline-offset-2 hover:no-underline dark:text-zinc-100"
           >
-            Dr. Angel Rivera
+            {drAngelRivera.name}
           </Link>
           ; his bio page covers training, credentials, and the panels we run.
         </p>
@@ -271,13 +272,12 @@ export default function HialeahPage() {
           Drive time from Hialeah landmarks to the Brickell clinic
         </h2>
         <p className="text-zinc-700 dark:text-zinc-300">
-          The clinic is at {business.address.displayLine1},{" "}
-          {business.address.displayLine2}, on the north edge of Brickell across
-          from downtown. The fastest route from most of Hialeah is the Palmetto
-          Expressway (SR-826) east to State Road 112, then south on I-95 to the
-          NW 8th Street exit. Surface-street alternatives via NW 27th Avenue or
-          NW 36th Street are slower but avoid I-95 backups. Estimates below are
-          for a normal weekday outside of rush hour.
+          The clinic serves the Miami metro from a downtown-Miami-area location.
+          The fastest route from most of Hialeah is the Palmetto Expressway
+          (SR-826) east to State Road 112, then south on I-95. Surface-street
+          alternatives via NW 27th Avenue or NW 36th Street are slower but
+          avoid I-95 backups. Estimates below are for a normal weekday outside
+          of rush hour. We confirm the exact clinic address when you book.
         </p>
         <ul className="grid gap-2 text-zinc-700 dark:text-zinc-300 sm:grid-cols-2">
           <li>

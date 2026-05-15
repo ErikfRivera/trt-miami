@@ -1,0 +1,225 @@
+import type { Metadata } from "next";
+import Link from "next/link";
+import { BreadcrumbSchema } from "@/components/breadcrumb-schema";
+import { FaqSchema, type FaqItem } from "@/components/faq-schema";
+import { business } from "@/lib/business";
+import { drAngelRivera } from "@/lib/physician";
+
+const PAGE_PATH = "/fl/miami/trt-therapy" as const;
+
+export const metadata: Metadata = {
+  title: {
+    absolute: "TRT Therapy in Miami, FL — Strong Health Miami",
+  },
+  description:
+    "Strong Health Miami is a physician-supervised testosterone replacement therapy clinic. Visit our contact page or call to schedule a consultation.",
+  alternates: { canonical: PAGE_PATH },
+};
+
+// Identity-bearing schemas (MedicalClinic, Physician) are intentionally NOT emitted
+// here yet. STR-37 (physician identity) and STR-2 / STR-32 (canonical NAP + phone)
+// resolve the placeholder values in `business.ts` and `physician.ts`. Re-enable
+// `<MedicalClinicSchema />` and `<PhysicianSchema />` (already implemented in
+// `src/components/`) once those issues land — no other change needed here.
+
+const faqItems: readonly FaqItem[] = [
+  {
+    question: "How do I book a consultation at Strong Health Miami?",
+    answer:
+      "Visit our contact page or call our clinic line. Same-week openings are usually available.",
+  },
+  {
+    question: "Where is the Strong Health Miami clinic located?",
+    answer:
+      "Our clinic is in Miami, FL. See our contact page for the full address and parking notes.",
+  },
+  {
+    question: "What are the clinic hours?",
+    answer:
+      "Monday through Friday from 8:00 a.m. to 6:00 p.m., and Saturday from 9:00 a.m. to 1:00 p.m. We are closed on Sundays.",
+  },
+  {
+    question: "Do you offer telehealth follow-ups?",
+    answer:
+      "Initial consultations take place in person at our Miami clinic. Routine follow-up visits can be conducted via secure video.",
+  },
+  {
+    question: "Do you accept insurance?",
+    answer:
+      "Strong Health Miami operates as a self-pay clinic. We can provide an itemized superbill on request so you can pursue out-of-network reimbursement with your insurer.",
+  },
+  {
+    question: "What lab work is required before starting treatment?",
+    answer:
+      "A baseline blood panel is required before any treatment plan is discussed. Your physician will determine and order the specific tests during your initial visit.",
+  },
+  {
+    question: "Which Miami neighborhoods do you serve?",
+    answer:
+      "We see patients from across Miami-Dade, including Brickell, Downtown, Coral Gables, Coconut Grove, Miami Beach, Aventura, Doral, Hialeah, and South Miami.",
+  },
+  {
+    question: "Who will I see for my consultation?",
+    answer:
+      "All consultations are conducted by a licensed physician. Our Medical Director oversees the program.",
+  },
+  {
+    question: "What should I bring to my first visit?",
+    answer:
+      "A government-issued photo ID, a list of any current medications and supplements, and any lab results from the past 12 months if available.",
+  },
+];
+
+const breadcrumbItems = [
+  { name: "Home", path: "/" as const },
+  { name: "Florida", path: "/fl" as const },
+  { name: "Miami", path: "/fl/miami" as const },
+  { name: "TRT Therapy", path: PAGE_PATH },
+];
+
+export default function MiamiTrtTherapyPage() {
+  return (
+    <>
+      <FaqSchema items={faqItems} />
+      <BreadcrumbSchema items={breadcrumbItems} />
+
+      <div className="mx-auto flex w-full max-w-5xl flex-col gap-12 px-6 py-16 sm:py-24">
+        <nav aria-label="Breadcrumb" className="text-sm text-zinc-500 dark:text-zinc-400">
+          <ol className="flex flex-wrap items-center gap-x-2">
+            {breadcrumbItems.map((item, index) => {
+              const isLast = index === breadcrumbItems.length - 1;
+              return (
+                <li key={item.path} className="flex items-center gap-x-2">
+                  {isLast ? (
+                    <span aria-current="page" className="text-zinc-700 dark:text-zinc-300">
+                      {item.name}
+                    </span>
+                  ) : (
+                    <>
+                      <Link
+                        href={item.path}
+                        className="underline-offset-2 hover:underline"
+                      >
+                        {item.name}
+                      </Link>
+                      <span aria-hidden="true">/</span>
+                    </>
+                  )}
+                </li>
+              );
+            })}
+          </ol>
+        </nav>
+
+        <header className="flex flex-col gap-4">
+          <p className="text-sm font-medium uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
+            Testosterone Replacement Therapy · Miami, FL
+          </p>
+          <h1 className="text-4xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-5xl">
+            TRT Therapy in Miami, FL
+          </h1>
+          <p className="max-w-2xl text-lg text-zinc-600 dark:text-zinc-400">
+            Physician-supervised testosterone replacement therapy at our Miami
+            clinic. Call to schedule a consultation with our medical team. We
+            also offer{" "}
+            <Link
+              href="/peptide-therapy"
+              className="font-medium text-zinc-900 underline-offset-2 hover:underline dark:text-zinc-100"
+            >
+              peptide therapy in Miami
+            </Link>
+            {" "}for weight loss, recovery, and hormone support.
+          </p>
+          <div className="flex flex-wrap gap-3">
+            <a
+              href={business.phone.href}
+              className="inline-flex h-11 items-center justify-center rounded-full bg-zinc-900 px-6 text-sm font-medium text-white transition-colors hover:bg-zinc-700 dark:bg-zinc-50 dark:text-zinc-900 dark:hover:bg-zinc-200"
+            >
+              Call {business.phone.display}
+            </a>
+            <Link
+              href="/contact"
+              className="inline-flex h-11 items-center justify-center rounded-full border border-zinc-300 px-6 text-sm font-medium text-zinc-900 transition-colors hover:bg-zinc-100 dark:border-zinc-700 dark:text-zinc-50 dark:hover:bg-zinc-900"
+            >
+              Request a consultation
+            </Link>
+          </div>
+        </header>
+
+        <section
+          aria-labelledby="visit-heading"
+          className="grid gap-6 rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm dark:border-zinc-800 dark:bg-zinc-950 sm:p-8 lg:grid-cols-3"
+        >
+          <div>
+            <h2
+              id="visit-heading"
+              className="text-2xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50"
+            >
+              Visit our Miami clinic
+            </h2>
+            <address className="mt-3 not-italic leading-6 text-zinc-600 dark:text-zinc-400">
+              <span className="block">{business.address.displayLine1}</span>
+              {business.address.displayLine2 ? (
+                <span className="block">{business.address.displayLine2}</span>
+              ) : null}
+            </address>
+          </div>
+          <div>
+            <h3 className="text-sm font-medium text-zinc-900 dark:text-zinc-100">Phone</h3>
+            <p className="mt-1">
+              <a
+                href={business.phone.href}
+                className="text-zinc-700 underline-offset-2 hover:underline dark:text-zinc-300"
+              >
+                {business.phone.display}
+              </a>
+            </p>
+          </div>
+          <div>
+            <h3 className="text-sm font-medium text-zinc-900 dark:text-zinc-100">Hours</h3>
+            <ul className="mt-1 text-zinc-600 dark:text-zinc-400">
+              <li>Mon–Fri: 8:00 a.m. – 6:00 p.m.</li>
+              <li>Sat: 9:00 a.m. – 1:00 p.m.</li>
+              <li>Sun: Closed</li>
+            </ul>
+          </div>
+        </section>
+
+        <section aria-labelledby="physician-heading" className="flex flex-col gap-3">
+          <h2
+            id="physician-heading"
+            className="text-2xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50"
+          >
+            Your Miami physician
+          </h2>
+          <p className="max-w-2xl text-zinc-600 dark:text-zinc-400">
+            <span className="font-medium text-zinc-900 dark:text-zinc-100">
+              {drAngelRivera.name}
+            </span>{" "}
+            — {drAngelRivera.jobTitle} at Strong Health Miami.{" "}
+            {drAngelRivera.description}
+          </p>
+        </section>
+
+        <section aria-labelledby="faq-heading" className="flex flex-col gap-6">
+          <h2
+            id="faq-heading"
+            className="text-2xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50"
+          >
+            Frequently asked questions
+          </h2>
+          <dl className="flex flex-col gap-6">
+            {faqItems.map((item) => (
+              <div key={item.question} className="flex flex-col gap-2">
+                <dt className="text-base font-medium text-zinc-900 dark:text-zinc-100">
+                  {item.question}
+                </dt>
+                <dd className="text-zinc-600 dark:text-zinc-400">{item.answer}</dd>
+              </div>
+            ))}
+          </dl>
+        </section>
+      </div>
+    </>
+  );
+}
