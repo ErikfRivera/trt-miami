@@ -75,3 +75,19 @@ export const absoluteUrl = (path: SitePath): string =>
 
 export const indexableRoutes = (locale?: "en" | "es"): readonly SiteRoute[] =>
   routes.filter((r) => !r.noindex && (!locale || r.locale === locale));
+
+// Segmented sitemap layout per STR-62. Locations live in their own segment so
+// the locations sitemap stays scoped to area/neighborhood pages and the EN
+// sitemap stays scoped to hub/service/method/info pillars.
+export type SitemapSegment = "en" | "es" | "locations";
+
+export const SITEMAP_SEGMENTS: readonly SitemapSegment[] = ["en", "es", "locations"] as const;
+
+export function sitemapSegmentFor(route: SiteRoute): SitemapSegment {
+  if (route.path === "/locations/" || route.path.startsWith("/locations/")) return "locations";
+  if (route.locale === "es") return "es";
+  return "en";
+}
+
+export const indexableRoutesForSegment = (segment: SitemapSegment): readonly SiteRoute[] =>
+  routes.filter((r) => !r.noindex && sitemapSegmentFor(r) === segment);
