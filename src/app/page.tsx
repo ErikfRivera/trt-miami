@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     absolute: "TRT Therapy Miami | Strong Health Miami, FL",
   },
   description:
-    "TRT therapy in the Miami area at Strong Health: physician-supervised testosterone replacement, full bloodwork, transparent self-pay pricing, same-week consultations across Brickell, Coral Gables, Doral, Aventura, and the wider Miami-Dade.",
+    "TRT therapy in Miami at Strong Health — physician-supervised testosterone replacement, full bloodwork, transparent self-pay, same-week consultations.",
   alternates: alternatesFor("/"),
 };
 
@@ -193,10 +193,10 @@ export default function Home() {
             Testosterone Replacement Therapy · Miami-Dade, FL
           </p>
           <h1 className="text-4xl font-semibold leading-tight tracking-tight text-white sm:text-6xl sm:leading-[1.05]">
-            Testosterone Replacement
-            <br className="hidden sm:block" /> Therapy in the{" "}
-            <span className="text-amber-400">Miami area</span> —
-            physician-supervised, evidence-based.
+            Testosterone Replacement Therapy (TRT)
+            <br className="hidden sm:block" /> in{" "}
+            <span className="text-amber-400">Miami</span> —
+            Physician-Supervised, Evidence-Based.
           </h1>
           <p className="max-w-2xl text-lg leading-8 text-slate-300">
             Florida-licensed physicians. Full bloodwork. Transparent self-pay
