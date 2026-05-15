@@ -4,7 +4,13 @@ const directionsHref = `https://www.google.com/maps/dir/?api=1&destination=${enc
   `${business.schemaName}, Miami, FL`,
 )}`;
 
-export function NapBlock() {
+type NapBlockProps = {
+  /** Heading text override (defaults to `business.name`). Use to keep the
+   *  brand-name H2 from leaking the Miami geo on non-Miami city pages. */
+  heading?: string;
+};
+
+export function NapBlock({ heading = business.name }: NapBlockProps = {}) {
   return (
     <section
       aria-labelledby="nap-heading"
@@ -15,7 +21,7 @@ export function NapBlock() {
           id="nap-heading"
           className="text-2xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50"
         >
-          {business.name}
+          {heading}
         </h2>
         <p className="mt-1 text-sm text-zinc-500 dark:text-zinc-400">
           Visit us or call to book a free consultation.

@@ -175,9 +175,50 @@ export const trtClinicMiamiFaqs: readonly FaqEntry[] = [
 
 export const trtCostFaqs: readonly FaqEntry[] = [faqCost, faqInsurance] as const;
 
-// Delray Beach-specific variants (per STR-100 brief §5).
-// Two items need fresh geo-specific copy; six are reused verbatim from
-// trtClinicMiamiFaqs (see trtClinicDelrayFaqs below).
+// Delray Beach-specific variants (per STR-100 brief §5 + STR-116 M1).
+// Five answers needed Delray rewording to remove "Miami clinic" geo leakage
+// — Q1 and Q4 use "our clinic"/"our clinicians" (modality discussion is
+// generic), Q2/Q3/Q5 are made Delray-specific for local relevance.
+
+export const faqWhatIsTrtDelray: FaqEntry = {
+  id: "what-is-trt-delray",
+  inSchema: true,
+  question: "What is testosterone replacement therapy (TRT)?",
+  answer:
+    "Testosterone replacement therapy (TRT) is a prescription medical treatment that restores testosterone to a normal range in men diagnosed with clinically low testosterone (hypogonadism). At our clinic, TRT is delivered as injections, topical gels, or implanted pellets after blood work confirms a deficiency. The FDA approves TRT only for men with low testosterone caused by a documented medical condition — not as a general anti-aging or performance treatment.",
+};
+
+export const faqLowTSymptomsDelray: FaqEntry = {
+  id: "signs-of-low-testosterone-delray",
+  inSchema: true,
+  question: "How do I know if I have low testosterone?",
+  answer:
+    "Low testosterone often shows up as fatigue, low libido, erectile difficulty, reduced muscle mass, mood changes, brain fog, and unexplained weight gain. Diagnosis cannot be made on symptoms alone — the American Urological Association requires two separate early-morning blood tests showing total testosterone below 300 ng/dL, combined with consistent symptoms. Strong Health uses this two-test protocol for every Delray Beach patient before any testosterone replacement therapy is recommended.",
+};
+
+export const faqBloodTestsDelray: FaqEntry = {
+  id: "trt-blood-tests-delray",
+  inSchema: true,
+  question: "What blood tests are needed before starting TRT?",
+  answer:
+    "Before starting TRT, Strong Health orders two early-morning total testosterone tests on separate days, free testosterone, a complete blood count (CBC) to check hematocrit, a lipid panel, PSA (men 40+ or with risk factors), estradiol, LH and FSH, and a comprehensive metabolic panel. Delray Beach patients can draw locally and the results are reviewed by a Florida-licensed physician. These tests confirm the diagnosis, identify any underlying cause, and establish baseline values that we monitor at 30 days and every 6–12 months after starting therapy.",
+};
+
+export const faqHowAdministeredDelray: FaqEntry = {
+  id: "how-is-trt-administered-delray",
+  inSchema: true,
+  question: "How is TRT administered?",
+  answer:
+    "TRT is given in several FDA-approved forms: weekly intramuscular or subcutaneous injections of testosterone cypionate or enanthate, daily topical gels or solutions, subdermal pellets implanted every 3–6 months, transdermal patches, buccal tablets, and a long-acting injection (testosterone undecanoate) every 10 weeks. Each form has trade-offs in convenience, cost, and how steady the testosterone levels stay. Our clinicians match the form to the patient's goals and lifestyle.",
+};
+
+export const faqFertilityDelray: FaqEntry = {
+  id: "trt-and-fertility-delray",
+  inSchema: true,
+  question: "Will TRT affect my fertility?",
+  answer:
+    "Yes — exogenous testosterone suppresses the body's own testosterone production and reduces sperm count, which can cause temporary or sometimes longer-lasting infertility. The American Urological Association strongly recommends against starting TRT in men currently trying to conceive. Delray Beach patients who want to preserve fertility have alternatives such as clomiphene citrate or hCG, which can raise testosterone without shutting down sperm production. We screen for fertility goals before any prescription is written.",
+};
 
 export const faqSideEffectsDelray: FaqEntry = {
   id: "trt-side-effects-delray",
@@ -197,14 +238,16 @@ export const faqCostDelray: FaqEntry = {
 
 // 8-item FAQ set for /delray-beach-trt-therapy/ per STR-100 brief §5.
 // Order: foundation → diagnosis → safety → fertility → commitment → cost.
+// Per STR-116 M1, the five Miami-leak answers are swapped for Delray variants;
+// faqHowLongResults is city-agnostic so reused as-is.
 export const trtClinicDelrayFaqs: readonly FaqEntry[] = [
-  faqWhatIsTrt,
-  faqLowTSymptoms,
-  faqBloodTests,
-  faqHowAdministered,
+  faqWhatIsTrtDelray,
+  faqLowTSymptomsDelray,
+  faqBloodTestsDelray,
+  faqHowAdministeredDelray,
   faqHowLongResults,
   faqSideEffectsDelray,
-  faqFertility,
+  faqFertilityDelray,
   faqCostDelray,
 ] as const;
 

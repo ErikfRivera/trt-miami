@@ -21,10 +21,15 @@ import {
   buildService,
 } from "@/lib/schema";
 import type { BreadcrumbItem } from "@/lib/schema/breadcrumb";
+import { absoluteUrl } from "@/lib/site";
 
 const PAGE_PATH = "/delray-beach-trt-therapy/" as const;
 
-const canonicalUrl = `${business.url}${PAGE_PATH}`;
+// og:url must match the page canonical (which Next derives from
+// `metadataBase = siteUrl`, the canonical Miami subdomain). `business.url`
+// is the bare apex `stronghealth.com` used for JSON-LD identity and would
+// leak a non-canonical OG host. Per STR-116 M3.
+const canonicalUrl = absoluteUrl(PAGE_PATH);
 
 export const metadata: Metadata = {
   title: {
@@ -35,7 +40,11 @@ export const metadata: Metadata = {
   alternates: alternatesFor(PAGE_PATH),
   openGraph: {
     type: "website",
-    siteName: "Strong Health TRT Therapy Miami",
+    // Override sitewide "Strong Health TRT Therapy Miami" siteName on this
+    // non-Miami city page so Facebook/LinkedIn shares don't anchor Delray
+    // socials to a Miami brand label (STR-116 M3). Sitewide cleanup of the
+    // Miami-anchored siteName tracked separately in [STR-118].
+    siteName: "Strong Health TRT Therapy",
     url: canonicalUrl,
     title: "TRT Delray Beach, FL | Strong Health TRT Therapy Clinic",
     description:
@@ -393,7 +402,9 @@ export default function DelrayBeachTrtPage() {
             follow-ups are available statewide in Florida.
           </p>
           <div className="grid gap-8 lg:grid-cols-2 lg:items-start">
-            <NapBlock />
+            {/* Brand heading overridden to remove Miami geo signal on this
+                Delray page (STR-116 M2). NAP placeholders are still STR-107. */}
+            <NapBlock heading="Strong Health TRT — Delray Beach" />
             {/* TODO: STR-107 — replace embed with Delray Beach office coords once NAP confirmed. */}
             <div className="relative w-full overflow-hidden rounded-2xl border border-zinc-200 bg-zinc-100 shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
               <div className="relative aspect-[4/3] w-full sm:aspect-[16/9]">
