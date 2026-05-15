@@ -1,6 +1,7 @@
 import { absoluteUrl, type SitePath } from "@/lib/site";
 import { drAngelRivera } from "@/lib/physician";
-import { physicianId, procedureId } from "./ids";
+import { hasVerifiedMedicalDirector } from "@/lib/medical-director";
+import { HOME_BUSINESS_ID, physicianId, procedureId } from "./ids";
 import type { SchemaNode } from "./types";
 
 export type MedicalProcedureInput = {
@@ -32,8 +33,14 @@ export const buildMedicalProcedure = (input: MedicalProcedureInput): SchemaNode 
   if (input.preparation) node.preparation = input.preparation;
   if (input.followup) node.followup = input.followup;
   if (input.bodyLocation) node.bodyLocation = input.bodyLocation;
-  // Default to medical director if no explicit performer URL is supplied.
-  const performerUrl = input.performerPhysicianUrl ?? drAngelRivera.url;
-  node.performer = { "@id": physicianId(performerUrl) };
+  // STR-137 — performer falls back to the clinic (MedicalBusiness) while no
+  // verified medical director is published. Once the flag flips back to true,
+  // the named physician resumes the performer slot.
+  if (hasVerifiedMedicalDirector) {
+    const performerUrl = input.performerPhysicianUrl ?? drAngelRivera.url;
+    node.performer = { "@id": physicianId(performerUrl) };
+  } else {
+    node.performer = { "@id": HOME_BUSINESS_ID };
+  }
   return node as SchemaNode;
 };

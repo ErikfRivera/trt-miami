@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { JsonLd } from "@/components/json-ld";
+import { hasVerifiedMedicalDirector } from "@/lib/medical-director";
 import { buildGraph } from "@/lib/schema/graph";
 import { buildPageCitationSchema } from "@/lib/schema/citation";
 import type { CitationItem, CitationReviewer } from "@/lib/citations/types";
@@ -80,20 +81,36 @@ export function CitationBlock({ citations, reviewer, lastReviewed, pagePath }: C
             </li>
           ))}
         </ol>
-        <p className="text-xs text-zinc-500 dark:text-zinc-400">
-          Last medical review:{" "}
-          <time dateTime={lastReviewed}>{formatDate(lastReviewed)}</time> by{" "}
-          <Link
-            href={`/providers/${reviewer.slug}/`}
-            rel="author"
-            className="font-medium text-zinc-700 underline-offset-2 hover:underline dark:text-zinc-300"
-          >
-            {reviewer.name}, {reviewer.credentials}
-          </Link>
-          {". "}
-          Next scheduled review:{" "}
-          <time dateTime={nextReview}>{formatDate(nextReview)}</time>.
-        </p>
+        {/*
+          STR-137 — reviewer card is gated by `hasVerifiedMedicalDirector`.
+          Until a real medical director is published, every YMYL route renders
+          the generic clinical-team attribution. The named-physician branch
+          below is preserved verbatim so the rewire is a flag flip.
+        */}
+        {hasVerifiedMedicalDirector ? (
+          <p className="text-xs text-zinc-500 dark:text-zinc-400">
+            Last medical review:{" "}
+            <time dateTime={lastReviewed}>{formatDate(lastReviewed)}</time> by{" "}
+            <Link
+              href={`/providers/${reviewer.slug}/`}
+              rel="author"
+              className="font-medium text-zinc-700 underline-offset-2 hover:underline dark:text-zinc-300"
+            >
+              {reviewer.name}, {reviewer.credentials}
+            </Link>
+            {". "}
+            Next scheduled review:{" "}
+            <time dateTime={nextReview}>{formatDate(nextReview)}</time>.
+          </p>
+        ) : (
+          <p className="text-xs text-zinc-500 dark:text-zinc-400">
+            {"Medically reviewed by Strong Health Miami's clinical team. Last reviewed "}
+            <time dateTime={lastReviewed}>{lastReviewed}</time>
+            {". Next scheduled review: "}
+            <time dateTime={nextReview}>{nextReview}</time>
+            {"."}
+          </p>
+        )}
       </section>
     </>
   );

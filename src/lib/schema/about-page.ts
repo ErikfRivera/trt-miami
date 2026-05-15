@@ -1,3 +1,4 @@
+import { hasVerifiedMedicalDirector } from "@/lib/medical-director";
 import { absoluteUrl, type SitePath } from "@/lib/site";
 import { HOME_BUSINESS_ID, physicianId } from "./ids";
 import type { SchemaNode } from "./types";
@@ -18,7 +19,10 @@ export const buildAboutPage = (input: AboutPageInput): SchemaNode => {
     description: input.description,
     mainEntity: { "@id": HOME_BUSINESS_ID },
   };
-  if (input.founderPhysicianUrl) {
+  // STR-137 — the founder/about-the-physician reference depends on the
+  // Physician/Person node existing in the graph. Skip the cross-reference
+  // when that node is suppressed.
+  if (input.founderPhysicianUrl && hasVerifiedMedicalDirector) {
     node.about = { "@id": physicianId(input.founderPhysicianUrl) };
   }
   return node as SchemaNode;

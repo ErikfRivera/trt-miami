@@ -1,4 +1,5 @@
 import { drAngelRivera, type Physician } from "@/lib/physician";
+import { hasVerifiedMedicalDirector } from "@/lib/medical-director";
 import {
   isVerifiedLicense,
   isVerifiedNpi,
@@ -15,6 +16,12 @@ const isVerified = (value: string): boolean =>
 // represents the clinical entity; the physician is a person who `worksFor`
 // that business. This avoids two clashing schema identities for the same
 // individual and lines up with Google's E-E-A-T author/reviewer model.
+//
+// STR-137 — `buildPhysician` is kept emitting a complete node from raw data
+// so the schema-id parity check still exercises it. Pages that publish the
+// reviewer entity should call `physicianSchemaNode()` below, which respects
+// the `hasVerifiedMedicalDirector` flag and returns null when no real
+// medical director identity has been published yet.
 export const buildPhysician = (physician: Physician = drAngelRivera): SchemaNode => {
   const node: Record<string, unknown> = {
     "@type": "Person",
@@ -109,6 +116,13 @@ export const buildPhysician = (physician: Physician = drAngelRivera): SchemaNode
   if (physician.image) node.image = physician.image;
   return node as SchemaNode;
 };
+
+// STR-137 — flag-gated emission helper. Page schema arrays should use this
+// instead of `buildPhysician()` directly so the Physician/Person node is
+// only published when a real medical director has been verified.
+export const physicianSchemaNode = (
+  physician: Physician = drAngelRivera,
+): SchemaNode | null => (hasVerifiedMedicalDirector ? buildPhysician(physician) : null);
 
 const stripUndefined = (
   record: Record<string, unknown>,

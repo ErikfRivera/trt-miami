@@ -1,5 +1,6 @@
 import { absoluteUrl, type SitePath } from "@/lib/site";
 import { drAngelRivera } from "@/lib/physician";
+import { hasVerifiedMedicalDirector } from "@/lib/medical-director";
 import { physicianId } from "./ids";
 import type { SchemaNode } from "./types";
 
@@ -24,17 +25,23 @@ export type MedicalWebPageInput = {
 };
 
 export const buildMedicalWebPage = (input: MedicalWebPageInput): SchemaNode => {
-  const reviewerUrl = input.reviewerPhysicianUrl ?? drAngelRivera.url;
-  const reviewerNodeId = physicianId(reviewerUrl);
   const node: Record<string, unknown> = {
     "@type": "MedicalWebPage",
     "@id": `${absoluteUrl(input.pagePath)}#medical-page`,
     url: absoluteUrl(input.pagePath),
     lastReviewed: input.lastReviewed,
-    reviewedBy: { "@id": reviewerNodeId },
     specialty: input.specialty,
   };
-  if (input.mainEntityId) node.mainEntity = { "@id": input.mainEntityId };
+  // STR-137 — only emit `reviewedBy` while a real medical director is
+  // published. The Physician/Person node is gated by the same flag; emitting
+  // the @id reference without the target node would create a dangling
+  // identifier in the JSON-LD graph and tell Google the page was reviewed
+  // by an entity it cannot resolve.
+  if (hasVerifiedMedicalDirector) {
+    const reviewerUrl = input.reviewerPhysicianUrl ?? drAngelRivera.url;
+    node.reviewedBy = { "@id": physicianId(reviewerUrl) };
+    if (input.mainEntityId) node.mainEntity = { "@id": input.mainEntityId };
+  }
   if (input.dateModified) node.dateModified = input.dateModified;
   return node as SchemaNode;
 };

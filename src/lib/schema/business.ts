@@ -1,4 +1,5 @@
 import { business } from "@/lib/business";
+import { hasVerifiedMedicalDirector } from "@/lib/medical-director";
 import { absoluteUrl, type SitePath } from "@/lib/site";
 import {
   HOME_BUSINESS_ID,
@@ -89,7 +90,11 @@ export const buildMedicalBusiness = (
   if (options.serviceIds?.length) {
     node.availableService = options.serviceIds.map((id) => ({ "@id": id }));
   }
-  if (options.physicianUrls?.length) {
+  // STR-137 — `employee` references the Physician/Person @id. That node is
+  // only published while a verified medical director exists, so we omit
+  // `employee` entirely in the unverified state rather than emitting a
+  // dangling @id pointer to a non-existent node.
+  if (hasVerifiedMedicalDirector && options.physicianUrls?.length) {
     node.employee = options.physicianUrls.map((url) => ({ "@id": physicianId(url) }));
   }
   if (options.reviewIds?.length) {
