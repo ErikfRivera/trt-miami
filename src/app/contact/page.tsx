@@ -1,10 +1,17 @@
 import type { Metadata } from "next";
 import { NapBlock } from "@/components/nap-block";
 import { LocationMap } from "@/components/location-map";
+import { SchemaGraph } from "@/components/schema-graph";
 import { business } from "@/lib/business";
 import { alternatesFor } from "@/lib/hreflangMap";
+import { buildBreadcrumbList, buildMedicalBusiness } from "@/lib/schema";
 
 const PAGE_PATH = "/contact/" as const;
+
+const schemaNodes = [
+  buildMedicalBusiness({}),
+  buildBreadcrumbList([{ name: "Home", path: "/" }, { name: "Contact", path: PAGE_PATH }], PAGE_PATH),
+];
 
 export const metadata: Metadata = {
   title: "Contact",
@@ -15,6 +22,7 @@ export const metadata: Metadata = {
 export default function ContactPage() {
   return (
     <div className="mx-auto flex w-full max-w-5xl flex-col gap-12 px-6 py-16 sm:py-24">
+      <SchemaGraph nodes={schemaNodes} />
       <header className="flex flex-col gap-3">
         <p className="text-sm font-medium uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
           Contact

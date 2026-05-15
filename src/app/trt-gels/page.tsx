@@ -1,11 +1,25 @@
 import type { Metadata } from "next";
 import { CitationBlock } from "@/components/citation-block";
 import { PageStub } from "@/components/page-stub";
+import { SchemaGraph } from "@/components/schema-graph";
 import { pageCitations } from "@/lib/citations/page-citations";
 import { primaryReviewer } from "@/lib/providers/registry";
+import { buildBreadcrumbList, buildMedicalTherapy } from "@/lib/schema";
 
 const PAGE_PATH = "/trt-gels/" as const;
 const { citations, lastReviewed } = pageCitations(PAGE_PATH);
+
+const schemaNodes = [
+  buildMedicalTherapy({
+    pagePath: PAGE_PATH,
+    name: "Testosterone Gel Therapy",
+    alternateNames: ["TRT Gels", "Transdermal Testosterone"],
+    indication: "Male hypogonadism (low testosterone)",
+    adverseOutcomes: ["Skin irritation", "Transfer risk to others", "Hormonal imbalance if misapplied"],
+    contraindications: ["Women", "Children", "Patients with skin conditions at application site"],
+  }),
+  buildBreadcrumbList([{ name: "Home", path: "/" }, { name: "TRT Gels", path: PAGE_PATH }], PAGE_PATH),
+];
 
 export const metadata: Metadata = {
   title: { absolute: "TRT Gels in Miami — Strong Health" },
@@ -17,6 +31,7 @@ export const metadata: Metadata = {
 export default function TrtGelsPage() {
   return (
     <>
+      <SchemaGraph nodes={schemaNodes} />
       <PageStub
         eyebrow="TRT Method · Miami, FL"
         heading="TRT Gels in Miami"

@@ -1,11 +1,25 @@
 import type { Metadata } from "next";
 import { CitationBlock } from "@/components/citation-block";
 import { PageStub } from "@/components/page-stub";
+import { SchemaGraph } from "@/components/schema-graph";
 import { pageCitations } from "@/lib/citations/page-citations";
 import { primaryReviewer } from "@/lib/providers/registry";
+import { buildBreadcrumbList, buildMedicalTherapy } from "@/lib/schema";
 
 const PAGE_PATH = "/trt-pellets/" as const;
 const { citations, lastReviewed } = pageCitations(PAGE_PATH);
+
+const schemaNodes = [
+  buildMedicalTherapy({
+    pagePath: PAGE_PATH,
+    name: "Testosterone Pellet Therapy",
+    alternateNames: ["TRT Pellets", "Subcutaneous Testosterone Pellets"],
+    indication: "Male hypogonadism (low testosterone)",
+    adverseOutcomes: ["Pellet extrusion", "Infection at insertion site", "Hormonal fluctuations"],
+    contraindications: ["Active prostate cancer", "Breast cancer"],
+  }),
+  buildBreadcrumbList([{ name: "Home", path: "/" }, { name: "TRT Pellets", path: PAGE_PATH }], PAGE_PATH),
+];
 
 export const metadata: Metadata = {
   title: { absolute: "TRT Pellets in Miami — Strong Health" },
@@ -17,6 +31,7 @@ export const metadata: Metadata = {
 export default function TrtPelletsPage() {
   return (
     <>
+      <SchemaGraph nodes={schemaNodes} />
       <PageStub
         eyebrow="TRT Method · Miami, FL"
         heading="TRT Pellets in Miami"

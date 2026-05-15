@@ -1,11 +1,19 @@
 import type { Metadata } from "next";
 import { CitationBlock } from "@/components/citation-block";
 import { PageStub } from "@/components/page-stub";
+import { SchemaGraph } from "@/components/schema-graph";
 import { pageCitations } from "@/lib/citations/page-citations";
 import { primaryReviewer } from "@/lib/providers/registry";
+import { buildBreadcrumbList, buildMedicalWebPage, buildPageCitationSchema } from "@/lib/schema";
 
 const PAGE_PATH = "/does-insurance-cover-trt/" as const;
 const { citations, lastReviewed } = pageCitations(PAGE_PATH);
+
+const schemaNodes = [
+  buildMedicalWebPage({ pagePath: PAGE_PATH, lastReviewed, specialty: "Endocrinology" }),
+  buildPageCitationSchema(PAGE_PATH, citations),
+  buildBreadcrumbList([{ name: "Home", path: "/" }, { name: "Does insurance cover TRT?", path: PAGE_PATH }], PAGE_PATH),
+];
 
 export const metadata: Metadata = {
   title: { absolute: "Does Insurance Cover TRT? — Strong Health Miami" },
@@ -17,6 +25,7 @@ export const metadata: Metadata = {
 export default function DoesInsuranceCoverTrtPage() {
   return (
     <>
+      <SchemaGraph nodes={schemaNodes} />
       <PageStub
         eyebrow="Insurance & TRT · Miami, FL"
         heading="Does insurance cover TRT?"
