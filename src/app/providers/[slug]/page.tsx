@@ -7,6 +7,7 @@ import { drAngelRivera } from "@/lib/physician";
 import { getProviderBySlug, providers, providerDisplayName } from "@/lib/providers/registry";
 import { buildBreadcrumbList } from "@/lib/schema";
 import { physicianSchemaNode } from "@/lib/schema/physician";
+import { pageMetadata } from "@/lib/seo";
 import type { SitePath } from "@/lib/site";
 
 interface Props {
@@ -28,14 +29,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const provider = getProviderBySlug(slug);
   if (!provider) return {};
   const verified = hasVerifiedMedicalDirector;
+  const title = verified
+    ? `${providerDisplayName(provider)} — Strong Health Miami`
+    : "Strong Health Miami clinical team";
+  const description = verified
+    ? provider.summary
+    : "Strong Health Miami is a Florida-licensed hormone-health clinic. Every patient is evaluated by a physician on our clinical team.";
   return {
-    title: verified
-      ? { absolute: `${providerDisplayName(provider)} — Strong Health Miami` }
-      : { absolute: "Strong Health Miami clinical team" },
-    description: verified
-      ? provider.summary
-      : "Strong Health Miami is a Florida-licensed hormone-health clinic. Every patient is evaluated by a physician on our clinical team.",
-    alternates: { canonical: providerPagePath(slug) },
+    ...pageMetadata({ path: providerPagePath(slug), title, description }),
     robots: verified ? undefined : { index: false, follow: false },
   };
 }
