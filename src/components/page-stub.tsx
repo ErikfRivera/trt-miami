@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { BreadcrumbSchema, type BreadcrumbItem } from "@/components/breadcrumb-schema";
+import type { BreadcrumbItem } from "@/components/breadcrumb-schema";
 import { business } from "@/lib/business";
 import type { SitePath } from "@/lib/site";
 
@@ -16,10 +16,13 @@ export type PageStubProps = {
 // (STR-91 unblocked GSC indexing for the TRT Miami program). Marketing/content
 // progressively fills the body — stubs are NOT noindex'd by default anymore.
 // Reserve noindex for explicit drafts (e.g. /es/ pages awaiting translation).
+//
+// PageStub is UI-only. The page owns its JSON-LD: include
+// `buildBreadcrumbList(...)` (and any other schema) in the page's
+// `<SchemaGraph nodes>` so the graph emits once per route (STR-134).
 export function PageStub({ eyebrow, heading, intro, breadcrumbs, relatedLinks }: PageStubProps) {
   return (
     <>
-      <BreadcrumbSchema items={breadcrumbs} />
       <div className="mx-auto flex w-full max-w-4xl flex-col gap-10 px-6 py-16 sm:py-24">
         <nav aria-label="Breadcrumb" className="text-sm text-zinc-500 dark:text-zinc-400">
           <ol className="flex flex-wrap items-center gap-x-2">

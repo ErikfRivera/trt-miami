@@ -1,8 +1,5 @@
 import Link from "next/link";
-import { JsonLd } from "@/components/json-ld";
 import { hasVerifiedMedicalDirector } from "@/lib/medical-director";
-import { buildGraph } from "@/lib/schema/graph";
-import { buildPageCitationSchema } from "@/lib/schema/citation";
 import type { CitationItem, CitationReviewer } from "@/lib/citations/types";
 import type { SitePath } from "@/lib/site";
 
@@ -10,6 +7,13 @@ type CitationBlockProps = {
   citations: readonly CitationItem[];
   reviewer: CitationReviewer;
   lastReviewed: string;
+  /**
+   * Page path retained for parity with `buildPageCitationSchema` callers.
+   * STR-134: the citation `MedicalWebPage` node is now owned by the page
+   * (`<SchemaGraph nodes={[..., buildPageCitationSchema(path, citations)]}>`),
+   * so this component no longer emits JSON-LD. The prop is left in place to
+   * keep call sites compatible while the schema migration is wrapping up.
+   */
   pagePath: SitePath;
 };
 
@@ -28,13 +32,11 @@ function formatDate(isoDate: string): string {
   });
 }
 
-export function CitationBlock({ citations, reviewer, lastReviewed, pagePath }: CitationBlockProps) {
+export function CitationBlock({ citations, reviewer, lastReviewed }: CitationBlockProps) {
   const nextReview = addDays(lastReviewed, 180);
-  const citationSchema = buildPageCitationSchema(pagePath, citations);
 
   return (
     <>
-      <JsonLd data={buildGraph(citationSchema)} />
       <section
         id="references"
         aria-label="Citations and sources"
