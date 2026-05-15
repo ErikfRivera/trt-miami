@@ -13,14 +13,15 @@ import {
 } from "@/lib/schema";
 import { drAngelRivera } from "@/lib/physician";
 import type { BreadcrumbItem } from "@/lib/schema/breadcrumb";
+import { pageMetadata } from "@/lib/seo";
 
 const PAGE_PATH = "/about/" as const;
 
-export const metadata: Metadata = {
-  title: { absolute: `About ${business.legalName} | Miami Hormone Health Clinic` },
+export const metadata: Metadata = pageMetadata({
+  path: PAGE_PATH,
+  title: `About ${business.legalName} | Miami Hormone Health Clinic`,
   description: `${business.legalName} is a Miami hormone clinic specializing in TRT and HRT. Bilingual care, Florida-licensed physician, lab-based protocols.`,
-  alternates: { canonical: PAGE_PATH },
-};
+});
 
 const breadcrumbs: readonly BreadcrumbItem[] = [
   { name: "Home", path: "/" },

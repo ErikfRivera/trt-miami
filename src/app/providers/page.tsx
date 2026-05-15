@@ -11,15 +11,16 @@ import {
 } from "@/lib/providers/verification-urls";
 import { buildCollectionPage, buildBreadcrumbList, buildPhysician } from "@/lib/schema";
 import type { BreadcrumbItem } from "@/lib/schema/breadcrumb";
+import { pageMetadata } from "@/lib/seo";
 
 const PAGE_PATH = "/providers/" as const;
 
-export const metadata: Metadata = {
-  title: { absolute: `Our Medical Providers | ${business.legalName} Miami` },
+export const metadata: Metadata = pageMetadata({
+  path: PAGE_PATH,
+  title: `Our Medical Providers | ${business.legalName} Miami`,
   description:
     "Meet the Florida-licensed physicians behind Strong Health Miami. Board-certified, NPI-verified, and accountable for every clinical page on this site.",
-  alternates: { canonical: PAGE_PATH },
-};
+});
 
 const breadcrumbs: readonly BreadcrumbItem[] = [
   { name: "Home", path: "/" },

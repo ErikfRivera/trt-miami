@@ -5,6 +5,7 @@ import { SchemaGraph } from "@/components/schema-graph";
 import { pageCitations } from "@/lib/citations/page-citations";
 import { primaryReviewer } from "@/lib/providers/registry";
 import { buildBreadcrumbList, buildMedicalWebPage, buildPageCitationSchema } from "@/lib/schema";
+import { pageMetadata } from "@/lib/seo";
 
 const PAGE_PATH = "/does-insurance-cover-trt/" as const;
 const { citations, lastReviewed } = pageCitations(PAGE_PATH);
@@ -15,12 +16,12 @@ const schemaNodes = [
   buildBreadcrumbList([{ name: "Home", path: "/" }, { name: "Does insurance cover TRT?", path: PAGE_PATH }], PAGE_PATH),
 ];
 
-export const metadata: Metadata = {
-  title: { absolute: "Does Insurance Cover TRT? — Strong Health Miami" },
+export const metadata: Metadata = pageMetadata({
+  path: PAGE_PATH,
+  title: "Does Insurance Cover TRT? — Strong Health Miami",
   description:
     "What private insurance, Medicare, and HSAs typically cover for TRT. Detailed page content in progress.",
-  alternates: { canonical: PAGE_PATH },
-};
+});
 
 export default function DoesInsuranceCoverTrtPage() {
   return (

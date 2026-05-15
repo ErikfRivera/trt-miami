@@ -5,6 +5,7 @@ import { SchemaGraph } from "@/components/schema-graph";
 import { pageCitations } from "@/lib/citations/page-citations";
 import { primaryReviewer } from "@/lib/providers/registry";
 import { buildBreadcrumbList, buildMedicalWebPage, buildPageCitationSchema } from "@/lib/schema";
+import { pageMetadata } from "@/lib/seo";
 
 const PAGE_PATH = "/is-trt-safe/" as const;
 const { citations, lastReviewed } = pageCitations(PAGE_PATH);
@@ -15,12 +16,12 @@ const schemaNodes = [
   buildBreadcrumbList([{ name: "Home", path: "/" }, { name: "Is TRT safe?", path: PAGE_PATH }], PAGE_PATH),
 ];
 
-export const metadata: Metadata = {
-  title: { absolute: "Is TRT Safe? — Strong Health Miami" },
+export const metadata: Metadata = pageMetadata({
+  path: PAGE_PATH,
+  title: "Is TRT Safe? — Strong Health Miami",
   description:
     "Is testosterone replacement therapy safe? A physician-reviewed overview of risks, contraindications, and monitoring. Detailed page content in progress.",
-  alternates: { canonical: PAGE_PATH },
-};
+});
 
 export default function IsTrtSafePage() {
   return (

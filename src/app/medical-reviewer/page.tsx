@@ -7,6 +7,7 @@ import { reviewedPagesByReviewer } from "@/lib/providers/reviewed-pages";
 import { buildMedicalWebPage, buildBreadcrumbList } from "@/lib/schema";
 import { physicianId } from "@/lib/schema/ids";
 import type { BreadcrumbItem } from "@/lib/schema/breadcrumb";
+import { pageMetadata } from "@/lib/seo";
 
 const PAGE_PATH = "/medical-reviewer/" as const;
 
@@ -15,12 +16,12 @@ const PAGE_PATH = "/medical-reviewer/" as const;
 // the schema reports a coherent review-and-update cadence.
 const PAGE_REVIEW_DATE = "2026-05-15" as const;
 
-export const metadata: Metadata = {
-  title: { absolute: `Medical Review Standards | ${business.legalName}` },
+export const metadata: Metadata = pageMetadata({
+  path: PAGE_PATH,
+  title: `Medical Review Standards | ${business.legalName}`,
   description:
     "How we review medical content at Strong Health Miami: named physician reviewer, 180-day refresh, primary-source citations.",
-  alternates: { canonical: PAGE_PATH },
-};
+});
 
 const breadcrumbs: readonly BreadcrumbItem[] = [
   { name: "Home", path: "/" },

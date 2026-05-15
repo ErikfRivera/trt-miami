@@ -17,18 +17,20 @@ import {
   buildBreadcrumbList,
   buildFaqPage,
   buildMedicalWebPage,
+  buildPageCitationSchema,
 } from "@/lib/schema";
 import type { BreadcrumbItem } from "@/lib/schema/breadcrumb";
+import { pageMetadata } from "@/lib/seo";
 
 const PAGE_PATH = "/trt-cost/" as const;
 const { citations: trtCostCitations, lastReviewed: trtCostLastReviewed } = pageCitations(PAGE_PATH);
 
-export const metadata: Metadata = {
-  title: { absolute: "TRT Cost in Miami: 2026 Pricing Guide" },
+export const metadata: Metadata = pageMetadata({
+  path: PAGE_PATH,
+  title: "TRT Cost in Miami: 2026 Pricing Guide",
   description:
     "How much does TRT cost in Miami, with and without insurance. Detailed page content in progress.",
-  alternates: { canonical: PAGE_PATH },
-};
+});
 
 const breadcrumbItems: readonly BreadcrumbItem[] = [
   { name: "Home", path: "/" },
@@ -43,6 +45,7 @@ const schemaNodes = [
   }),
   buildFaqPage(schemaEligible(trtCostFaqs), PAGE_PATH),
   buildBreadcrumbList(breadcrumbItems, PAGE_PATH),
+  buildPageCitationSchema(PAGE_PATH, trtCostCitations),
 ];
 
 export default function TrtCostPage() {

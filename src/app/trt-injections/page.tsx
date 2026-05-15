@@ -4,7 +4,8 @@ import { PageStub } from "@/components/page-stub";
 import { SchemaGraph } from "@/components/schema-graph";
 import { pageCitations } from "@/lib/citations/page-citations";
 import { primaryReviewer } from "@/lib/providers/registry";
-import { buildBreadcrumbList, buildMedicalTherapy } from "@/lib/schema";
+import { buildBreadcrumbList, buildMedicalTherapy, buildPageCitationSchema } from "@/lib/schema";
+import { pageMetadata } from "@/lib/seo";
 
 const PAGE_PATH = "/trt-injections/" as const;
 const { citations, lastReviewed } = pageCitations(PAGE_PATH);
@@ -19,14 +20,15 @@ const schemaNodes = [
     contraindications: ["Active prostate cancer", "Breast cancer", "Untreated sleep apnea"],
   }),
   buildBreadcrumbList([{ name: "Home", path: "/" }, { name: "TRT Injections", path: PAGE_PATH }], PAGE_PATH),
+  buildPageCitationSchema(PAGE_PATH, citations),
 ];
 
-export const metadata: Metadata = {
-  title: { absolute: "TRT Injections in Miami — Strong Health" },
+export const metadata: Metadata = pageMetadata({
+  path: PAGE_PATH,
+  title: "TRT Injections in Miami — Strong Health",
   description:
     "Testosterone replacement therapy by intramuscular and subcutaneous injection in Miami. Page content in progress.",
-  alternates: { canonical: PAGE_PATH },
-};
+});
 
 export default function TrtInjectionsPage() {
   return (

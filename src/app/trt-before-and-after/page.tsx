@@ -5,6 +5,7 @@ import { SchemaGraph } from "@/components/schema-graph";
 import { pageCitations } from "@/lib/citations/page-citations";
 import { primaryReviewer } from "@/lib/providers/registry";
 import { buildBreadcrumbList, buildMedicalWebPage, buildPageCitationSchema } from "@/lib/schema";
+import { pageMetadata } from "@/lib/seo";
 
 const PAGE_PATH = "/trt-before-and-after/" as const;
 const { citations, lastReviewed } = pageCitations(PAGE_PATH);
@@ -15,12 +16,12 @@ const schemaNodes = [
   buildBreadcrumbList([{ name: "Home", path: "/" }, { name: "TRT before and after: 12-week timeline", path: PAGE_PATH }], PAGE_PATH),
 ];
 
-export const metadata: Metadata = {
-  title: { absolute: "TRT Before and After: 12-Week Timeline — Strong Health Miami" },
+export const metadata: Metadata = pageMetadata({
+  path: PAGE_PATH,
+  title: "TRT Before and After: 12-Week Timeline — Strong Health Miami",
   description:
     "What to expect in the first 12 weeks of TRT — energy, mood, body composition, sleep. Detailed page content in progress.",
-  alternates: { canonical: PAGE_PATH },
-};
+});
 
 export default function TrtBeforeAndAfterPage() {
   return (

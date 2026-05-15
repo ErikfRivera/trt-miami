@@ -15,46 +15,33 @@ import {
   schemaEligible,
   trtClinicMiamiFaqs,
 } from "@/lib/faq-content";
-import { alternatesFor } from "@/lib/hreflangMap";
 import { drAngelRivera } from "@/lib/physician";
 import {
   buildBreadcrumbList,
   buildFaqPage,
   buildMedicalProcedure,
   buildMedicalWebPage,
+  buildPageCitationSchema,
   buildService,
 } from "@/lib/schema";
 import type { BreadcrumbItem } from "@/lib/schema/breadcrumb";
+import { pageMetadata } from "@/lib/seo";
 
 const PAGE_PATH = "/trt-clinic-miami/" as const;
 const { citations: trtMiamiCitations, lastReviewed: trtMiamiLastReviewed } = pageCitations(PAGE_PATH);
 
-const canonicalUrl = `${business.url}${PAGE_PATH}`;
-
-export const metadata: Metadata = {
-  title: {
-    absolute: "TRT Clinic Miami | Strong Health Miami, FL",
-  },
+// og:url is resolved via `pageMetadata` → `absoluteUrl(PAGE_PATH)` so it
+// points at the canonical subdomain (miami.stronghealth.com). STR-135 caught
+// the original `${business.url}${PAGE_PATH}` shipping a cross-domain og:url.
+export const metadata: Metadata = pageMetadata({
+  path: PAGE_PATH,
+  title: "TRT Clinic Miami | Strong Health Miami, FL",
   description:
     "Doctor-led TRT clinic in Miami. Florida-licensed physician supervision, comprehensive bloodwork, transparent self-pay pricing. Same-week consults available.",
-  alternates: alternatesFor(PAGE_PATH),
-  openGraph: {
-    type: "website",
-    // Geo-neutral brand label (STR-119). Miami signal lives in the page title
-    // and og:title below — not in the sitewide brand chrome.
-    siteName: business.name,
-    url: canonicalUrl,
-    title: "TRT Clinic in Miami | Strong Health Miami",
-    description:
-      "Physician-led testosterone replacement therapy clinic in Miami — Florida-licensed MD oversight, full bloodwork, transparent pricing.",
-    locale: "en_US",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "TRT Clinic in Miami | Strong Health Miami",
-    description: "Physician-led TRT clinic in Miami with full bloodwork and transparent pricing.",
-  },
-};
+  socialTitle: "TRT Clinic in Miami | Strong Health Miami",
+  socialDescription:
+    "Physician-led testosterone replacement therapy clinic in Miami — Florida-licensed MD oversight, full bloodwork, transparent pricing.",
+});
 
 const breadcrumbItems: readonly BreadcrumbItem[] = [
   { name: "Home", path: "/" },
@@ -91,6 +78,7 @@ const schemaNodes = [
   }),
   buildFaqPage(schemaEligible(trtClinicMiamiFaqs), PAGE_PATH),
   buildBreadcrumbList(breadcrumbItems, PAGE_PATH),
+  buildPageCitationSchema(PAGE_PATH, trtMiamiCitations),
 ];
 
 export default function TrtClinicMiamiPage() {
