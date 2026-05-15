@@ -39,13 +39,26 @@ const openingHours = () =>
     closes: h.closes,
   }));
 
-const sameAsForBusiness = () => {
-  // TODO: STR-2 — `gbp.cid` and the social handles are placeholder values
-  // until the Google Business Profile + social accounts are claimed. The
-  // Maps CID URL is the canonical sameAs link Google uses to associate the
-  // on-page entity with the GBP listing.
+// STR-139 — the placeholder GBP CID is a string of zeros until the Google
+// Business Profile is claimed (STR-50). A Maps URL built from that placeholder
+// resolves to a "no results" SERP, which Google Search Quality treats as a
+// dangling sameAs and a misleading hasMap. Treat any placeholder CID as
+// "no verified GBP" and drop the GBP-derived URL from sameAs + hasMap.
+const isVerifiedGbpCid = (cid: string): boolean =>
+  Boolean(cid) && !/^0+$/.test(cid) && !cid.startsWith("PLACEHOLDER");
+
+const gbpMapUrl = (): string | null =>
+  isVerifiedGbpCid(business.gbp.cid)
+    ? `https://www.google.com/maps?cid=${business.gbp.cid}`
+    : null;
+
+const sameAsForBusiness = (): string[] => {
+  // TODO: STR-2 — social handles are placeholder values until claimed; empty
+  // strings drop out via the `Boolean` filter. The Maps CID URL is only
+  // emitted once `gbp.cid` is verified (STR-50) — see `isVerifiedGbpCid`.
+  const mapUrl = gbpMapUrl();
   const links = [
-    `https://www.google.com/maps?cid=${business.gbp.cid}`,
+    mapUrl,
     business.social.facebook,
     business.social.instagram,
     business.social.linkedin,
@@ -80,12 +93,17 @@ export const buildMedicalBusiness = (
       latitude: business.geo.latitude,
       longitude: business.geo.longitude,
     },
-    hasMap: `https://www.google.com/maps?cid=${business.gbp.cid}`,
     openingHoursSpecification: openingHours(),
     medicalSpecialty: business.medicalSpecialty,
     areaServed: business.areaServed.map((name) => ({ "@type": "City", name })),
-    sameAs: sameAsForBusiness(),
   };
+
+  // STR-139 — only emit `hasMap` once the GBP CID is verified; otherwise the
+  // URL points at a "no results" Maps SERP and degrades the entity signal.
+  const mapUrl = gbpMapUrl();
+  if (mapUrl) node.hasMap = mapUrl;
+  const sameAs = sameAsForBusiness();
+  if (sameAs.length > 0) node.sameAs = sameAs;
 
   if (options.serviceIds?.length) {
     node.availableService = options.serviceIds.map((id) => ({ "@id": id }));

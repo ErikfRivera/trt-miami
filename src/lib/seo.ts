@@ -30,6 +30,13 @@ export type PageMetaInput = {
   socialTitle?: string;
   /** og:description / twitter:description. Defaults to `description`. */
   socialDescription?: string;
+  /**
+   * When true, the page emits `<meta name="robots" content="noindex,nofollow">`.
+   * Used by routes that surface placeholder identity (e.g. /providers/ while
+   * `hasVerifiedMedicalDirector` is false) so search engines don't index the
+   * scaffolding state. Omit / false for normal indexable routes.
+   */
+  noindex?: boolean;
 };
 
 // Single producer for per-route page metadata. Always emits `openGraph` and
@@ -46,8 +53,9 @@ export function pageMetadata(input: PageMetaInput): Metadata {
     description,
     socialTitle = title,
     socialDescription = description,
+    noindex,
   } = input;
-  return {
+  const metadata: Metadata = {
     title: { absolute: title },
     description,
     alternates: alternatesFor(path),
@@ -65,4 +73,6 @@ export function pageMetadata(input: PageMetaInput): Metadata {
       description: socialDescription,
     },
   };
+  if (noindex) metadata.robots = { index: false, follow: false };
+  return metadata;
 }
