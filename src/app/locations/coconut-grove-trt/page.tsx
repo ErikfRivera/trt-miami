@@ -8,7 +8,6 @@ export const metadata: Metadata = {
   description:
     "TRT for Coconut Grove residents — discreet physician-led men's health care nearby.",
   alternates: { canonical: PAGE_PATH },
-  robots: { index: false, follow: true },
 };
 
 export default function CoconutGroveTrtPage() {

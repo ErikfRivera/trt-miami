@@ -8,7 +8,6 @@ export const metadata: Metadata = {
   description:
     "Is testosterone replacement therapy safe? A physician-reviewed overview of risks, contraindications, and monitoring. Detailed page content in progress.",
   alternates: { canonical: PAGE_PATH },
-  robots: { index: false, follow: true },
 };
 
 export default function IsTrtSafePage() {

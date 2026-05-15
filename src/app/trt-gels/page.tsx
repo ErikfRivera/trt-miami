@@ -8,7 +8,6 @@ export const metadata: Metadata = {
   description:
     "Transdermal testosterone gels in Miami. Daily topical dosing, physician-supervised. Page content in progress.",
   alternates: { canonical: PAGE_PATH },
-  robots: { index: false, follow: true },
 };
 
 export default function TrtGelsPage() {

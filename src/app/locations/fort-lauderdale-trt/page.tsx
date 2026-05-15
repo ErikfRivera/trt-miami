@@ -8,7 +8,6 @@ export const metadata: Metadata = {
   description:
     "Strong Health serves Fort Lauderdale and surrounding Broward County patients from our Miami clinic — about a 35–50 minute drive south on I-95.",
   alternates: { canonical: PAGE_PATH },
-  robots: { index: false, follow: true },
 };
 
 export default function FortLauderdaleTrtPage() {

@@ -23,9 +23,9 @@ export type SiteRoute = {
 // Single source of truth for the canonical IA. All paths use trailing slash to
 // match `trailingSlash: true` in next.config.ts.
 //
-// `noindex: true` keeps the URL reachable (200) but excluded from sitemap and
-// search indexing while content is being authored — avoids thin-content
-// signals before marketing fills in real copy.
+// `noindex: true` is reserved for explicit drafts/private pages (per STR-91).
+// Spanish parallels are still in translation ("contenido en preparación") and
+// stay noindex until copy lands; English pages are all indexable.
 export const routes: readonly SiteRoute[] = [
   // Homepage + global pages
   { path: "/", changeFrequency: "weekly", priority: 1, locale: "en" },
@@ -37,34 +37,34 @@ export const routes: readonly SiteRoute[] = [
   { path: "/bioidentical-hormones-miami/", changeFrequency: "weekly", priority: 0.9, locale: "en" },
 
   // Method pages
-  { path: "/trt-injections/", changeFrequency: "monthly", priority: 0.8, noindex: true, locale: "en" },
-  { path: "/trt-pellets/", changeFrequency: "monthly", priority: 0.8, noindex: true, locale: "en" },
-  { path: "/trt-gels/", changeFrequency: "monthly", priority: 0.8, noindex: true, locale: "en" },
+  { path: "/trt-injections/", changeFrequency: "monthly", priority: 0.8, locale: "en" },
+  { path: "/trt-pellets/", changeFrequency: "monthly", priority: 0.8, locale: "en" },
+  { path: "/trt-gels/", changeFrequency: "monthly", priority: 0.8, locale: "en" },
 
   // Locations hub + area pages
   { path: "/locations/", changeFrequency: "monthly", priority: 0.7, locale: "en" },
-  { path: "/locations/fort-lauderdale-trt/", changeFrequency: "monthly", priority: 0.85, noindex: true, locale: "en" },
+  { path: "/locations/fort-lauderdale-trt/", changeFrequency: "monthly", priority: 0.85, locale: "en" },
   { path: "/locations/hialeah-trt/", changeFrequency: "monthly", priority: 0.7, locale: "en" },
-  { path: "/locations/aventura-trt/", changeFrequency: "monthly", priority: 0.7, noindex: true, locale: "en" },
-  { path: "/locations/doral-trt/", changeFrequency: "monthly", priority: 0.7, noindex: true, locale: "en" },
-  { path: "/locations/brickell-trt/", changeFrequency: "monthly", priority: 0.6, noindex: true, locale: "en" },
-  { path: "/locations/coral-gables-trt/", changeFrequency: "monthly", priority: 0.6, noindex: true, locale: "en" },
-  { path: "/locations/coconut-grove-trt/", changeFrequency: "monthly", priority: 0.6, noindex: true, locale: "en" },
-  { path: "/locations/kendall-trt/", changeFrequency: "monthly", priority: 0.6, noindex: true, locale: "en" },
-  { path: "/locations/pinecrest-trt/", changeFrequency: "monthly", priority: 0.6, noindex: true, locale: "en" },
-  { path: "/locations/key-biscayne-trt/", changeFrequency: "monthly", priority: 0.6, noindex: true, locale: "en" },
+  { path: "/locations/aventura-trt/", changeFrequency: "monthly", priority: 0.7, locale: "en" },
+  { path: "/locations/doral-trt/", changeFrequency: "monthly", priority: 0.7, locale: "en" },
+  { path: "/locations/brickell-trt/", changeFrequency: "monthly", priority: 0.6, locale: "en" },
+  { path: "/locations/coral-gables-trt/", changeFrequency: "monthly", priority: 0.6, locale: "en" },
+  { path: "/locations/coconut-grove-trt/", changeFrequency: "monthly", priority: 0.6, locale: "en" },
+  { path: "/locations/kendall-trt/", changeFrequency: "monthly", priority: 0.6, locale: "en" },
+  { path: "/locations/pinecrest-trt/", changeFrequency: "monthly", priority: 0.6, locale: "en" },
+  { path: "/locations/key-biscayne-trt/", changeFrequency: "monthly", priority: 0.6, locale: "en" },
 
   // Informational pillars (guides flat per STR-57 scope)
-  { path: "/trt-cost/", changeFrequency: "monthly", priority: 0.85, noindex: true, locale: "en" },
-  { path: "/does-insurance-cover-trt/", changeFrequency: "monthly", priority: 0.85, noindex: true, locale: "en" },
-  { path: "/is-trt-safe/", changeFrequency: "monthly", priority: 0.85, noindex: true, locale: "en" },
-  { path: "/trt-side-effects/", changeFrequency: "monthly", priority: 0.85, noindex: true, locale: "en" },
-  { path: "/trt-before-and-after/", changeFrequency: "monthly", priority: 0.85, noindex: true, locale: "en" },
+  { path: "/trt-cost/", changeFrequency: "monthly", priority: 0.85, locale: "en" },
+  { path: "/does-insurance-cover-trt/", changeFrequency: "monthly", priority: 0.85, locale: "en" },
+  { path: "/is-trt-safe/", changeFrequency: "monthly", priority: 0.85, locale: "en" },
+  { path: "/trt-side-effects/", changeFrequency: "monthly", priority: 0.85, locale: "en" },
+  { path: "/trt-before-and-after/", changeFrequency: "monthly", priority: 0.85, locale: "en" },
 
   // Adjacent service (already live)
   { path: "/peptide-therapy/", changeFrequency: "weekly", priority: 0.9, locale: "en" },
 
-  // Spanish parallels
+  // Spanish parallels — drafts pending translation, kept noindex per STR-91 carve-out
   { path: "/es/", changeFrequency: "weekly", priority: 0.7, noindex: true, locale: "es" },
   { path: "/es/clinica-trt-miami/", changeFrequency: "weekly", priority: 0.7, noindex: true, locale: "es" },
   { path: "/es/contacto/", changeFrequency: "monthly", priority: 0.5, noindex: true, locale: "es" },

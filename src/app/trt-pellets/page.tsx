@@ -8,7 +8,6 @@ export const metadata: Metadata = {
   description:
     "Subcutaneous testosterone pellet implants in Miami. 3–6 month dosing intervals, no weekly injections. Page content in progress.",
   alternates: { canonical: PAGE_PATH },
-  robots: { index: false, follow: true },
 };
 
 export default function TrtPelletsPage() {

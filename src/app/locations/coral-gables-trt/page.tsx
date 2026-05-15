@@ -8,7 +8,6 @@ export const metadata: Metadata = {
   description:
     "TRT for Coral Gables patients — physician-led care a short drive north of the Gables.",
   alternates: { canonical: PAGE_PATH },
-  robots: { index: false, follow: true },
 };
 
 export default function CoralGablesTrtPage() {

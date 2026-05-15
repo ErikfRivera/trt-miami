@@ -12,10 +12,10 @@ export type PageStubProps = {
   relatedLinks?: readonly { label: string; href: SitePath }[];
 };
 
-// Stubs are pre-IA placeholders. They render real H1/breadcrumbs/CTA so the
-// shell is indexable-ready, but pages are flagged `noindex` via the page's
-// metadata until content lands. Marketing/content fills the body and removes
-// the noindex when the page is ready to compete.
+// Stubs render real H1/breadcrumbs/CTA so they are indexable from day one
+// (STR-91 unblocked GSC indexing for the TRT Miami program). Marketing/content
+// progressively fills the body — stubs are NOT noindex'd by default anymore.
+// Reserve noindex for explicit drafts (e.g. /es/ pages awaiting translation).
 export function PageStub({ eyebrow, heading, intro, breadcrumbs, relatedLinks }: PageStubProps) {
   return (
     <>

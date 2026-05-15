@@ -8,7 +8,6 @@ export const metadata: Metadata = {
   description:
     "TRT for Aventura patients at our Miami clinic — a short drive south on Biscayne Boulevard or I-95.",
   alternates: { canonical: PAGE_PATH },
-  robots: { index: false, follow: true },
 };
 
 export default function AventuraTrtPage() {

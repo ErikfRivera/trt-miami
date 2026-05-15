@@ -8,7 +8,6 @@ export const metadata: Metadata = {
   description:
     "Testosterone replacement therapy by intramuscular and subcutaneous injection in Miami. Page content in progress.",
   alternates: { canonical: PAGE_PATH },
-  robots: { index: false, follow: true },
 };
 
 export default function TrtInjectionsPage() {

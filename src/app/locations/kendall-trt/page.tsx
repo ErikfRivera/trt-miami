@@ -8,7 +8,6 @@ export const metadata: Metadata = {
   description:
     "TRT for Kendall and South Miami-Dade patients — easy drive north via US-1 or the Palmetto.",
   alternates: { canonical: PAGE_PATH },
-  robots: { index: false, follow: true },
 };
 
 export default function KendallTrtPage() {

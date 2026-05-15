@@ -8,7 +8,6 @@ export const metadata: Metadata = {
   description:
     "TRT for Brickell residents — walking distance for many, in the heart of downtown Miami.",
   alternates: { canonical: PAGE_PATH },
-  robots: { index: false, follow: true },
 };
 
 export default function BrickellTrtPage() {

@@ -8,7 +8,6 @@ export const metadata: Metadata = {
   description:
     "TRT for Doral and West Miami-Dade patients — physician-led care at our Miami clinic, easy access via the 836.",
   alternates: { canonical: PAGE_PATH },
-  robots: { index: false, follow: true },
 };
 
 export default function DoralTrtPage() {

@@ -8,7 +8,6 @@ export const metadata: Metadata = {
   description:
     "TRT for Key Biscayne residents — a 15-minute drive across the Rickenbacker.",
   alternates: { canonical: PAGE_PATH },
-  robots: { index: false, follow: true },
 };
 
 export default function KeyBiscayneTrtPage() {

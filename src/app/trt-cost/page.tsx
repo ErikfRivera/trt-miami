@@ -24,7 +24,6 @@ export const metadata: Metadata = {
   description:
     "How much does TRT cost in Miami, with and without insurance. Detailed page content in progress.",
   alternates: { canonical: PAGE_PATH },
-  robots: { index: false, follow: true },
 };
 
 const breadcrumbItems: readonly BreadcrumbItem[] = [

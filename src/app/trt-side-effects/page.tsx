@@ -8,7 +8,6 @@ export const metadata: Metadata = {
   description:
     "Common and uncommon side effects of testosterone replacement therapy and how we monitor for them. Detailed page content in progress.",
   alternates: { canonical: PAGE_PATH },
-  robots: { index: false, follow: true },
 };
 
 export default function TrtSideEffectsPage() {

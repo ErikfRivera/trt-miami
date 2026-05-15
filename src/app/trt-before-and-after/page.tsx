@@ -8,7 +8,6 @@ export const metadata: Metadata = {
   description:
     "What to expect in the first 12 weeks of TRT — energy, mood, body composition, sleep. Detailed page content in progress.",
   alternates: { canonical: PAGE_PATH },
-  robots: { index: false, follow: true },
 };
 
 export default function TrtBeforeAndAfterPage() {

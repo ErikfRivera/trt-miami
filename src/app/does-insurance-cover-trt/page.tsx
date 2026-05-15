@@ -8,7 +8,6 @@ export const metadata: Metadata = {
   description:
     "What private insurance, Medicare, and HSAs typically cover for TRT. Detailed page content in progress.",
   alternates: { canonical: PAGE_PATH },
-  robots: { index: false, follow: true },
 };
 
 export default function DoesInsuranceCoverTrtPage() {

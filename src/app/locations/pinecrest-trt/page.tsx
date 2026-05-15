@@ -8,7 +8,6 @@ export const metadata: Metadata = {
   description:
     "TRT for Pinecrest patients — physician-led men's hormone care, short drive north.",
   alternates: { canonical: PAGE_PATH },
-  robots: { index: false, follow: true },
 };
 
 export default function PinecrestTrtPage() {
