@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     // Override sitewide "Strong Health TRT Therapy Miami" siteName on this
     // non-Miami city page so Facebook/LinkedIn shares don't anchor Delray
     // socials to a Miami brand label (STR-116 M3). Sitewide cleanup of the
-    // Miami-anchored siteName tracked separately in [STR-118].
+    // Miami-anchored siteName tracked separately in STR-119.
     siteName: "Strong Health TRT Therapy",
     url: canonicalUrl,
     title: "TRT Delray Beach, FL | Strong Health TRT Therapy Clinic",
@@ -221,10 +221,15 @@ export default function DelrayBeachTrtPage() {
           >
             TRT modalities we offer in Delray Beach
           </h2>
-          <div className="grid gap-4 sm:grid-cols-3">
+          {/* Per STR-100 brief §4 (5 modality H3s) + STR-116 M4 — added oral
+              TRT (Kyzatrex®) and Clomid/Enclomiphene to close the entity gap
+              vs Gameday Men's Health #1 SERP competitor. Clinical availability
+              of Kyzatrex/Clomid is gated on CEO confirm via [STR-107]; copy is
+              indication-accurate either way. */}
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             <article className="flex flex-col gap-3 rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm dark:border-zinc-800 dark:bg-zinc-950">
               <h3 className="text-lg font-semibold text-zinc-900 dark:text-zinc-50">
-                Injections
+                Injections — Testosterone Cypionate
               </h3>
               <p className="text-sm leading-6 text-zinc-700 dark:text-zinc-300">
                 Testosterone cypionate or enanthate, administered
@@ -268,6 +273,30 @@ export default function DelrayBeachTrtPage() {
                 >
                   Learn more →
                 </Link>
+              </p>
+            </article>
+            <article className="flex flex-col gap-3 rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm dark:border-zinc-800 dark:bg-zinc-950">
+              <h3 className="text-lg font-semibold text-zinc-900 dark:text-zinc-50">
+                Oral TRT (Kyzatrex®)
+              </h3>
+              <p className="text-sm leading-6 text-zinc-700 dark:text-zinc-300">
+                Kyzatrex® (testosterone undecanoate) is an FDA-approved oral
+                capsule taken twice daily with food. A pill-based option for
+                patients who want to avoid injections, pellet procedures, and
+                daily topical application — and who can commit to consistent
+                with-meals dosing for absorption.
+              </p>
+            </article>
+            <article className="flex flex-col gap-3 rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm dark:border-zinc-800 dark:bg-zinc-950">
+              <h3 className="text-lg font-semibold text-zinc-900 dark:text-zinc-50">
+                Clomid / Enclomiphene (fertility-preserving alternative)
+              </h3>
+              <p className="text-sm leading-6 text-zinc-700 dark:text-zinc-300">
+                Clomiphene citrate (Clomid) and enclomiphene are oral
+                non-testosterone alternatives that stimulate the body&apos;s
+                own testosterone production by acting on the pituitary. Often
+                appropriate for younger men with secondary hypogonadism or men
+                who want to preserve fertility while raising testosterone.
               </p>
             </article>
           </div>
