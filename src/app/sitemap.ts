@@ -9,6 +9,7 @@ import {
 } from "@/lib/site";
 import { isIndexableHost } from "@/lib/seo";
 import { activePairFor } from "@/lib/hreflangMap";
+import { hasVerifiedMedicalDirector } from "@/lib/medical-director";
 import { providers } from "@/lib/providers/registry";
 
 // STR-132 §6 — provider bio pages live at `/providers/{slug}/` and are
@@ -17,13 +18,28 @@ import { providers } from "@/lib/providers/registry";
 // E-E-A-T pages on the Miami host. Keep this colocated with the sitemap so a
 // new physician in the registry shows up in the next crawl without a second
 // edit in `lib/site.ts`.
-const providerSitemapRoutes = (): SiteRoute[] =>
-  providers.map((p) => ({
+//
+// STR-137/STR-139 — while no verified medical director is published, every
+// provider bio route ships with `robots: noindex,nofollow` and renders the
+// clinical-team fallback. Don't ask Google to crawl what we've told it not
+// to index — drop these routes from the sitemap until the flag flips.
+const providerSitemapRoutes = (): SiteRoute[] => {
+  if (!hasVerifiedMedicalDirector) return [];
+  return providers.map((p) => ({
     path: `/providers/${p.slug}/`,
     changeFrequency: "monthly",
     priority: 0.75,
     locale: "en",
   }));
+};
+
+// STR-137/STR-139 — the `/providers/` index and `/medical-reviewer/` page also
+// surface placeholder identity and emit `robots: noindex,nofollow` while the
+// flag is false. Exclude them from the sitemap on the same condition.
+const REVIEWER_IDENTITY_ROUTES: ReadonlySet<string> = new Set([
+  "/providers/",
+  "/medical-reviewer/",
+]);
 
 // Per STR-62, the sitemap is segmented at /sitemap/en.xml, /sitemap/es.xml,
 // and /sitemap/locations.xml via Next.js' generateSitemaps API. The sitemap
@@ -45,8 +61,11 @@ export default async function sitemap(props: {
   const lastModified = new Date();
 
   const baseRoutes = indexableRoutesForSegment(segment);
+  const filteredBase = hasVerifiedMedicalDirector
+    ? baseRoutes
+    : baseRoutes.filter((r) => !REVIEWER_IDENTITY_ROUTES.has(r.path));
   const extras = segment === "en" ? providerSitemapRoutes() : [];
-  const allRoutes: readonly SiteRoute[] = [...baseRoutes, ...extras];
+  const allRoutes: readonly SiteRoute[] = [...filteredBase, ...extras];
 
   return allRoutes.map((route) => {
     const entry: MetadataRoute.Sitemap[number] = {
