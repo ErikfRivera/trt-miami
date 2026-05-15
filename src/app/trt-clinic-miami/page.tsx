@@ -36,7 +36,9 @@ export const metadata: Metadata = {
   alternates: alternatesFor(PAGE_PATH),
   openGraph: {
     type: "website",
-    siteName: "Strong Health TRT Therapy Miami",
+    // Geo-neutral brand label (STR-119). Miami signal lives in the page title
+    // and og:title below — not in the sitewide brand chrome.
+    siteName: business.name,
     url: canonicalUrl,
     title: "TRT Clinic in Miami | Strong Health Miami",
     description:

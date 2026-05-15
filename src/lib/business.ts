@@ -2,7 +2,13 @@
 // Profile values land via STR-2 (publish gate) and STR-32 (call tracking). Do
 // not change without coordinating with those tickets.
 export const business = {
-  name: "Strong Health TRT Therapy Miami",
+  // Canonical sitewide brand label (geo-neutral). Used as the OpenGraph
+  // siteName, footer brand, applicationName, and other sitewide chrome where
+  // a Miami suffix would leak the wrong geo onto non-Miami spoke pages
+  // (STR-119). Miami-specific surfaces (page titles, H1s, schema MedicalBusiness
+  // `name`) carry the Miami signal explicitly; this brand label must stay
+  // geo-neutral. The JSON-LD MedicalBusiness.name is `schemaName`, not `name`.
+  name: "Strong Health TRT Therapy",
   schemaName: "Strong Health Miami",
   legalName: "Strong Health",
   url: "https://stronghealth.com",

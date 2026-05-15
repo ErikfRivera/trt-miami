@@ -42,7 +42,8 @@ export const metadata: Metadata = {
     type: "website",
     // Next.js shallow-replaces openGraph at the page segment, so any page that
     // sets openGraph must redeclare siteName to keep og:site_name in the head.
-    siteName: "Strong Health TRT Therapy",
+    // The sitewide default is geo-neutral (STR-119) — re-export it here.
+    siteName: business.name,
     url: canonicalUrl,
     title: "TRT Delray Beach, FL | Strong Health TRT Therapy Clinic",
     description:

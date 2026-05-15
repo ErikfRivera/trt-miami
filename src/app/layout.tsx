@@ -26,15 +26,16 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  // Sitewide brand strings are geo-neutral. Miami pages add "Miami" via their
-  // own title/openGraph/twitter overrides so non-Miami city pages don't leak
-  // a Miami brand label by inheritance.
+  // Sitewide brand strings are geo-neutral (STR-119). Miami pages re-add the
+  // "Miami" signal via their own title/openGraph/twitter overrides; non-Miami
+  // city/spoke pages inherit these neutral defaults instead of leaking Miami
+  // into og:site_name, the <title> template, applicationName, etc.
   title: {
-    default: "Strong Health TRT Therapy",
-    template: "%s · Strong Health TRT Therapy",
+    default: business.name,
+    template: `%s · ${business.name}`,
   },
   description: defaultDescription,
-  applicationName: "Strong Health TRT Therapy",
+  applicationName: business.name,
   robots: {
     index: true,
     follow: true,
@@ -48,15 +49,15 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: "website",
-    siteName: "Strong Health TRT Therapy",
+    siteName: business.name,
     url: siteUrl,
-    title: "Strong Health TRT Therapy",
+    title: business.name,
     description: socialDescription,
     locale: "en_US",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Strong Health TRT Therapy",
+    title: business.name,
     description: socialDescription,
   },
   ...(gscVerificationToken
