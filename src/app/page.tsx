@@ -101,12 +101,12 @@ export default function Home() {
           </div>
         </header>
 
-        <div className="grid gap-8 lg:grid-cols-2 lg:items-start">
+        <div className="grid gap-8 lg:grid-cols-2 lg:items-start cv-auto">
           <NapBlock />
           <LocationMap />
         </div>
 
-        <section aria-labelledby="faq-heading" className="flex flex-col gap-6">
+        <section aria-labelledby="faq-heading" className="flex flex-col gap-6 cv-auto">
           <h2
             id="faq-heading"
             className="text-2xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50"
