@@ -18,6 +18,8 @@ export type SiteRoute = {
 
 export const routes: readonly SiteRoute[] = [
   { path: "/", changeFrequency: "weekly", priority: 1 },
+  { path: "/fl/miami/trt-therapy", changeFrequency: "weekly", priority: 0.95 },
+  { path: "/peptide-therapy", changeFrequency: "weekly", priority: 0.9 },
   { path: "/contact", changeFrequency: "monthly", priority: 0.8 },
   { path: "/fl/miami/hialeah", changeFrequency: "monthly", priority: 0.7 },
 ] as const;

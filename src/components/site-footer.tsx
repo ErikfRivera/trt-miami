@@ -21,10 +21,18 @@ export function SiteFooter() {
           </address>
         </div>
         <nav aria-label="Footer" className="text-sm">
-          <ul className="flex gap-6 text-zinc-600 dark:text-zinc-400">
+          <ul className="flex flex-wrap gap-6 text-zinc-600 dark:text-zinc-400">
             <li>
               <Link href="/" className="hover:text-zinc-900 dark:hover:text-zinc-100">
                 Home
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/peptide-therapy"
+                className="hover:text-zinc-900 dark:hover:text-zinc-100"
+              >
+                Peptide Therapy
               </Link>
             </li>
             <li>
