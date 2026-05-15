@@ -2,6 +2,8 @@ import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { GoogleAnalytics } from "@/components/google-analytics";
 import { SiteFooter } from "@/components/site-footer";
+import { SiteHeader } from "@/components/site-header";
+import { StickyMobileCallBar } from "@/components/sticky-mobile-call-bar";
 import { gscVerificationToken } from "@/lib/analytics";
 import { business } from "@/lib/business";
 import { siteUrl } from "@/lib/site";
@@ -75,8 +77,10 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-zinc-50 text-zinc-900 dark:bg-black dark:text-zinc-50">
-        <main className="flex-1">{children}</main>
+        <SiteHeader />
+        <main className="flex-1 pb-24 lg:pb-0">{children}</main>
         <SiteFooter />
+        <StickyMobileCallBar />
         <GoogleAnalytics />
       </body>
     </html>

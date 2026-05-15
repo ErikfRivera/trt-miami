@@ -3,6 +3,7 @@ import Link from "next/link";
 import { LocationMap } from "@/components/location-map";
 import { NapBlock } from "@/components/nap-block";
 import { SchemaGraph } from "@/components/schema-graph";
+import { TrustStrip } from "@/components/trust-strip";
 import { business } from "@/lib/business";
 import { drAngelRivera } from "@/lib/physician";
 import { alternatesFor } from "@/lib/hreflangMap";
@@ -186,10 +187,12 @@ export default function HrtMiamiPage() {
               href="/contact/"
               className="inline-flex h-11 items-center justify-center rounded-full border border-zinc-300 px-6 text-sm font-medium text-zinc-900 transition-colors hover:bg-zinc-100 dark:border-zinc-700 dark:text-zinc-50 dark:hover:bg-zinc-900"
             >
-              Request a consultation
+              Book a free consultation
             </Link>
           </div>
         </header>
+
+        <TrustStrip />
 
         <section aria-labelledby="what-is" className="flex flex-col gap-4">
           <h2
@@ -215,21 +218,21 @@ export default function HrtMiamiPage() {
               href="/trt-clinic-miami/"
               className="font-medium text-zinc-900 underline-offset-2 hover:underline dark:text-zinc-100"
             >
-              testosterone replacement therapy in Miami
+              TRT Clinic Miami
             </Link>
             ,{" "}
             <Link
               href="/bioidentical-hormones-miami/"
               className="font-medium text-zinc-900 underline-offset-2 hover:underline dark:text-zinc-100"
             >
-              bioidentical hormones
+              Bioidentical Hormones Miami
             </Link>
             , and{" "}
             <Link
               href="/peptide-therapy/"
               className="font-medium text-zinc-900 underline-offset-2 hover:underline dark:text-zinc-100"
             >
-              peptide therapy
+              Peptide Therapy Miami
             </Link>{" "}
             when clinically appropriate.
           </p>
@@ -474,7 +477,7 @@ export default function HrtMiamiPage() {
               href="/contact/"
               className="inline-flex h-11 items-center justify-center rounded-full border border-white/30 px-6 text-sm font-medium text-white transition-colors hover:bg-white/10 dark:border-zinc-900/20 dark:text-zinc-900 dark:hover:bg-zinc-900/10"
             >
-              Visit our clinic
+              Book a free consultation
             </Link>
           </div>
         </section>

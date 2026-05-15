@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { FaqAccordion } from "@/components/faq-accordion";
+import { LocationMap } from "@/components/location-map";
+import { NapBlock } from "@/components/nap-block";
 import { SchemaGraph } from "@/components/schema-graph";
+import { TrustStrip } from "@/components/trust-strip";
 import { business } from "@/lib/business";
 import {
   TRT_FAQ_DISCLAIMER,
@@ -161,48 +164,163 @@ export default function TrtClinicMiamiPage() {
               href="/contact/"
               className="inline-flex h-11 items-center justify-center rounded-full border border-zinc-300 px-6 text-sm font-medium text-zinc-900 transition-colors hover:bg-zinc-100 dark:border-zinc-700 dark:text-zinc-50 dark:hover:bg-zinc-900"
             >
-              Request a consultation
+              Book a free consultation
             </Link>
           </div>
         </header>
 
-        <section
-          aria-labelledby="visit-heading"
-          className="grid gap-6 rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm dark:border-zinc-800 dark:bg-zinc-950 sm:p-8 lg:grid-cols-3"
-        >
-          <div>
-            <h2
-              id="visit-heading"
-              className="text-2xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50"
+        <TrustStrip />
+
+        <section aria-labelledby="what-is" className="flex flex-col gap-4">
+          <h2
+            id="what-is"
+            className="text-2xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-3xl"
+          >
+            What is TRT?
+          </h2>
+          <p className="max-w-3xl text-base leading-7 text-zinc-700 dark:text-zinc-300">
+            Testosterone replacement therapy (TRT) is a physician-prescribed
+            program that brings testosterone back into a healthy range for men
+            with lab-confirmed low testosterone (hypogonadism). At Strong
+            Health Miami, every TRT plan starts with a full lab panel and an
+            in-person evaluation by a Florida-licensed physician. We treat
+            symptoms against biomarkers — not symptoms alone, and not lab
+            values in a vacuum.
+          </p>
+          <p className="max-w-3xl text-base leading-7 text-zinc-700 dark:text-zinc-300">
+            Patients with broader endocrine needs can also explore{" "}
+            <Link
+              href="/hrt-miami/"
+              className="font-medium text-zinc-900 underline-offset-2 hover:underline dark:text-zinc-100"
             >
-              Visit our Miami clinic
-            </h2>
-            <address className="mt-3 not-italic leading-6 text-zinc-600 dark:text-zinc-400">
-              <span className="block">{business.address.displayLine1}</span>
-              {business.address.displayLine2 ? (
-                <span className="block">{business.address.displayLine2}</span>
-              ) : null}
-            </address>
+              HRT Miami
+            </Link>
+            ,{" "}
+            <Link
+              href="/bioidentical-hormones-miami/"
+              className="font-medium text-zinc-900 underline-offset-2 hover:underline dark:text-zinc-100"
+            >
+              Bioidentical Hormones Miami
+            </Link>
+            , and{" "}
+            <Link
+              href="/peptide-therapy/"
+              className="font-medium text-zinc-900 underline-offset-2 hover:underline dark:text-zinc-100"
+            >
+              Peptide Therapy Miami
+            </Link>
+            {" "}for weight loss, recovery, and hormone support.
+          </p>
+        </section>
+
+        <section aria-labelledby="modalities" className="flex flex-col gap-4 cv-auto">
+          <h2
+            id="modalities"
+            className="text-2xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-3xl"
+          >
+            TRT modalities we offer in Miami
+          </h2>
+          <div className="grid gap-4 sm:grid-cols-3">
+            <article className="flex flex-col gap-3 rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm dark:border-zinc-800 dark:bg-zinc-950">
+              <h3 className="text-lg font-semibold text-zinc-900 dark:text-zinc-50">
+                Injections
+              </h3>
+              <p className="text-sm leading-6 text-zinc-700 dark:text-zinc-300">
+                Testosterone cypionate or enanthate, administered
+                intramuscularly or subcutaneously. Typically dosed weekly or
+                twice weekly for stable serum levels.
+              </p>
+            </article>
+            <article className="flex flex-col gap-3 rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm dark:border-zinc-800 dark:bg-zinc-950">
+              <h3 className="text-lg font-semibold text-zinc-900 dark:text-zinc-50">
+                Pellets
+              </h3>
+              <p className="text-sm leading-6 text-zinc-700 dark:text-zinc-300">
+                Compounded testosterone pellets are inserted subcutaneously in
+                a brief in-office procedure and release a steady dose for 3–5
+                months. Good fit for patients who prefer not to self-inject.
+              </p>
+            </article>
+            <article className="flex flex-col gap-3 rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm dark:border-zinc-800 dark:bg-zinc-950">
+              <h3 className="text-lg font-semibold text-zinc-900 dark:text-zinc-50">
+                Topical gels &amp; creams
+              </h3>
+              <p className="text-sm leading-6 text-zinc-700 dark:text-zinc-300">
+                Daily-applied transdermal preparations. Useful for fine-grained
+                dose flexibility and when injections or pellets aren&apos;t the
+                right fit.
+              </p>
+            </article>
           </div>
-          <div>
-            <h3 className="text-sm font-medium text-zinc-900 dark:text-zinc-100">Phone</h3>
-            <p className="mt-1">
-              <a
-                href={business.phone.href}
-                className="text-zinc-700 underline-offset-2 hover:underline dark:text-zinc-300"
-              >
-                {business.phone.display}
-              </a>
-            </p>
-          </div>
-          <div>
-            <h3 className="text-sm font-medium text-zinc-900 dark:text-zinc-100">Hours</h3>
-            <ul className="mt-1 text-zinc-600 dark:text-zinc-400">
-              <li>Mon–Fri: 8:00 a.m. – 6:00 p.m.</li>
-              <li>Sat: 9:00 a.m. – 1:00 p.m.</li>
-              <li>Sun: Closed</li>
-            </ul>
-          </div>
+        </section>
+
+        <section aria-labelledby="process" className="flex flex-col gap-4 cv-auto">
+          <h2
+            id="process"
+            className="text-2xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-3xl"
+          >
+            How TRT works at our Miami clinic
+          </h2>
+          <ol className="grid max-w-3xl gap-4 text-base leading-7 text-zinc-700 dark:text-zinc-300">
+            <li className="flex gap-4 rounded-2xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-950">
+              <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-zinc-900 text-sm font-semibold text-white dark:bg-zinc-50 dark:text-zinc-900">
+                1
+              </span>
+              <div>
+                <p className="font-medium text-zinc-900 dark:text-zinc-100">
+                  Initial consultation
+                </p>
+                <p className="text-sm text-zinc-600 dark:text-zinc-400">
+                  In-person at our Miami clinic. Medical history, symptom
+                  review, and physical exam with a Florida-licensed physician.
+                </p>
+              </div>
+            </li>
+            <li className="flex gap-4 rounded-2xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-950">
+              <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-zinc-900 text-sm font-semibold text-white dark:bg-zinc-50 dark:text-zinc-900">
+                2
+              </span>
+              <div>
+                <p className="font-medium text-zinc-900 dark:text-zinc-100">
+                  Comprehensive lab panel
+                </p>
+                <p className="text-sm text-zinc-600 dark:text-zinc-400">
+                  Total and free testosterone (morning, fasted), SHBG,
+                  estradiol, CBC, CMP, lipid panel, and PSA for men ≥40.
+                </p>
+              </div>
+            </li>
+            <li className="flex gap-4 rounded-2xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-950">
+              <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-zinc-900 text-sm font-semibold text-white dark:bg-zinc-50 dark:text-zinc-900">
+                3
+              </span>
+              <div>
+                <p className="font-medium text-zinc-900 dark:text-zinc-100">
+                  Personalized protocol
+                </p>
+                <p className="text-sm text-zinc-600 dark:text-zinc-400">
+                  Your physician designs the protocol — modality, dose, and
+                  ancillaries — calibrated to your symptoms, biomarkers, and
+                  risk profile.
+                </p>
+              </div>
+            </li>
+            <li className="flex gap-4 rounded-2xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-950">
+              <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-zinc-900 text-sm font-semibold text-white dark:bg-zinc-50 dark:text-zinc-900">
+                4
+              </span>
+              <div>
+                <p className="font-medium text-zinc-900 dark:text-zinc-100">
+                  Quarterly re-check
+                </p>
+                <p className="text-sm text-zinc-600 dark:text-zinc-400">
+                  Bloodwork and clinical review every quarter for the first
+                  year, then biannually. Routine follow-ups can be done via
+                  secure video.
+                </p>
+              </div>
+            </li>
+          </ol>
         </section>
 
         <section aria-labelledby="physician-heading" className="flex flex-col gap-3 cv-auto">
@@ -243,6 +361,56 @@ export default function TrtClinicMiamiPage() {
           <p className="text-xs italic text-zinc-500 dark:text-zinc-400">
             {TRT_FAQ_DISCLAIMER}
           </p>
+        </section>
+
+        <section aria-labelledby="location" className="flex flex-col gap-6 cv-auto">
+          <h2
+            id="location"
+            className="text-2xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-3xl"
+          >
+            Our Miami location &amp; service area
+          </h2>
+          <p className="max-w-3xl text-base leading-7 text-zinc-700 dark:text-zinc-300">
+            Strong Health Miami serves patients across the Miami metro,
+            including {business.areaServed.slice(0, -1).join(", ")}, and{" "}
+            {business.areaServed[business.areaServed.length - 1]}. Telehealth
+            follow-ups are offered statewide in Florida.
+          </p>
+          <div className="grid gap-8 lg:grid-cols-2 lg:items-start">
+            <NapBlock />
+            <LocationMap />
+          </div>
+        </section>
+
+        <section
+          aria-labelledby="cta"
+          className="flex flex-col gap-4 rounded-3xl bg-zinc-900 p-8 text-white sm:p-12 dark:bg-zinc-50 dark:text-zinc-900 cv-auto"
+        >
+          <h2
+            id="cta"
+            className="text-2xl font-semibold tracking-tight sm:text-3xl"
+          >
+            Book your TRT consultation in Miami
+          </h2>
+          <p className="max-w-2xl text-base leading-7 text-zinc-300 dark:text-zinc-700">
+            Same-week appointments available. Talk to a Florida-licensed
+            physician about whether testosterone replacement therapy is the
+            right fit for your symptoms and goals.
+          </p>
+          <div className="flex flex-wrap gap-3">
+            <a
+              href={business.phone.href}
+              className="inline-flex h-11 items-center justify-center rounded-full bg-white px-6 text-sm font-medium text-zinc-900 transition-colors hover:bg-zinc-200 dark:bg-zinc-900 dark:text-white dark:hover:bg-zinc-700"
+            >
+              Call {business.phone.display}
+            </a>
+            <Link
+              href="/contact/"
+              className="inline-flex h-11 items-center justify-center rounded-full border border-white/30 px-6 text-sm font-medium text-white transition-colors hover:bg-white/10 dark:border-zinc-900/20 dark:text-zinc-900 dark:hover:bg-zinc-900/10"
+            >
+              Book a free consultation
+            </Link>
+          </div>
         </section>
       </div>
     </>

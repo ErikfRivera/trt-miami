@@ -3,6 +3,7 @@ import Link from "next/link";
 import { NapBlock } from "@/components/nap-block";
 import { LocationMap } from "@/components/location-map";
 import { SchemaGraph } from "@/components/schema-graph";
+import { TrustStrip } from "@/components/trust-strip";
 import { business } from "@/lib/business";
 import { drAngelRivera } from "@/lib/physician";
 import { alternatesFor } from "@/lib/hreflangMap";
@@ -55,33 +56,34 @@ export default function Home() {
             TRT Therapy in Miami at Strong Health
           </h1>
           <p className="max-w-2xl text-lg text-zinc-600 dark:text-zinc-400">
-            {business.name} is a men&apos;s health clinic in Miami focused on{" "}
+            {business.name} is a men&apos;s health clinic in Miami. Physician-led
+            care, full bloodwork, transparent self-pay pricing. Explore{" "}
             <Link
               href="/trt-clinic-miami/"
               className="font-medium text-zinc-900 underline-offset-2 hover:underline dark:text-zinc-100"
             >
-              physician-led testosterone replacement therapy
+              TRT Clinic Miami
             </Link>
-            . We also offer{" "}
+            ,{" "}
             <Link
               href="/hrt-miami/"
               className="font-medium text-zinc-900 underline-offset-2 hover:underline dark:text-zinc-100"
             >
-              full-spectrum hormone replacement therapy
+              HRT Miami
             </Link>
             ,{" "}
             <Link
               href="/bioidentical-hormones-miami/"
               className="font-medium text-zinc-900 underline-offset-2 hover:underline dark:text-zinc-100"
             >
-              bioidentical hormones
+              Bioidentical Hormones Miami
             </Link>
             , and{" "}
             <Link
               href="/peptide-therapy/"
               className="font-medium text-zinc-900 underline-offset-2 hover:underline dark:text-zinc-100"
             >
-              peptide therapy in Miami
+              Peptide Therapy Miami
             </Link>
             {" "}for weight loss, recovery, and hormone support.
           </p>
@@ -96,10 +98,12 @@ export default function Home() {
               href="/contact/"
               className="inline-flex h-11 items-center justify-center rounded-full border border-zinc-300 px-6 text-sm font-medium text-zinc-900 transition-colors hover:bg-zinc-100 dark:border-zinc-700 dark:text-zinc-50 dark:hover:bg-zinc-900"
             >
-              Visit our clinic
+              Book a free consultation
             </Link>
           </div>
         </header>
+
+        <TrustStrip />
 
         <div className="grid gap-8 lg:grid-cols-2 lg:items-start cv-auto">
           <NapBlock />

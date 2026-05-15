@@ -1,6 +1,16 @@
 import Link from "next/link";
 import { business } from "@/lib/business";
 
+const footerLinks = [
+  { href: "/", label: "Home" },
+  { href: "/trt-clinic-miami/", label: "TRT Clinic Miami" },
+  { href: "/hrt-miami/", label: "HRT Miami" },
+  { href: "/bioidentical-hormones-miami/", label: "Bioidentical Hormones Miami" },
+  { href: "/peptide-therapy/", label: "Peptide Therapy Miami" },
+  { href: "/locations/", label: "Locations" },
+  { href: "/contact/", label: "Contact" },
+] as const;
+
 export function SiteFooter() {
   return (
     <footer className="border-t border-zinc-200 bg-white dark:border-zinc-800 dark:bg-zinc-950">
@@ -23,44 +33,17 @@ export function SiteFooter() {
           </address>
         </div>
         <nav aria-label="Footer" className="text-sm">
-          <ul className="flex flex-wrap gap-6 text-zinc-600 dark:text-zinc-400">
-            <li>
-              <Link href="/" className="hover:text-zinc-900 dark:hover:text-zinc-100">
-                Home
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="/trt-clinic-miami/"
-                className="hover:text-zinc-900 dark:hover:text-zinc-100"
-              >
-                TRT Clinic
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="/peptide-therapy/"
-                className="hover:text-zinc-900 dark:hover:text-zinc-100"
-              >
-                Peptide Therapy
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="/locations/"
-                className="hover:text-zinc-900 dark:hover:text-zinc-100"
-              >
-                Locations
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="/contact/"
-                className="hover:text-zinc-900 dark:hover:text-zinc-100"
-              >
-                Contact
-              </Link>
-            </li>
+          <ul className="grid grid-cols-2 gap-x-8 gap-y-2 text-zinc-600 sm:flex sm:flex-wrap sm:gap-x-6 dark:text-zinc-400">
+            {footerLinks.map((link) => (
+              <li key={link.href}>
+                <Link
+                  href={link.href}
+                  className="hover:text-zinc-900 dark:hover:text-zinc-100"
+                >
+                  {link.label}
+                </Link>
+              </li>
+            ))}
             <li>
               <Link
                 href="/es/"
