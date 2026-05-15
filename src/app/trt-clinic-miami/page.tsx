@@ -241,7 +241,7 @@ export default function TrtClinicMiamiPage() {
           </div>
         </section>
 
-        <section aria-labelledby="physician-heading" className="flex flex-col gap-3">
+        <section aria-labelledby="physician-heading" className="flex flex-col gap-3 cv-auto">
           <h2
             id="physician-heading"
             className="text-2xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50"
@@ -257,7 +257,7 @@ export default function TrtClinicMiamiPage() {
           </p>
         </section>
 
-        <section aria-labelledby="faq-heading" className="flex flex-col gap-6">
+        <section aria-labelledby="faq-heading" className="flex flex-col gap-6 cv-auto">
           <h2
             id="faq-heading"
             className="text-2xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50"

@@ -235,7 +235,7 @@ export default function HrtMiamiPage() {
           </p>
         </section>
 
-        <section aria-labelledby="symptoms" className="flex flex-col gap-4">
+        <section aria-labelledby="symptoms" className="flex flex-col gap-4 cv-auto">
           <h2
             id="symptoms"
             className="text-2xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-3xl"
@@ -274,7 +274,7 @@ export default function HrtMiamiPage() {
           </p>
         </section>
 
-        <section aria-labelledby="modalities" className="flex flex-col gap-4">
+        <section aria-labelledby="modalities" className="flex flex-col gap-4 cv-auto">
           <h2
             id="modalities"
             className="text-2xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-3xl"
@@ -325,7 +325,7 @@ export default function HrtMiamiPage() {
           </div>
         </section>
 
-        <section aria-labelledby="process" className="flex flex-col gap-4">
+        <section aria-labelledby="process" className="flex flex-col gap-4 cv-auto">
           <h2
             id="process"
             className="text-2xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-3xl"
@@ -394,7 +394,7 @@ export default function HrtMiamiPage() {
           </ol>
         </section>
 
-        <section aria-labelledby="physician" className="flex flex-col gap-3">
+        <section aria-labelledby="physician" className="flex flex-col gap-3 cv-auto">
           <h2
             id="physician"
             className="text-2xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-3xl"
@@ -410,7 +410,7 @@ export default function HrtMiamiPage() {
           </p>
         </section>
 
-        <section aria-labelledby="location" className="flex flex-col gap-6">
+        <section aria-labelledby="location" className="flex flex-col gap-6 cv-auto">
           <h2
             id="location"
             className="text-2xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-3xl"
@@ -429,7 +429,7 @@ export default function HrtMiamiPage() {
           </div>
         </section>
 
-        <section aria-labelledby="faq-heading" className="flex flex-col gap-6">
+        <section aria-labelledby="faq-heading" className="flex flex-col gap-6 cv-auto">
           <h2
             id="faq-heading"
             className="text-2xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50"
@@ -450,7 +450,7 @@ export default function HrtMiamiPage() {
 
         <section
           aria-labelledby="cta"
-          className="flex flex-col gap-4 rounded-3xl bg-zinc-900 p-8 text-white sm:p-12 dark:bg-zinc-50 dark:text-zinc-900"
+          className="flex flex-col gap-4 rounded-3xl bg-zinc-900 p-8 text-white sm:p-12 dark:bg-zinc-50 dark:text-zinc-900 cv-auto"
         >
           <h2
             id="cta"
