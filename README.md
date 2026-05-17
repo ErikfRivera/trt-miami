@@ -33,6 +33,6 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 
 The `trt-miami` Vercel project (team `team_Yxc4Z9WREhXc67eTWl2r2nNr`) targets `trt-miami.vercel.app` and `miami.stronghealth.com`.
 
-> ⚠️ **STR-130:** Native GitHub auto-deploy is currently broken — the Vercel project is not linked to the GitHub repo because the Vercel GitHub App install does not include `trt-miami`. Until that is fixed, **CLI deploys are the break-glass path**: `vercel deploy --prod --cwd site`. Keep your worktree clean so `meta.gitDirty` is not set. Once the App grant lands and `link.productionBranch` shows `main` on the project, switch back to push-driven auto-deploy and stop running CLI deploys.
+The Vercel GitHub App is installed on `ErikfRivera/trt-miami` (STR-74): every push to `main` triggers an auto production deploy, and every PR gets a Vercel preview URL posted by the Vercel bot.
 
 A drift guard at `.github/workflows/deploy-drift-guard.yml` checks every 10 minutes and on every push whether the production deploy SHA matches `origin/main`; it fails loudly if they drift.
