@@ -213,18 +213,19 @@ export default function DelrayBeachTrtPage() {
           </p>
         </section>
 
-        <section aria-labelledby="modalities" className="flex flex-col gap-4">
+        <section aria-labelledby="modalities" className="flex flex-col gap-6">
           <h2
             id="modalities"
             className="text-2xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-3xl"
           >
-            TRT modalities we offer in Delray Beach
+            Common TRT modalities
           </h2>
-          {/* Kyzatrex® and Clomid/Enclomiphene cards are educational entity
-              coverage (STR-37 editorial framing, confirmed in STR-118) — they
-              describe the modality category, not a claim that Strong Health
-              prescribes them. Don't rewrite the last two cards into "we
-              administer…" copy without re-checking that decision. */}
+          {/* Editorial framing (STR-37, confirmed CEO/CMO in STR-118 and shipped
+              via STR-167): these sub-blocks describe modality categories, not a
+              claim that Strong Health prescribes any specific product. Verbs
+              must stay descriptive ("is taken", "is sometimes prescribed").
+              Do not rewrite into "we administer / we prescribe" copy without
+              re-checking that decision. */}
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             <article className="flex flex-col gap-3 rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm dark:border-zinc-800 dark:bg-zinc-950">
               <h3 className="text-lg font-semibold text-zinc-900 dark:text-zinc-50">
@@ -274,31 +275,132 @@ export default function DelrayBeachTrtPage() {
                 </Link>
               </p>
             </article>
-            <article className="flex flex-col gap-3 rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm dark:border-zinc-800 dark:bg-zinc-950">
-              <h3 className="text-lg font-semibold text-zinc-900 dark:text-zinc-50">
-                Oral TRT (Kyzatrex®)
-              </h3>
-              <p className="text-sm leading-6 text-zinc-700 dark:text-zinc-300">
-                Kyzatrex® (testosterone undecanoate) is an FDA-approved oral
-                capsule taken twice daily with food. A pill-based option for
-                patients who want to avoid injections, pellet procedures, and
-                daily topical application — and who can commit to consistent
-                with-meals dosing for absorption.
-              </p>
-            </article>
-            <article className="flex flex-col gap-3 rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm dark:border-zinc-800 dark:bg-zinc-950">
-              <h3 className="text-lg font-semibold text-zinc-900 dark:text-zinc-50">
-                Clomid / Enclomiphene (fertility-preserving alternative)
-              </h3>
-              <p className="text-sm leading-6 text-zinc-700 dark:text-zinc-300">
-                Clomiphene citrate (Clomid) and enclomiphene are oral
-                non-testosterone alternatives that stimulate the body&apos;s
-                own testosterone production by acting on the pituitary. Often
-                appropriate for younger men with secondary hypogonadism or men
-                who want to preserve fertility while raising testosterone.
-              </p>
-            </article>
           </div>
+
+          <article
+            aria-labelledby="modality-oral-kyzatrex"
+            className="flex flex-col gap-3 rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm dark:border-zinc-800 dark:bg-zinc-950"
+          >
+            <h3
+              id="modality-oral-kyzatrex"
+              className="text-lg font-semibold text-zinc-900 dark:text-zinc-50"
+            >
+              Oral TRT (Kyzatrex®)
+            </h3>
+            <p className="text-base leading-7 text-zinc-700 dark:text-zinc-300">
+              Kyzatrex® (testosterone undecanoate) is the first FDA-approved
+              oral testosterone replacement therapy in modern formulation.{" "}
+              <a
+                href="https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=214770"
+                rel="noopener nofollow"
+                target="_blank"
+                className="font-medium text-zinc-900 underline-offset-2 hover:underline dark:text-zinc-100"
+              >
+                Approved by the FDA in 2022
+              </a>{" "}
+              and brought to market by Marius Pharmaceuticals, it is taken
+              twice daily with food and absorbed primarily via the lymphatic
+              system, which bypasses the first-pass liver metabolism that made
+              earlier oral testosterones unsafe.
+            </p>
+            <p className="text-base leading-7 text-zinc-700 dark:text-zinc-300">
+              Oral TRT is sometimes considered by men who want to avoid weekly
+              injections, in-office pellet insertions, or the transfer risk
+              associated with daily topical gels. Like every TRT modality,
+              oral testosterone requires baseline and follow-up bloodwork —
+              typically total and free testosterone, hematocrit, estradiol,
+              PSA, and a lipid panel — consistent with the{" "}
+              <a
+                href="https://www.auanet.org/guidelines-and-quality/guidelines/testosterone-deficiency-guideline"
+                rel="noopener nofollow"
+                target="_blank"
+                className="font-medium text-zinc-900 underline-offset-2 hover:underline dark:text-zinc-100"
+              >
+                American Urological Association&apos;s 2018 testosterone-deficiency
+                guideline
+              </a>
+              .
+            </p>
+            <p className="text-base leading-7 text-zinc-700 dark:text-zinc-300">
+              Trade-offs a clinician will usually review: the Kyzatrex label
+              includes a blood-pressure monitoring requirement; twice-daily
+              dosing with food calls for consistent adherence; and
+              out-of-pocket cost is generally higher than injectable
+              testosterone cypionate. Choosing between oral, injectable,
+              pellet, and topical TRT is individualized to lifestyle, lab
+              response, and tolerance.
+            </p>
+            <p className="text-xs italic text-zinc-500 dark:text-zinc-400">
+              Sources: FDA Kyzatrex prescribing information (2022); AUA
+              Testosterone Deficiency Guideline (2018).
+            </p>
+          </article>
+
+          <article
+            aria-labelledby="modality-clomid-enclomiphene"
+            className="flex flex-col gap-3 rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm dark:border-zinc-800 dark:bg-zinc-950"
+          >
+            <h3
+              id="modality-clomid-enclomiphene"
+              className="text-lg font-semibold text-zinc-900 dark:text-zinc-50"
+            >
+              Clomid / Enclomiphene (fertility-preserving alternative)
+            </h3>
+            <p className="text-base leading-7 text-zinc-700 dark:text-zinc-300">
+              For men with low testosterone who want to preserve fertility,
+              Clomid® (clomiphene citrate) and its purified isomer
+              enclomiphene are selective estrogen receptor modulators (SERMs)
+              that are sometimes prescribed off-label as an alternative to
+              traditional TRT. Unlike exogenous testosterone — which
+              suppresses the brain&apos;s signal to the testes and can reduce
+              testicular volume and sperm production — these SERMs act
+              upstream. They block estrogen feedback at the hypothalamus,
+              increase LH and FSH, and stimulate the testes&apos; own
+              testosterone production.
+            </p>
+            <p className="text-base leading-7 text-zinc-700 dark:text-zinc-300">
+              Published studies show clomiphene can raise total testosterone
+              into the normal range while maintaining or improving sperm
+              parameters, which is why it is often a first-line consideration
+              for younger men, men actively trying to conceive, or men who
+              want to preserve future fertility.{" "}
+              <a
+                href="https://pubmed.ncbi.nlm.nih.gov/22788734/"
+                rel="noopener nofollow"
+                target="_blank"
+                className="font-medium text-zinc-900 underline-offset-2 hover:underline dark:text-zinc-100"
+              >
+                Katz DJ et al., &ldquo;Outcomes of clomiphene citrate treatment
+                in young hypogonadal men,&rdquo; BJU Int (2012)
+              </a>
+              .
+            </p>
+            <p className="text-base leading-7 text-zinc-700 dark:text-zinc-300">
+              Trade-offs a clinician will usually review: as an off-label
+              use, it is not FDA-approved for male hypogonadism
+              (enclomiphene&apos;s New Drug Application was withdrawn in
+              2016); a minority of men experience mood or transient visual
+              side effects; and the magnitude of testosterone increase is
+              generally smaller than with injectable testosterone. Lab
+              monitoring follows the same cadence as injectable TRT,
+              consistent with the{" "}
+              <a
+                href="https://pubmed.ncbi.nlm.nih.gov/29562364/"
+                rel="noopener nofollow"
+                target="_blank"
+                className="font-medium text-zinc-900 underline-offset-2 hover:underline dark:text-zinc-100"
+              >
+                Endocrine Society Clinical Practice Guideline on Testosterone
+                Therapy (2018)
+              </a>
+              .
+            </p>
+            <p className="text-xs italic text-zinc-500 dark:text-zinc-400">
+              Sources: Endocrine Society Clinical Practice Guideline —
+              Testosterone Therapy (2018); AUA Testosterone Deficiency
+              Guideline (2018); Katz DJ et al., BJU Int (2012).
+            </p>
+          </article>
         </section>
 
         <section aria-labelledby="process" className="flex flex-col gap-4">
