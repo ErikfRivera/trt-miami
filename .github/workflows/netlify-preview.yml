@@ -1,0 +1,64 @@
+name: Netlify preview deploy
+
+on:
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: netlify-preview-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  NETLIFY_SITE_ID: 73080eeb-9ce2-4279-93a7-36a1c1700b62
+
+jobs:
+  deploy:
+    if: github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm install --global netlify-cli@latest
+      - name: Netlify build (deploy-preview context)
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+        run: netlify build --context=deploy-preview
+      - name: Deploy preview
+        id: deploy
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+        run: |
+          set -euo pipefail
+          alias_name="pr-${{ github.event.pull_request.number }}"
+          deploy_json=$(netlify deploy \
+            --prebuilt \
+            --site="$NETLIFY_SITE_ID" \
+            --alias="$alias_name" \
+            --message="PR #${{ github.event.pull_request.number }} (${GITHUB_SHA::7})" \
+            --json)
+          url=$(echo "$deploy_json" | jq -r '.deploy_url')
+          logs=$(echo "$deploy_json" | jq -r '.logs')
+          echo "url=$url" >> "$GITHUB_OUTPUT"
+          echo "logs=$logs" >> "$GITHUB_OUTPUT"
+      - name: Comment preview URL on PR
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const url = "${{ steps.deploy.outputs.url }}";
+            const logs = "${{ steps.deploy.outputs.logs }}";
+            const body = `Netlify preview: ${url}\n\n[Build logs](${logs})`;
+            const { owner, repo } = context.repo;
+            const issue_number = context.issue.number;
+            const { data: comments } = await github.rest.issues.listComments({ owner, repo, issue_number });
+            const existing = comments.find(c => c.user.type === 'Bot' && c.body && c.body.startsWith('Netlify preview:'));
+            if (existing) {
+              await github.rest.issues.updateComment({ owner, repo, comment_id: existing.id, body });
+            } else {
+              await github.rest.issues.createComment({ owner, repo, issue_number, body });
+            }
