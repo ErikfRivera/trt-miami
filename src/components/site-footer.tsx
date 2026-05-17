@@ -8,6 +8,10 @@ const footerLinks = [
   { href: "/bioidentical-hormones-miami/", label: "Bioidentical Hormones Miami" },
   { href: "/peptide-therapy/", label: "Peptide Therapy Miami" },
   { href: "/locations/", label: "Locations" },
+  // STR-67 — inbound link #2 of 5 to /locations/fort-lauderdale-trt/.
+  // Anchor matches the cannibalization rule in STR-52 §5 ("Fort Lauderdale",
+  // never "TRT Miami" or "TRT Fort Lauderdale Miami").
+  { href: "/locations/fort-lauderdale-trt/", label: "Fort Lauderdale" },
   { href: "/providers/", label: "Our Providers" },
   { href: "/about/", label: "About" },
   { href: "/medical-reviewer/", label: "Medical Reviewer" },

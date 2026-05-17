@@ -14,26 +14,24 @@ import {
 } from "@/lib/schema";
 import type { BreadcrumbItem } from "@/lib/schema/breadcrumb";
 
-// STR-67 — Fort Lauderdale area page per STR-52 brief.
-// All clinic placeholders (NAP, phone, address, reviewer, slug) resolve from
-// `lib/business` and `lib/medical-director`. STR-50 placeholder values flip in
-// atomically when STR-151 swaps `business.ts` — no per-page edits needed.
-const PAGE_PATH = "/locations/fort-lauderdale-trt/" as const;
-const ES_PAGE_PATH = "/es/locations/fort-lauderdale-trt/" as const;
+// STR-67 — Spanish parallel of /locations/fort-lauderdale-trt/ per STR-52 §9.
+// Mutual hreflang pair lands via `alternatesFor` once /es/.../ is indexable
+// in `routes`. Same config object as the EN page (`business`, `activeReviewer`),
+// so STR-50 placeholder swaps flow through both pages atomically.
+const PAGE_PATH = "/es/locations/fort-lauderdale-trt/" as const;
+const EN_PAGE_PATH = "/locations/fort-lauderdale-trt/" as const;
 
-// Per §7 of the brief: machine-readable last-review date for MedicalWebPage
-// and visible Updated stamp.
 const LAST_REVIEWED = "2026-05-17" as const;
 
-const PAGE_TITLE = "TRT in Fort Lauderdale, FL | Strong Health" as const;
+const PAGE_TITLE = "TRT en Fort Lauderdale, FL | Strong Health" as const;
 const PAGE_DESCRIPTION =
-  "Board-reviewed testosterone replacement therapy for Fort Lauderdale and Broward. Transparent pricing, Spanish service, free consult. Call (786) 420-3187.";
+  "Terapia de reemplazo de testosterona revisada por médicos para Fort Lauderdale y Broward. Precios claros, atención en español. Llame al (786) 420-3187.";
 
 const canonicalUrl = absoluteUrl(PAGE_PATH);
 
 const breadcrumbItems: readonly BreadcrumbItem[] = [
-  { name: "Home", path: "/" },
-  { name: "Locations", path: "/locations/" },
+  { name: "Inicio", path: "/es/" },
+  { name: "Áreas", path: "/locations/" },
   { name: "Fort Lauderdale", path: PAGE_PATH },
 ];
 
@@ -51,61 +49,57 @@ const browardAreaServed = [
 
 const faqs: { question: string; answer: string }[] = [
   {
-    question: "Where is the nearest TRT clinic to Fort Lauderdale?",
+    question: "¿Dónde está la clínica de TRT más cercana a Fort Lauderdale?",
     answer:
-      "Strong Health serves all of Broward from our clinic at 2999 NE 191st St, Suite 800, Aventura, FL 33180 — a 25–35 minute drive south on I-95 from central Fort Lauderdale. We also offer telehealth follow-ups for Plantation, Pompano Beach, Coral Springs, Sunrise, and Davie patients after their first in-person visit.",
+      "Strong Health atiende a todo Broward desde nuestra clínica en 2999 NE 191st St, Suite 800, Aventura, FL 33180 — un viaje de 25–35 minutos al sur por la I-95 desde el centro de Fort Lauderdale. También ofrecemos seguimientos por telesalud para pacientes de Plantation, Pompano Beach, Coral Springs, Sunrise y Davie después de la primera visita en persona.",
   },
   {
-    question: "How much does TRT cost in Fort Lauderdale?",
+    question: "¿Cuánto cuesta la TRT en Fort Lauderdale?",
     answer:
-      "Most patients pay between $150–$250 per month for testosterone replacement therapy at Strong Health, including routine labs and provider visits. Pellets and add-on peptides are priced separately. See our TRT cost guide for the full breakdown of what drives pricing.",
+      "La mayoría de los pacientes pagan entre $150–$250 al mes por la terapia de reemplazo de testosterona en Strong Health, incluyendo laboratorios de seguimiento y visitas con el proveedor. Los pellets y péptidos adicionales se cotizan por separado.",
   },
   {
-    question: "Does insurance cover TRT in Florida?",
+    question: "¿El seguro médico cubre la TRT en Florida?",
     answer:
-      "Some Florida insurance plans cover TRT when low testosterone is diagnosed by labs and documented as medically necessary. Many patients choose cash-pay for faster scheduling and a single all-in price. We verify coverage during your free consultation.",
+      "Algunos planes en Florida cubren la TRT cuando la baja testosterona está documentada por laboratorios y se considera médicamente necesaria. Muchos pacientes prefieren pagar en efectivo por la rapidez y la claridad de un solo precio total. Verificamos su cobertura durante la consulta gratuita.",
   },
   {
-    question: "What are the symptoms of low testosterone?",
+    question: "¿Cuáles son los síntomas de baja testosterona?",
     answer:
-      "Common symptoms include low energy, reduced libido, erectile difficulty, weight gain, brain fog, irritability, and loss of muscle mass. The Mayo Clinic notes these symptoms also have other causes — only a morning blood test can confirm a low testosterone diagnosis.",
+      "Los síntomas comunes incluyen cansancio, baja libido, dificultad eréctil, aumento de peso, niebla mental, irritabilidad y pérdida de masa muscular. La Clínica Mayo señala que estos síntomas también tienen otras causas — solo un análisis de sangre matutino puede confirmar el diagnóstico.",
   },
   {
-    question: "What lab tests are required to start TRT?",
+    question: "¿Qué laboratorios se necesitan para empezar TRT?",
     answer:
-      "We require a morning total testosterone test, plus free testosterone, estradiol, PSA, hematocrit, and a metabolic panel. The American Urological Association recommends two morning total-testosterone readings below 300 ng/dL before starting therapy.",
+      "Pedimos un análisis matutino de testosterona total, además de testosterona libre, estradiol, PSA, hematocrito y un panel metabólico. La American Urological Association recomienda dos lecturas matutinas de testosterona total por debajo de 300 ng/dL antes de iniciar el tratamiento.",
   },
   {
-    question: "TRT injections vs pellets vs cream — which is right for me?",
+    question: "¿Inyecciones, pellets o crema — cuál es mejor?",
     answer:
-      "Injections are the most cost-effective and easiest to titrate. Pellets are placed every 3–6 months and require no weekly routine. Creams are convenient but carry a documented transfer risk to family members. Your provider matches the method to your labs, lifestyle, and goals.",
+      "Las inyecciones son las más económicas y fáciles de ajustar. Los pellets se colocan cada 3–6 meses sin rutina semanal. Las cremas son cómodas pero tienen riesgo de transferencia a familiares. Su proveedor combina el método con sus laboratorios y estilo de vida.",
   },
   {
-    question: "How long until I feel results from TRT?",
+    question: "¿Cuánto tarda en sentir resultados de la TRT?",
     answer:
-      "Most men notice improved energy and mood within 3–6 weeks and stronger libido and muscle changes within 3–6 months. Sustained benefits depend on consistent dosing and follow-up labs every quarter.",
+      "La mayoría de los hombres nota mejor energía y estado de ánimo en 3–6 semanas, y mayor libido y cambios musculares en 3–6 meses. Los beneficios sostenidos dependen de una dosificación constante y de laboratorios trimestrales de seguimiento.",
   },
   {
-    question: "Is TRT safe long-term?",
+    question: "¿Es segura la TRT a largo plazo?",
     answer:
-      "Current evidence from the American Urological Association and Endocrine Society guidelines supports TRT safety in monitored, properly diagnosed men. Risks include elevated red blood cell count, acne, and possible fertility suppression — all monitored quarterly at Strong Health.",
+      "La evidencia actual de la American Urological Association y la Endocrine Society respalda la seguridad de la TRT en hombres monitoreados y correctamente diagnosticados. Los riesgos incluyen aumento de glóbulos rojos, acné y posible supresión de la fertilidad — todos monitoreados trimestralmente en Strong Health.",
   },
   {
-    question: "Do you offer Spanish-speaking TRT providers in Fort Lauderdale?",
+    question: "¿Tienen proveedores que hablan español en Fort Lauderdale?",
     answer:
-      "Sí. Strong Health offers consultations and follow-ups in English and Spanish. Mention your language preference when you call and we will pair you with a Spanish-speaking team member from intake through follow-up.",
+      "Sí. Strong Health ofrece consultas y seguimientos en inglés y español. Mencione su preferencia de idioma cuando llame y lo emparejaremos con un miembro del equipo que habla español desde la admisión hasta el seguimiento.",
   },
   {
-    question: "How do I book a TRT consultation in Fort Lauderdale?",
+    question: "¿Cómo reservo una consulta de TRT en Fort Lauderdale?",
     answer:
-      "Call (786) 420-3187 or book online. New-patient consultations are free and typically scheduled within 5 business days. Bring any prior testosterone labs from the last 12 months if you have them.",
+      "Llame al (786) 420-3187 o reserve en línea. Las consultas para nuevos pacientes son gratis y normalmente se programan dentro de 5 días hábiles. Si tiene laboratorios previos de los últimos 12 meses, tráigalos.",
   },
 ];
 
-// Per brief §6: 5 JSON-LD blocks. Until a verified FL satellite address exists,
-// we ship `serviceArea` on the parent org (not a fabricated branch LocalBusiness)
-// per STR-51 §2.4 — combined with a `Service` node scoped to this page and the
-// areas served. MedicalWebPage carries the reviewer signal and lastReviewed.
 const schemaNodes = [
   buildServiceAreaService({
     pagePath: PAGE_PATH,
@@ -117,7 +111,7 @@ const schemaNodes = [
     serviceType: "Testosterone Replacement Therapy",
     areaServed: browardAreaServed,
     audience: { suggestedGender: "male", suggestedMinAge: 30 },
-    offers: { bookingUrl: `${business.url}/contact/` },
+    offers: { bookingUrl: `${business.url}/es/contacto/` },
   }),
   buildMedicalWebPage({
     pagePath: PAGE_PATH,
@@ -138,7 +132,7 @@ export const metadata: Metadata = {
     url: canonicalUrl,
     title: PAGE_TITLE,
     description: PAGE_DESCRIPTION,
-    locale: "en_US",
+    locale: "es_US",
   },
   twitter: {
     card: "summary_large_image",
@@ -147,7 +141,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default function FortLauderdaleTrtPage() {
+export default function FortLauderdaleTrtEsPage() {
   return (
     <>
       <SchemaGraph nodes={schemaNodes} />
@@ -180,21 +174,21 @@ export default function FortLauderdaleTrtPage() {
         {/* HERO ---------------------------------------------------------- */}
         <header className="flex flex-col gap-4">
           <p className="text-sm font-medium uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
-            Testosterone Replacement Therapy · Fort Lauderdale, FL
+            Terapia de Reemplazo de Testosterona · Fort Lauderdale, FL
           </p>
           <h1 className="text-4xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-5xl">
-            TRT in Fort Lauderdale | Strong Health TRT Therapy
+            TRT en Fort Lauderdale | Strong Health TRT Therapy
           </h1>
           <p className="max-w-2xl text-lg text-zinc-600 dark:text-zinc-400">
-            Board-reviewed testosterone replacement therapy for men across Fort
-            Lauderdale and Broward County. Transparent pricing. Same-week
-            consults. English and Español.{" "}
+            Terapia de reemplazo de testosterona revisada por médicos para
+            hombres en Fort Lauderdale y el condado de Broward. Precios claros.
+            Citas en la misma semana. Atención en inglés y español.{" "}
             <Link
-              href={ES_PAGE_PATH}
-              hrefLang="es"
+              href={EN_PAGE_PATH}
+              hrefLang="en"
               className="font-medium text-zinc-900 underline-offset-2 hover:underline dark:text-zinc-100"
             >
-              en español →
+              in English →
             </Link>
           </p>
           <div className="flex flex-wrap gap-3">
@@ -202,55 +196,56 @@ export default function FortLauderdaleTrtPage() {
               href={business.phone.href}
               className="inline-flex h-12 min-h-[48px] items-center justify-center rounded-full bg-zinc-900 px-7 text-sm font-medium text-white transition-colors hover:bg-zinc-700 dark:bg-zinc-50 dark:text-zinc-900 dark:hover:bg-zinc-200"
             >
-              Call {business.phone.display}
+              Llame al {business.phone.display}
             </a>
             <Link
-              href="/contact/"
+              href="/es/contacto/"
               className="inline-flex h-12 min-h-[48px] items-center justify-center rounded-full border border-zinc-300 px-7 text-sm font-medium text-zinc-900 transition-colors hover:bg-zinc-100 dark:border-zinc-700 dark:text-zinc-50 dark:hover:bg-zinc-900"
             >
-              Book a free consultation
+              Reserve una consulta gratis
             </Link>
           </div>
           <p className="text-sm text-zinc-500 dark:text-zinc-400">
-            Medically reviewed by{" "}
+            Revisado clínicamente por{" "}
             <Link
               href={activeReviewer.href}
               className="font-medium text-zinc-700 underline-offset-2 hover:underline dark:text-zinc-300"
             >
               {activeReviewer.name}
             </Link>
-            {activeReviewer.isNamedPhysician ? ", MD" : ""} · Updated{" "}
+            {activeReviewer.isNamedPhysician ? ", MD" : ""} · Actualizado{" "}
             <time dateTime={LAST_REVIEWED}>{LAST_REVIEWED}</time>
           </p>
         </header>
 
-        {/* H2.1 — Why Fort Lauderdale men choose Strong Health ----------- */}
-        <section aria-labelledby="why-us" className="flex flex-col gap-4">
+        {/* H2.1 — Por qué los hombres de Fort Lauderdale eligen Strong Health */}
+        <section aria-labelledby="por-que" className="flex flex-col gap-4">
           <h2
-            id="why-us"
+            id="por-que"
             className="text-2xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-3xl"
           >
-            Why Fort Lauderdale men choose Strong Health
+            Por qué los hombres de Fort Lauderdale eligen Strong Health
           </h2>
           <p className="text-zinc-700 dark:text-zinc-300">
-            If you&apos;re a man in Fort Lauderdale running on low energy, lower
-            libido, and a fog you can&apos;t shake, you don&apos;t need another
-            supplement aisle. You need a real clinical workup and, if your labs
-            confirm it, a properly dosed testosterone protocol from a team that
-            does this every day.
+            Si vive en Fort Lauderdale y siente cansancio constante, baja
+            libido y falta de claridad mental, lo que necesita no es otro
+            suplemento — necesita un análisis clínico real y, si sus
+            laboratorios lo confirman, un protocolo de testosterona dosificado
+            correctamente por un equipo que se dedica a esto todos los días.
           </p>
           <p className="text-zinc-700 dark:text-zinc-300">
-            Strong Health is a Miami-based TRT clinic that treats Fort
-            Lauderdale and Broward County patients — both at our flagship
-            clinic and through telehealth follow-ups for Plantation, Pompano
-            Beach, Coral Springs, Sunrise, and Davie. Every patient is seen by
-            a licensed provider, every protocol is written from your bloodwork
-            (not a quiz), and every plan is monitored quarterly per AUA
-            guidelines.
+            Strong Health es una clínica de TRT con sede en Miami que atiende a
+            pacientes de Fort Lauderdale y todo el condado de Broward — tanto
+            en nuestra clínica principal como mediante telesalud para
+            seguimiento en Plantation, Pompano Beach, Coral Springs, Sunrise y
+            Davie. A cada paciente lo atiende un proveedor con licencia, cada
+            protocolo se escribe a partir de sus laboratorios (no de un
+            cuestionario) y cada plan se monitorea trimestralmente según las
+            pautas de la AUA.
           </p>
           <p className="text-zinc-700 dark:text-zinc-300">
-            We answer phones in English and Spanish, publish our pricing, and
-            our clinical content is reviewed by{" "}
+            Atendemos en inglés y español, publicamos nuestros precios y
+            nuestro contenido clínico es revisado por{" "}
             <Link
               href={activeReviewer.href}
               className="font-medium text-zinc-900 underline-offset-2 hover:underline dark:text-zinc-100"
@@ -261,82 +256,83 @@ export default function FortLauderdaleTrtPage() {
           </p>
         </section>
 
-        {/* H2.2 — How TRT works (and what we treat) --------------------- */}
-        <section aria-labelledby="how-it-works" className="flex flex-col gap-4">
+        {/* H2.2 — Cómo funciona la TRT --------------------------------- */}
+        <section aria-labelledby="como-funciona" className="flex flex-col gap-4">
           <h2
-            id="how-it-works"
+            id="como-funciona"
             className="text-2xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-3xl"
           >
-            How TRT works (and what we treat)
+            Cómo funciona la TRT (y qué tratamos)
           </h2>
           <p className="text-zinc-700 dark:text-zinc-300">
-            Testosterone replacement therapy treats a confirmed deficiency of
-            testosterone — the hormone that drives energy, libido, mood, lean
-            muscle, fat distribution, and bone density in men. Per the
-            Endocrine Society&apos;s clinical practice guideline, treatment is
-            appropriate for men with consistent symptoms <em>and</em> two
-            morning total-testosterone readings below the laboratory reference
-            range.
+            La terapia de reemplazo de testosterona trata una deficiencia
+            confirmada de testosterona — la hormona responsable de la energía,
+            la libido, el estado de ánimo, la masa muscular, la distribución
+            de grasa y la densidad ósea en los hombres. Según la guía de
+            práctica clínica de la Endocrine Society, el tratamiento es
+            apropiado para hombres con síntomas constantes <em>y</em> dos
+            lecturas matutinas de testosterona total por debajo del rango de
+            referencia del laboratorio.
           </p>
           <p className="text-zinc-700 dark:text-zinc-300">
-            If you recognize this pattern, TRT may be worth a conversation:
+            Si reconoce este patrón, vale la pena hablar con nosotros:
           </p>
           <ul className="grid gap-2 text-zinc-700 dark:text-zinc-300 sm:grid-cols-2">
-            <li>Persistent low energy or daytime fatigue despite adequate sleep</li>
-            <li>Reduced sex drive or erectile changes</li>
-            <li>Loss of muscle and increase in central body fat</li>
-            <li>Brain fog, irritability, or depressed mood</li>
-            <li>Slower recovery from training or injury</li>
-            <li>Disrupted sleep, night sweats</li>
+            <li>Cansancio constante a pesar de dormir bien</li>
+            <li>Baja libido o cambios en la función eréctil</li>
+            <li>Pérdida de masa muscular, aumento de grasa abdominal</li>
+            <li>Niebla mental, irritabilidad, ánimo deprimido</li>
+            <li>Recuperación más lenta del entrenamiento o de lesiones</li>
+            <li>Sueño interrumpido, sudores nocturnos</li>
           </ul>
           <p className="text-zinc-700 dark:text-zinc-300">
-            These symptoms can have other causes (the Mayo Clinic lists thyroid
-            issues, sleep apnea, depression, and medication side effects among
-            them), which is exactly why we start with labs — not a
-            prescription. Read more about{" "}
+            Estos síntomas pueden tener otras causas (la Clínica Mayo menciona
+            problemas de tiroides, apnea del sueño, depresión y efectos de
+            medicamentos), por lo que empezamos con laboratorios — no con una
+            receta. Lea más sobre{" "}
             <Link
               href="/"
               className="font-medium text-zinc-900 underline-offset-2 hover:underline dark:text-zinc-100"
             >
-              TRT therapy in Miami
+              cómo funciona la TRT en nuestro hub de Miami
             </Link>{" "}
-            and the{" "}
+            y el{" "}
             <Link
               href="/is-trt-safe/"
               className="font-medium text-zinc-900 underline-offset-2 hover:underline dark:text-zinc-100"
             >
-              full safety profile
+              perfil completo de seguridad
             </Link>{" "}
-            before booking.
+            antes de reservar.
           </p>
         </section>
 
-        {/* H2.3 — TRT options we offer ---------------------------------- */}
-        <section aria-labelledby="options" className="flex flex-col gap-4">
+        {/* H2.3 — Opciones de TRT que ofrecemos ------------------------ */}
+        <section aria-labelledby="opciones" className="flex flex-col gap-4">
           <h2
-            id="options"
+            id="opciones"
             className="text-2xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-3xl"
           >
-            TRT options we offer
+            Opciones de TRT que ofrecemos
           </h2>
           <p className="text-zinc-700 dark:text-zinc-300">
-            There is no single &ldquo;best&rdquo; delivery method. There is the
-            method that fits your labs, your schedule, and your goals.
+            No hay un &ldquo;mejor&rdquo; método único. Hay un método que se
+            ajusta a sus laboratorios, su rutina y sus objetivos.
           </p>
           <div className="grid gap-4 sm:grid-cols-3">
             <article className="flex flex-col gap-3 rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm dark:border-zinc-800 dark:bg-zinc-950">
               <h3 className="text-lg font-semibold text-zinc-900 dark:text-zinc-50">
-                Injections
+                Inyecciones
               </h3>
               <p className="text-sm leading-6 text-zinc-700 dark:text-zinc-300">
-                Intramuscular or subcutaneous — most cost-effective, easy to
-                titrate, weekly cadence. The standard of care for the majority
-                of TRT patients.{" "}
+                Intramusculares o subcutáneas — la opción más económica, fácil
+                de ajustar, cadencia semanal. El estándar para la mayoría de
+                los pacientes.{" "}
                 <Link
                   href="/trt-injections/"
                   className="font-medium text-zinc-900 underline-offset-2 hover:underline dark:text-zinc-100"
                 >
-                  Learn more →
+                  Más información →
                 </Link>
               </p>
             </article>
@@ -345,46 +341,47 @@ export default function FortLauderdaleTrtPage() {
                 Pellets
               </h3>
               <p className="text-sm leading-6 text-zinc-700 dark:text-zinc-300">
-                Placed every 3–6 months in a 10-minute office procedure. No
-                weekly routine. Higher up-front cost, no daily commitment.{" "}
+                Se colocan cada 3–6 meses en un procedimiento de 10 minutos.
+                Sin rutina semanal. Mayor costo inicial.{" "}
                 <Link
                   href="/trt-pellets/"
                   className="font-medium text-zinc-900 underline-offset-2 hover:underline dark:text-zinc-100"
                 >
-                  Learn more →
+                  Más información →
                 </Link>
               </p>
             </article>
             <article className="flex flex-col gap-3 rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm dark:border-zinc-800 dark:bg-zinc-950">
               <h3 className="text-lg font-semibold text-zinc-900 dark:text-zinc-50">
-                Creams &amp; gels
+                Cremas y geles
               </h3>
               <p className="text-sm leading-6 text-zinc-700 dark:text-zinc-300">
-                Daily topical application. Convenient but carries a documented
-                transfer risk to spouses, partners, and children.
+                Aplicación tópica diaria. Cómodas pero conllevan un riesgo
+                documentado de transferencia a esposas, parejas e hijos.
               </p>
             </article>
           </div>
           <p className="text-zinc-700 dark:text-zinc-300">
-            Your provider walks you through the trade-offs at your consult. We
-            don&apos;t upsell — we match.
+            Su proveedor le explicará las ventajas y desventajas en su
+            consulta. No empujamos — combinamos.
           </p>
         </section>
 
-        {/* H2.4 — Areas we serve in Broward ----------------------------- */}
-        <section aria-labelledby="areas-served" className="flex flex-col gap-4">
+        {/* H2.4 — Áreas que atendemos ---------------------------------- */}
+        <section aria-labelledby="areas" className="flex flex-col gap-4">
           <h2
-            id="areas-served"
+            id="areas"
             className="text-2xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-3xl"
           >
-            Areas we serve in Broward
+            Áreas que atendemos en Broward
           </h2>
           <p className="text-zinc-700 dark:text-zinc-300">
-            Strong Health treats men across Broward County. We see Fort
-            Lauderdale patients in person at our clinic in Aventura — a 25–35
-            minute drive south on I-95 — and offer telehealth follow-ups (after
-            the initial in-person consult and labs) for surrounding communities
-            including:
+            Strong Health atiende a hombres en todo el condado de Broward.
+            Vemos a pacientes de Fort Lauderdale en persona en nuestra clínica
+            en Aventura — un viaje de 25–35 minutos al sur por la I-95 — y
+            ofrecemos seguimiento por telesalud (después de la consulta
+            inicial y los laboratorios en persona) para comunidades cercanas
+            como:
           </p>
           <ul className="grid gap-2 text-zinc-700 dark:text-zinc-300 sm:grid-cols-2">
             {browardAreaServed.map((area) => (
@@ -397,151 +394,155 @@ export default function FortLauderdaleTrtPage() {
             ))}
           </ul>
           <p className="text-zinc-700 dark:text-zinc-300">
-            Travel from Plantation or Sunrise is typically 20–30 minutes; from
-            Pompano or Coral Springs, 25–40 minutes depending on I-95 traffic.
-            Quarterly lab draws can be scheduled at any LabCorp or Quest
-            location near you — your provider sends the order.
+            El viaje desde Plantation o Sunrise suele ser de 20–30 minutos;
+            desde Pompano o Coral Springs, 25–40 minutos según el tráfico de
+            la I-95. Las extracciones de laboratorio trimestrales se pueden
+            programar en cualquier ubicación de LabCorp o Quest cerca de
+            usted — su proveedor envía la orden.
           </p>
         </section>
 
-        {/* H2.5 — What TRT costs in Fort Lauderdale --------------------- */}
-        <section aria-labelledby="costs" className="flex flex-col gap-4">
+        {/* H2.5 — Cuánto cuesta la TRT --------------------------------- */}
+        <section aria-labelledby="costos" className="flex flex-col gap-4">
           <h2
-            id="costs"
+            id="costos"
             className="text-2xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-3xl"
           >
-            What TRT costs in Fort Lauderdale
+            Cuánto cuesta la TRT en Fort Lauderdale
           </h2>
           <p className="text-zinc-700 dark:text-zinc-300">
-            Most Strong Health TRT patients in Broward pay{" "}
+            La mayoría de los pacientes de Strong Health en Broward pagan{" "}
             <strong className="font-semibold text-zinc-900 dark:text-zinc-50">
-              $150–$250 per month
+              $150–$250 al mes
             </strong>
-            , all-inclusive of provider visits, prescriptions, and routine
-            follow-up labs. Pellets, peptides, and add-ons are priced
-            separately and quoted up front. No surprise bills.
+            , todo incluido: visitas con el proveedor, recetas y laboratorios
+            de seguimiento de rutina. Los pellets, péptidos y complementos se
+            cotizan por separado y se le informa el precio por adelantado.
+            Sin facturas sorpresa.
           </p>
-          <p className="text-zinc-700 dark:text-zinc-300">A few cost realities specific to Florida:</p>
+          <p className="text-zinc-700 dark:text-zinc-300">
+            Algunas realidades de costos específicas para la Florida:
+          </p>
           <ul className="flex flex-col gap-3 text-zinc-700 dark:text-zinc-300">
             <li>
               <strong className="font-semibold text-zinc-900 dark:text-zinc-50">
-                Insurance:
+                Seguro médico:
               </strong>{" "}
-              Some Florida plans cover TRT when low testosterone is documented
-              per the AUA threshold (two morning total-T readings below 300
-              ng/dL). Many patients still choose cash-pay for faster scheduling
-              and a single all-in price.
+              Algunos planes en Florida cubren la TRT cuando la deficiencia se
+              documenta según el umbral de la AUA (dos lecturas matutinas de
+              testosterona total por debajo de 300 ng/dL). Muchos pacientes
+              prefieren pagar en efectivo por la rapidez y la claridad de un
+              solo precio total.
             </li>
             <li>
               <strong className="font-semibold text-zinc-900 dark:text-zinc-50">
-                Initial labs
+                Laboratorios iniciales
               </strong>{" "}
-              are typically $80–$150 if cash-pay; covered if billed through
-              your insurance with appropriate diagnosis.
+              suelen costar $80–$150 si se paga en efectivo; cubiertos si se
+              facturan a su seguro con el diagnóstico apropiado.
             </li>
             <li>
               <strong className="font-semibold text-zinc-900 dark:text-zinc-50">
-                Hidden fees we don&apos;t charge:
+                Costos ocultos que no cobramos:
               </strong>{" "}
-              no membership fee, no enrollment fee, no &ldquo;concierge&rdquo;
-              upsell to access your provider.
+              sin cuota de membresía, sin cuota de inscripción, sin
+              &ldquo;conserje&rdquo; para acceder a su proveedor.
             </li>
           </ul>
           <p className="text-zinc-700 dark:text-zinc-300">
-            For a full national pricing breakdown and what drives the
-            variation, see{" "}
+            Para un desglose completo de precios a nivel nacional y qué
+            impulsa la variación, vea{" "}
             <Link
               href="/trt-cost/"
               className="font-medium text-zinc-900 underline-offset-2 hover:underline dark:text-zinc-100"
             >
-              what TRT costs
+              nuestra guía de costos de TRT
             </Link>
             .
           </p>
         </section>
 
-        {/* H2.6 — Is TRT safe? ----------------------------------------- */}
-        <section aria-labelledby="safety" className="flex flex-col gap-4">
+        {/* H2.6 — Seguridad y monitoreo -------------------------------- */}
+        <section aria-labelledby="seguridad" className="flex flex-col gap-4">
           <h2
-            id="safety"
+            id="seguridad"
             className="text-2xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-3xl"
           >
-            Is TRT safe? Risks and monitoring
+            ¿Es segura la TRT? Riesgos y monitoreo
           </h2>
           <p className="text-zinc-700 dark:text-zinc-300">
-            When TRT is prescribed for a confirmed deficiency and monitored
-            properly, current evidence from the AUA and the Endocrine Society
-            supports its long-term safety profile in adult men. The risks
-            worth knowing:
+            Cuando la TRT se prescribe para una deficiencia confirmada y se
+            monitorea correctamente, la evidencia actual de la AUA y la
+            Endocrine Society respalda su perfil de seguridad a largo plazo en
+            hombres adultos. Los riesgos a conocer:
           </p>
           <ul className="flex flex-col gap-3 text-zinc-700 dark:text-zinc-300">
             <li>
               <strong className="font-semibold text-zinc-900 dark:text-zinc-50">
-                Erythrocytosis
+                Eritrocitosis
               </strong>{" "}
-              (elevated red blood cell count) — monitored quarterly via
-              hematocrit. Easily managed.
+              (recuento elevado de glóbulos rojos) — monitoreado
+              trimestralmente vía hematocrito. Manejable.
             </li>
             <li>
               <strong className="font-semibold text-zinc-900 dark:text-zinc-50">
-                Estradiol elevation
+                Elevación de estradiol
               </strong>{" "}
-              — monitored; managed through dose adjustment or, rarely, an
-              aromatase inhibitor.
+              — monitoreada; manejada con ajuste de dosis o, en raras
+              ocasiones, un inhibidor de aromatasa.
             </li>
             <li>
               <strong className="font-semibold text-zinc-900 dark:text-zinc-50">
-                Fertility suppression
+                Supresión de fertilidad
               </strong>{" "}
-              — TRT typically reduces sperm production. If you may want
-              children during therapy, we discuss adjuncts (hCG) at consult.
+              — la TRT generalmente reduce la producción de espermatozoides.
+              Si planea tener hijos durante la terapia, hablamos de
+              complementos (hCG) en la consulta.
             </li>
             <li>
               <strong className="font-semibold text-zinc-900 dark:text-zinc-50">
-                Prostate considerations
+                Consideraciones de próstata
               </strong>{" "}
-              — current AUA guidance does not contraindicate TRT in men
-              without active prostate cancer. We monitor PSA per protocol.
+              — la guía actual de la AUA no contraindica la TRT en hombres
+              sin cáncer de próstata activo. Monitoreamos el PSA según
+              protocolo.
             </li>
           </ul>
           <p className="text-zinc-700 dark:text-zinc-300">
-            You can read the full{" "}
+            Lea el perfil completo de{" "}
             <Link
               href="/trt-side-effects/"
               className="font-medium text-zinc-900 underline-offset-2 hover:underline dark:text-zinc-100"
             >
-              TRT side effects
+              efectos secundarios
             </Link>{" "}
-            breakdown and our{" "}
+            y nuestra{" "}
             <Link
               href="/is-trt-safe/"
               className="font-medium text-zinc-900 underline-offset-2 hover:underline dark:text-zinc-100"
             >
-              is TRT safe
-            </Link>{" "}
-            guide.
+              guía sobre si la TRT es segura
+            </Link>
+            .
           </p>
         </section>
 
-        {/* H2.7 — What patients say (gated until verified Google Reviews) - */}
+        {/* H2.7 — Lo que dicen los pacientes (gated) ------------------- */}
         <section
-          aria-labelledby="reviews"
+          aria-labelledby="reseñas"
           className="flex flex-col gap-4 rounded-2xl border border-dashed border-zinc-300 bg-white p-6 dark:border-zinc-700 dark:bg-zinc-950"
         >
           <h2
-            id="reviews"
+            id="reseñas"
             className="text-2xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50"
           >
-            What patients say
+            Lo que dicen nuestros pacientes
           </h2>
-          {/* Per STR-52 brief §8 H2.7 + STR-50 §5d: ship empty rather than
-              fabricated. Verified Google Review excerpts from Broward-area
-              patients replace this block before launch. */}
           <p className="text-zinc-700 dark:text-zinc-300">
-            Verified Google Review excerpts from Broward-area patients will
-            appear here as they are collected. We ship this section empty
-            rather than ship fabricated testimonials — if a name appears on
-            this page, the quote came from that patient.
+            Las reseñas verificadas de Google de pacientes del área de Broward
+            aparecerán aquí a medida que se recopilen. Publicamos esta sección
+            vacía en lugar de citas fabricadas — si un nombre aparece en esta
+            página, la cita vino de ese paciente.
           </p>
         </section>
 
@@ -551,7 +552,7 @@ export default function FortLauderdaleTrtPage() {
             id="faq"
             className="text-2xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-3xl"
           >
-            Frequently asked questions
+            Preguntas frecuentes
           </h2>
           <dl className="flex flex-col gap-6">
             {faqs.map((f) => (
@@ -565,26 +566,26 @@ export default function FortLauderdaleTrtPage() {
           </dl>
         </section>
 
-        {/* H2.9 — Book your Fort Lauderdale TRT consultation ------------ */}
+        {/* H2.9 — Reserve su consulta ---------------------------------- */}
         <section
-          aria-labelledby="book"
+          aria-labelledby="reservar"
           className="flex flex-col gap-4 rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm dark:border-zinc-800 dark:bg-zinc-950 sm:p-8"
         >
           <h2
-            id="book"
+            id="reservar"
             className="text-2xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50"
           >
-            Book your Fort Lauderdale TRT consultation
+            Reserve su consulta de TRT en Fort Lauderdale
           </h2>
           <p className="text-zinc-700 dark:text-zinc-300">
-            New-patient consultations are <strong>free</strong> and typically
-            scheduled within 5 business days. Bring any prior testosterone
-            labs (within the last 12 months) if you have them.
+            Las consultas para nuevos pacientes son <strong>gratis</strong> y
+            normalmente se programan dentro de 5 días hábiles. Si tiene
+            laboratorios previos (de los últimos 12 meses), tráigalos.
           </p>
           <dl className="grid gap-3 text-zinc-700 sm:grid-cols-2 dark:text-zinc-300">
             <div>
               <dt className="text-sm font-semibold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
-                Phone
+                Teléfono
               </dt>
               <dd>
                 <a
@@ -597,30 +598,28 @@ export default function FortLauderdaleTrtPage() {
             </div>
             <div>
               <dt className="text-sm font-semibold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
-                Online
+                En línea
               </dt>
               <dd>
                 <Link
-                  href="/contact/"
+                  href="/es/contacto/"
                   className="font-medium text-zinc-900 underline-offset-2 hover:underline dark:text-zinc-100"
                 >
-                  Book your free consult →
+                  Reserve su consulta gratis →
                 </Link>
               </dd>
             </div>
             <div>
               <dt className="text-sm font-semibold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
-                Address (Fort Lauderdale-area)
+                Dirección (área de Fort Lauderdale)
               </dt>
               <dd className="not-italic">{business.address.displayLine1}</dd>
             </div>
             <div>
               <dt className="text-sm font-semibold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
-                Hours
+                Horario
               </dt>
-              <dd>
-                Mon–Fri 8:00 AM – 6:00 PM · Sat by appointment
-              </dd>
+              <dd>Lun–Vie 8:00 AM – 6:00 PM · Sáb con cita</dd>
             </div>
           </dl>
           <div className="flex flex-wrap gap-3 pt-2">
@@ -628,35 +627,34 @@ export default function FortLauderdaleTrtPage() {
               href={business.phone.href}
               className="inline-flex h-12 min-h-[48px] items-center justify-center rounded-full bg-zinc-900 px-7 text-sm font-medium text-white transition-colors hover:bg-zinc-700 dark:bg-zinc-50 dark:text-zinc-900 dark:hover:bg-zinc-200"
             >
-              Call {business.phone.display}
+              Llame al {business.phone.display}
             </a>
             <Link
-              href="/contact/"
+              href="/es/contacto/"
               className="inline-flex h-12 min-h-[48px] items-center justify-center rounded-full border border-zinc-300 px-7 text-sm font-medium text-zinc-900 transition-colors hover:bg-zinc-100 dark:border-zinc-700 dark:text-zinc-50 dark:hover:bg-zinc-900"
             >
-              Book online
+              Reservar en línea
             </Link>
           </div>
         </section>
 
-        {/* Reviewer footer + last updated ------------------------------ */}
         <footer className="flex flex-col gap-2 border-t border-zinc-200 pt-6 text-sm text-zinc-500 dark:border-zinc-800 dark:text-zinc-400">
           <p>
-            Medically reviewed by{" "}
+            Revisado clínicamente por{" "}
             <Link
               href={activeReviewer.href}
               className="font-medium text-zinc-700 underline-offset-2 hover:underline dark:text-zinc-300"
             >
               {activeReviewer.name}
             </Link>
-            {activeReviewer.isNamedPhysician ? ", MD" : ""}. Last reviewed{" "}
-            <time dateTime={LAST_REVIEWED}>{LAST_REVIEWED}</time>.
+            {activeReviewer.isNamedPhysician ? ", MD" : ""}. Última
+            actualización <time dateTime={LAST_REVIEWED}>{LAST_REVIEWED}</time>.
           </p>
           <p className="text-xs italic">
-            Clinical claims on this page cite Mayo Clinic, the American
-            Urological Association, the Endocrine Society, and the U.S. FDA.
-            This page is informational and is not a substitute for in-person
-            medical evaluation.
+            Las afirmaciones clínicas de esta página citan a Mayo Clinic, la
+            American Urological Association, la Endocrine Society y la FDA de
+            EE. UU. Esta página es informativa y no sustituye una evaluación
+            médica en persona.
           </p>
         </footer>
       </div>

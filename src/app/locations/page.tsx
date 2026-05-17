@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 
 const areas: { name: string; path: SitePath; note: string }[] = [
   { name: "Hialeah", path: "/locations/hialeah-trt/", note: "Bilingual EN/ES intake, easy drive from the 826/Palmetto" },
-  { name: "Fort Lauderdale", path: "/locations/fort-lauderdale-trt/", note: "Broward County patients — content coming soon" },
+  { name: "Fort Lauderdale", path: "/locations/fort-lauderdale-trt/", note: "Broward County — same-week consults, EN/ES, 25–35 min south on I-95" },
   { name: "Aventura", path: "/locations/aventura-trt/", note: "North Miami-Dade — content coming soon" },
   { name: "Doral", path: "/locations/doral-trt/", note: "West Miami-Dade — content coming soon" },
   { name: "Brickell", path: "/locations/brickell-trt/", note: "Downtown Miami — content coming soon" },

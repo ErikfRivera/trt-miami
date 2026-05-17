@@ -90,6 +90,19 @@ export default function TrtCostPage() {
             How much does TRT cost in Miami, with and without insurance. Detailed
             page content in progress.
           </p>
+          {/* STR-67 — inbound link #5 of 5 to the Fort Lauderdale area page.
+              Anchor "Fort Lauderdale TRT pricing" per the geo-pricing
+              cannibalization rule in STR-52 §5. */}
+          <p className="max-w-2xl text-sm text-zinc-500 dark:text-zinc-400">
+            Patients in Broward County: see our{" "}
+            <Link
+              href="/locations/fort-lauderdale-trt/"
+              className="font-medium text-zinc-700 underline-offset-2 hover:underline dark:text-zinc-300"
+            >
+              Fort Lauderdale TRT pricing
+            </Link>{" "}
+            notes for area-specific cost details and free-consult booking.
+          </p>
         </header>
 
         <section aria-labelledby="faq-heading" className="flex flex-col gap-4">

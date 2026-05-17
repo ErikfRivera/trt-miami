@@ -76,6 +76,9 @@ export const routes: readonly SiteRoute[] = [
   { path: "/es/", changeFrequency: "weekly", priority: 0.7, noindex: true, locale: "es" },
   { path: "/es/clinica-trt-miami/", changeFrequency: "weekly", priority: 0.7, noindex: true, locale: "es" },
   { path: "/es/contacto/", changeFrequency: "monthly", priority: 0.5, noindex: true, locale: "es" },
+  // STR-67 — Fort Lauderdale Spanish parallel; full copy v1 lands with the EN
+  // canonical, so it's indexable and pairs in hreflang from day one.
+  { path: "/es/locations/fort-lauderdale-trt/", changeFrequency: "monthly", priority: 0.85, locale: "es" },
 ] as const;
 
 export const absoluteUrl = (path: SitePath): string =>

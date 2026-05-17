@@ -13,6 +13,9 @@ export const hreflangPairs: readonly LangPair[] = [
   { en: "/trt-clinic-miami/", es: "/es/clinica-trt-miami/" },
   { en: "/delray-beach-trt-therapy/", es: "/es/delray-beach-trt-therapy/" },
   { en: "/contact/", es: "/es/contacto/" },
+  // STR-67 — Fort Lauderdale area page (EN ↔ ES) ships with both sides
+  // indexable, so the pair emits hreflang from day one.
+  { en: "/locations/fort-lauderdale-trt/", es: "/es/locations/fort-lauderdale-trt/" },
 ] as const;
 
 function isIndexable(path: SitePath): boolean {

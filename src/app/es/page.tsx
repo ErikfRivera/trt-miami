@@ -23,6 +23,9 @@ export default function HomeEsPage() {
       ]}
       relatedLinks={[
         { label: "Clínica TRT en Miami", href: "/es/clinica-trt-miami/" },
+        // STR-67 — inbound link #4 of 5 from /es/ to the Spanish FL parallel.
+        // Mirrors the EN homepage "Areas we serve" → Fort Lauderdale wiring.
+        { label: "TRT en Fort Lauderdale", href: "/es/locations/fort-lauderdale-trt/" },
         { label: "Contacto", href: "/es/contacto/" },
         { label: "Switch to English", href: "/" },
       ]}

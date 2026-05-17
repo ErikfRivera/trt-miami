@@ -684,6 +684,18 @@ export default function Home() {
               parking, and language-support notes live on each neighborhood
               page.
             </p>
+            <p className="text-base leading-7 text-slate-400">
+              North of Miami-Dade, Broward County patients drive in from across
+              the I-95 corridor — see our{" "}
+              <Link
+                href="/locations/fort-lauderdale-trt/"
+                className="font-medium text-amber-300 underline-offset-4 hover:text-amber-200 hover:underline"
+              >
+                Fort Lauderdale TRT clinic
+              </Link>{" "}
+              page for Broward-specific drive-time, language support, and
+              pricing notes.
+            </p>
           </header>
           <ul className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-3">
             {neighborhoods.map((n) => (
