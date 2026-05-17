@@ -2,8 +2,12 @@ name: Deploy drift guard
 
 # Catches the STR-130 failure mode: origin/main moves but no Vercel production
 # deploy fires. Fails the workflow (and surfaces in the Actions tab + email
-# notifications) when origin/main HEAD and the project's latestDeployment
-# disagree for more than the grace period.
+# notifications) when origin/main HEAD and the live deploy disagree for more
+# than the grace period.
+#
+# STR-158: switched from the Vercel API (required a token that kept getting
+# revoked) to a built-in /sha.txt probe served by the deploy itself. Zero
+# secrets, self-healing.
 
 on:
   push:
@@ -16,22 +20,13 @@ permissions:
   contents: read
 
 env:
-  VERCEL_PROJECT_ID: prj_DCkQB7U5QPj2VVWmJgNSiwPAAuV2
-  VERCEL_TEAM_ID: team_Yxc4Z9WREhXc67eTWl2r2nNr
+  PROBE_URL: 'https://miami.stronghealth.com/sha.txt'
   GRACE_SECONDS: '300'
 
 jobs:
   check-drift:
     runs-on: ubuntu-latest
     steps:
-      - name: Check that VERCEL_TOKEN is configured
-        if: env.VERCEL_TOKEN == ''
-        env:
-          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-        run: |
-          echo "::error::VERCEL_TOKEN repo secret is missing. Add it in Settings → Secrets and variables → Actions → New repository secret. STR-130 cannot self-heal without it."
-          exit 1
-
       - name: Resolve origin/main HEAD
         id: gh
         env:
@@ -46,61 +41,45 @@ jobs:
           echo "origin_commit_epoch=${commit_epoch}" >>"$GITHUB_OUTPUT"
           echo "origin/main HEAD: ${sha} (committed at ${commit_iso}, epoch ${commit_epoch})"
 
-      - name: Resolve Vercel latest production deployment
-        id: vercel
-        env:
-          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+      - name: Probe live deploy SHA
+        id: live
         run: |
           set -euo pipefail
-          http_code=$(curl -sS -o /tmp/vercel-resp.json -w '%{http_code}' \
-            -H "Authorization: Bearer ${VERCEL_TOKEN}" \
-            "https://api.vercel.com/v6/deployments?projectId=${VERCEL_PROJECT_ID}&teamId=${VERCEL_TEAM_ID}&target=production&state=READY&limit=1")
-          if [ "$http_code" = "401" ] || [ "$http_code" = "403" ]; then
-            echo "::error title=VERCEL_TOKEN auth failure::Vercel API returned ${http_code} for team ${VERCEL_TEAM_ID}. The VERCEL_TOKEN repo secret is invalid, expired, or not scoped to this team. CEO action: generate a new Vercel access token at https://vercel.com/account/tokens scoped to team 'erikrivera' (${VERCEL_TEAM_ID}) and update the VERCEL_TOKEN secret at https://github.com/${GITHUB_REPOSITORY}/settings/secrets/actions. Response body:"
-            cat /tmp/vercel-resp.json || true
-            exit 1
-          fi
+          # Cache-bust to bypass any edge layer.
+          url="${PROBE_URL}?t=$(date -u +%s)"
+          http_code=$(curl -sS -o /tmp/sha.txt -w '%{http_code}' \
+            -H "Cache-Control: no-cache" \
+            -H "Pragma: no-cache" \
+            "$url")
           if [ "$http_code" != "200" ]; then
-            echo "::error::Vercel API returned HTTP ${http_code} (expected 200). Response:"
-            cat /tmp/vercel-resp.json || true
+            echo "::error title=Live deploy probe failed::GET ${PROBE_URL} returned HTTP ${http_code}. Either the deploy is down or /sha.txt was removed. Body:"
+            cat /tmp/sha.txt || true
             exit 1
           fi
-          resp=$(cat /tmp/vercel-resp.json)
-          dep_sha=$(echo "$resp" | jq -r '.deployments[0].meta.githubCommitSha // .deployments[0].meta.gitCommitSha // ""')
-          dep_id=$(echo "$resp" | jq -r '.deployments[0].uid // .deployments[0].id // ""')
-          dep_created=$(echo "$resp" | jq -r '.deployments[0].created // 0')
-          dep_actor=$(echo "$resp" | jq -r '.deployments[0].meta.actor // ""')
-          dep_github=$(echo "$resp" | jq -r '.deployments[0].meta.githubDeployment // ""')
-          echo "deploy_sha=${dep_sha}" >>"$GITHUB_OUTPUT"
-          echo "deploy_id=${dep_id}" >>"$GITHUB_OUTPUT"
-          echo "deploy_created=${dep_created}" >>"$GITHUB_OUTPUT"
-          echo "deploy_actor=${dep_actor}" >>"$GITHUB_OUTPUT"
-          echo "deploy_github=${dep_github}" >>"$GITHUB_OUTPUT"
-          echo "latest prod deploy: ${dep_id} sha=${dep_sha} actor=${dep_actor} githubDeployment=${dep_github}"
+          deploy_sha=$(tr -d '[:space:]' < /tmp/sha.txt)
+          if [ -z "$deploy_sha" ] || [ "$deploy_sha" = "unknown" ]; then
+            echo "::error::Live deploy returned empty or 'unknown' SHA from ${PROBE_URL}. The deploy was probably built outside Vercel (VERCEL_GIT_COMMIT_SHA was not set). Re-deploy via Vercel to restore."
+            exit 1
+          fi
+          echo "deploy_sha=${deploy_sha}" >>"$GITHUB_OUTPUT"
+          echo "live deploy SHA: ${deploy_sha}"
 
       - name: Compare and fail on drift
         env:
           ORIGIN_SHA: ${{ steps.gh.outputs.origin_sha }}
           ORIGIN_COMMIT_EPOCH: ${{ steps.gh.outputs.origin_commit_epoch }}
-          DEPLOY_SHA: ${{ steps.vercel.outputs.deploy_sha }}
-          DEPLOY_ID: ${{ steps.vercel.outputs.deploy_id }}
-          DEPLOY_ACTOR: ${{ steps.vercel.outputs.deploy_actor }}
-          DEPLOY_GITHUB: ${{ steps.vercel.outputs.deploy_github }}
+          DEPLOY_SHA: ${{ steps.live.outputs.deploy_sha }}
         run: |
           set -euo pipefail
-          if [ -z "$DEPLOY_SHA" ]; then
-            echo "::error::Vercel returned no production deployment SHA. Check Vercel project ${VERCEL_PROJECT_ID}."
-            exit 1
-          fi
           if [ "$ORIGIN_SHA" = "$DEPLOY_SHA" ]; then
-            echo "OK: origin/main (${ORIGIN_SHA:0:7}) == prod deploy (${DEPLOY_SHA:0:7}) (${DEPLOY_ID})"
+            echo "OK: origin/main (${ORIGIN_SHA:0:7}) == live deploy (${DEPLOY_SHA:0:7})"
             exit 0
           fi
           now=$(date -u +%s)
           age=$(( now - ORIGIN_COMMIT_EPOCH ))
           if [ "$age" -lt "$GRACE_SECONDS" ]; then
-            echo "Drift detected but origin/main commit is fresh (${age}s < ${GRACE_SECONDS}s grace). origin=${ORIGIN_SHA:0:7} prod=${DEPLOY_SHA:0:7}. Waiting for auto-deploy."
+            echo "Drift detected but origin/main commit is fresh (${age}s < ${GRACE_SECONDS}s grace). origin=${ORIGIN_SHA:0:7} live=${DEPLOY_SHA:0:7}. Waiting for auto-deploy."
             exit 0
           fi
-          echo "::error title=Deploy drift::origin/main is at ${ORIGIN_SHA:0:7} (${age}s old) but Vercel prod deploy ${DEPLOY_ID} is at ${DEPLOY_SHA:0:7} (actor=${DEPLOY_ACTOR} githubDeployment=${DEPLOY_GITHUB}). Run \`vercel deploy --prod --cwd site\` until STR-130 native auto-deploy is restored."
+          echo "::error title=Deploy drift::origin/main is at ${ORIGIN_SHA:0:7} (${age}s old) but live deploy at ${PROBE_URL} is at ${DEPLOY_SHA:0:7}. Run \`vercel deploy --prod --cwd site\` until STR-130 native auto-deploy is restored."
           exit 1

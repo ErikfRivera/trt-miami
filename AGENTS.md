@@ -22,4 +22,4 @@ Once the App access grant lands and the project shows `link.productionBranch: "m
 
 ### Drift guard
 
-`.github/workflows/deploy-drift-guard.yml` runs every 10 minutes and on every push to `main`. It compares `origin/main` against the Vercel project's `latestDeployment.meta.gitCommitSha` and fails the workflow (which opens/refreshes a tracking issue) if they drift for more than 5 minutes. It needs the `VERCEL_TOKEN` repo secret to query the Vercel API.
+`.github/workflows/deploy-drift-guard.yml` runs hourly and on every push to `main`. It compares `origin/main` against the SHA exposed at `https://miami.stronghealth.com/sha.txt` (served by `src/app/sha.txt/route.ts`, populated from `VERCEL_GIT_COMMIT_SHA` at build time) and fails the workflow after a 5-minute grace period. No repo secrets required — STR-158 removed the Vercel API dependency after the `VERCEL_TOKEN` kept getting revoked.
