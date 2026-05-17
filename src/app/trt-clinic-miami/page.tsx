@@ -18,6 +18,7 @@ import {
 import { drAngelRivera } from "@/lib/physician";
 import { activeReviewer } from "@/lib/medical-director";
 import {
+  buildArticle,
   buildBreadcrumbList,
   buildFaqPage,
   buildMedicalProcedure,
@@ -30,6 +31,10 @@ import { pageMetadata } from "@/lib/seo";
 
 const PAGE_PATH = "/trt-clinic-miami/" as const;
 const { citations: trtMiamiCitations, lastReviewed: trtMiamiLastReviewed } = pageCitations(PAGE_PATH);
+
+// First commit that introduced this route (b107a84). Used as the Article's
+// `datePublished`; `dateModified` tracks the latest medical review cadence.
+const PAGE_DATE_PUBLISHED = "2026-05-14" as const;
 
 // og:url is resolved via `pageMetadata` → `absoluteUrl(PAGE_PATH)` so it
 // points at the canonical subdomain (miami.stronghealth.com). STR-135 caught
@@ -76,6 +81,13 @@ const schemaNodes = [
     pagePath: PAGE_PATH,
     lastReviewed: TRT_FAQ_LAST_REVIEWED,
     specialty: "Endocrine",
+    dateModified: TRT_FAQ_LAST_REVIEWED,
+  }),
+  buildArticle({
+    pagePath: PAGE_PATH,
+    headline: "Physician-Led TRT Clinic in Miami",
+    datePublished: PAGE_DATE_PUBLISHED,
+    dateModified: TRT_FAQ_LAST_REVIEWED,
   }),
   buildFaqPage(schemaEligible(trtClinicMiamiFaqs), PAGE_PATH),
   buildBreadcrumbList(breadcrumbItems, PAGE_PATH),

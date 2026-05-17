@@ -9,6 +9,7 @@ export * from "./service";
 export * from "./review";
 export * from "./faq";
 export * from "./medical-web-page";
+export * from "./article";
 export * from "./breadcrumb";
 export * from "./collection-page";
 export * from "./about-page";
