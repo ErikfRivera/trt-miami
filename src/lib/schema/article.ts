@@ -1,8 +1,5 @@
 import { business } from "@/lib/business";
-import { hasVerifiedMedicalDirector } from "@/lib/medical-director";
-import { drAngelRivera } from "@/lib/physician";
 import { absoluteUrl, type SitePath } from "@/lib/site";
-import { physicianId } from "./ids";
 import type { SchemaNode } from "./types";
 
 export type ArticleInput = {
@@ -12,21 +9,21 @@ export type ArticleInput = {
   datePublished: string;
   /** ISO date (YYYY-MM-DD) of the last substantive edit. */
   dateModified: string;
-  /**
-   * Physician URL for the `reviewedBy` Person reference. Only emitted while
-   * a verified medical director exists (gated on `hasVerifiedMedicalDirector`);
-   * otherwise the slot is omitted entirely so no dangling @id ships.
-   */
-  reviewerPhysicianUrl?: string;
 };
 
-// STR-56 / STR-160 scenario (b) — stronghealth.com is an editorial publisher,
-// not a clinic. The Article node carries the page's editorial identity. Both
-// `author` and `publisher` reference Strong Health as a generic Organization
-// (no `MedicalBusiness` / `LocalBusiness` claims). The `reviewedBy` Person
-// reference is gated on `hasVerifiedMedicalDirector`: scaffolded today as a
-// null/omitted slot, wired to the real reviewer once STR-159 consent closes
-// and the reviewer Person node is published.
+// Path of the editorial standards page that owns YMYL review on stronghealth.com.
+// Owned by STR-163 (CMO). Every Article's `reviewedBy.url` points here so the
+// editorial-review chain is auditable. If STR-163's URL slot changes, update
+// this single constant — no per-article edits needed.
+export const EDITORIAL_STANDARDS_PATH = "/about/editorial-standards/" as const;
+const EDITORIAL_STANDARDS_NAME = "Strong Health Editorial Standards" as const;
+
+// STR-56 / STR-162 — stronghealth.com is an editorial publisher under
+// scenario (b); no clinic or named-MD claims attach to TRT YMYL content.
+// `author` and `publisher` resolve to Strong Health as a plain Organization.
+// `reviewedBy` resolves to the editorial-standards Organization owned by
+// STR-163, replacing the prior named-reviewer (Person) dependency that
+// STR-159 was gating before it was cancelled.
 export const buildArticle = (input: ArticleInput): SchemaNode => {
   const publisher: Record<string, unknown> = {
     "@type": "Organization",
@@ -34,7 +31,12 @@ export const buildArticle = (input: ArticleInput): SchemaNode => {
     url: business.url,
     logo: { "@type": "ImageObject", url: business.logo },
   };
-  const node: Record<string, unknown> = {
+  const reviewer: Record<string, unknown> = {
+    "@type": "Organization",
+    name: EDITORIAL_STANDARDS_NAME,
+    url: `${business.url}${EDITORIAL_STANDARDS_PATH}`,
+  };
+  return {
     "@type": "Article",
     "@id": `${absoluteUrl(input.pagePath)}#article`,
     mainEntityOfPage: { "@id": `${absoluteUrl(input.pagePath)}#medical-page` },
@@ -43,10 +45,6 @@ export const buildArticle = (input: ArticleInput): SchemaNode => {
     dateModified: input.dateModified,
     author: publisher,
     publisher,
-  };
-  if (hasVerifiedMedicalDirector) {
-    const reviewerUrl = input.reviewerPhysicianUrl ?? drAngelRivera.url;
-    node.reviewedBy = { "@id": physicianId(reviewerUrl) };
-  }
-  return node as SchemaNode;
+    reviewedBy: reviewer,
+  } as SchemaNode;
 };
