@@ -115,7 +115,7 @@ Industry-typical self-pay pricing for brand-name testosterone gel is approximate
 
 ## Getting started
 
-If you are evaluating topical TRT in Miami, the standard sequence is a consultation, a comprehensive baseline lab panel, and — if hypogonadism is confirmed — a discussion of modality options with your prescribing clinician. Learn more about our [TRT clinic in Miami](/trt-clinic-miami/), our [Miami HRT services](/hrt-miami/), and meet our [providers](/providers/) and [medical reviewer](/medical-reviewer/).
+If you are evaluating topical TRT in Miami, the standard sequence is a consultation, a comprehensive baseline lab panel, and — if hypogonadism is confirmed — a discussion of modality options with your prescribing clinician. Learn more in our [Testosterone Replacement Therapy in Miami](/trt-clinic-miami/) guide, our [Miami HRT services](/hrt-miami/), and meet our [providers](/providers/) and [medical reviewer](/medical-reviewer/).
 
 This is general educational information. Your individual TRT protocol will depend on your labs, symptoms, and medical history — schedule a consultation with Strong Health Miami to discuss your specific case.
 

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { LeadForm } from "@/components/lead-form";
 import { LocationMap } from "@/components/location-map";
 import { NapBlock } from "@/components/nap-block";
@@ -40,7 +41,14 @@ export default function ContactPage() {
         </h1>
         <p className="max-w-2xl text-lg text-zinc-600 dark:text-zinc-400">
           Call us, or leave a few details and we&apos;ll contact you to discuss
-          next steps for TRT therapy in Miami.
+          next steps for{" "}
+          <Link
+            href="/trt-clinic-miami/"
+            className="font-medium text-zinc-900 underline-offset-2 hover:underline dark:text-zinc-100"
+          >
+            TRT Therapy in Miami
+          </Link>
+          .
         </p>
       </header>
 

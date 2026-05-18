@@ -34,7 +34,7 @@ Pellet placement is a sterile, scalpel-free procedure performed in a treatment r
 
 ### Pre-procedure labs and consult
 
-Before any pellets are ordered, a comprehensive baseline workup is standard at SERP-leading TRT clinics: total testosterone, free testosterone, SHBG, estradiol, hematocrit, PSA, LH/FSH, CBC, CMP, and a lipid panel. Two early-morning total-testosterone draws below 300 ng/dL plus documented symptoms of hypogonadism are the AUA-aligned diagnostic standard [4]. Strong Health follows this two-draw confirmation pattern before recommending any TRT modality, consistent with our broader approach across the [Miami TRT clinic](/trt-clinic-miami/) practice and our [HRT Miami](/hrt-miami/) services.
+Before any pellets are ordered, a comprehensive baseline workup is standard at SERP-leading TRT clinics: total testosterone, free testosterone, SHBG, estradiol, hematocrit, PSA, LH/FSH, CBC, CMP, and a lipid panel. Two early-morning total-testosterone draws below 300 ng/dL plus documented symptoms of hypogonadism are the AUA-aligned diagnostic standard [4]. Strong Health follows this two-draw confirmation pattern before recommending any TRT modality, consistent with our broader approach to [TRT therapy in Miami](/trt-clinic-miami/) and our [HRT Miami](/hrt-miami/) services.
 
 ### Step-by-step (numbing, incision, trocar placement, closure)
 
@@ -52,7 +52,7 @@ TRT is FDA-approved for men with diagnosed hypogonadism — not for general "low
 
 ### When pellets are preferred over injections
 
-Patients who travel frequently, dislike self-injection, want the steadiest possible serum levels, or have struggled with weekly-injection adherence often prefer pellets. The set-and-forget cadence — one in-office visit every 3 to 6 months — appeals to busy professionals across Miami-Dade who do not want a weekly home routine.
+Patients who travel frequently, dislike self-injection, want the steadiest possible serum levels, or have struggled with weekly-injection adherence often prefer pellets. The set-and-forget cadence — one in-office visit every 3 to 6 months — appeals to busy professionals across Miami-Dade who do not want a weekly home routine. For the broader decision framework across delivery routes, see our overview of [Miami TRT therapy](/trt-clinic-miami/).
 
 ### Who should not get pellets
 

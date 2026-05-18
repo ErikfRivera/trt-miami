@@ -31,7 +31,7 @@ export default function BrickellTrtPage() {
           { name: "Brickell", path: PAGE_PATH },
         ]}
         relatedLinks={[
-          { label: "TRT clinic in Miami", href: "/trt-clinic-miami/" },
+          { label: "Miami TRT therapy overview", href: "/trt-clinic-miami/" },
           { label: "All service areas", href: "/locations/" },
         ]}
       />

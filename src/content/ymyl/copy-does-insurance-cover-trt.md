@@ -71,7 +71,7 @@ If you'd like us to bill your insurance, [contact us](/contact/) to verify your 
 
 ### Commercial PPO and HMO plans
 
-For PPO patients, you generally do not need a referral and can self-refer into our [Miami TRT clinic](/trt-clinic-miami/). For HMO patients, most plans require a PCP referral, which we'll flag during intake.
+For PPO patients, you generally do not need a referral and can self-refer for [TRT in Miami-Dade](/trt-clinic-miami/). For HMO patients, most plans require a PCP referral, which we'll flag during intake.
 
 ### Medicare and Medicare Advantage
 

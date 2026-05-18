@@ -232,6 +232,16 @@ export default function BioidenticalHormonesMiamiPage() {
             </Link>{" "}
             depending on the patient and the goal.
           </p>
+          <p className="max-w-3xl text-base leading-7 text-zinc-700 dark:text-zinc-300">
+            Men exploring bioidentical hormones for low-T typically move to{" "}
+            <Link
+              href="/trt-clinic-miami/"
+              className="font-medium text-zinc-900 underline-offset-2 hover:underline dark:text-zinc-100"
+            >
+              Miami testosterone replacement therapy
+            </Link>
+            {" "}once two-morning labs confirm hypogonadism.
+          </p>
         </section>
 
         <section aria-labelledby="modalities" className="flex flex-col gap-4 cv-auto">
@@ -275,9 +285,9 @@ export default function BioidenticalHormonesMiamiPage() {
                   href="/trt-clinic-miami/"
                   className="font-medium text-zinc-900 underline-offset-2 hover:underline dark:text-zinc-100"
                 >
-                  TRT Clinic Miami protocols
+                  TRT in Miami-Dade
                 </Link>
-                .
+                {" "}protocols.
               </p>
             </article>
             <article className="flex flex-col gap-3 rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm dark:border-zinc-800 dark:bg-zinc-950">

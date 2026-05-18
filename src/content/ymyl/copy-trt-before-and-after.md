@@ -18,7 +18,7 @@ TRT results follow a predictable timeline: energy and mood often improve within 
 
 ## The TRT timeline — a realistic week-by-week
 
-The clearest way to think about "before and after" on testosterone replacement therapy is as a sequence: subjective symptoms shift first, lab values normalize over several weeks, and structural changes (lean mass, fat mass, bone) follow over months. The T-Trials in older men with confirmed hypogonadism quantified each of these domains with placebo controls, and the Saad longitudinal registries tracked body-composition outcomes over multi-year follow-up [1][2]. Together they outline what to expect — and when to expect it.
+The clearest way to think about "before and after" on testosterone replacement therapy is as a sequence: subjective symptoms shift first, lab values normalize over several weeks, and structural changes (lean mass, fat mass, bone) follow over months. The T-Trials in older men with confirmed hypogonadism quantified each of these domains with placebo controls, and the Saad longitudinal registries tracked body-composition outcomes over multi-year follow-up [1][2]. Together they outline what to expect — and when to expect it. For the program-level overview of [TRT in Miami](/trt-clinic-miami/), see our editorial guide to protocols and lab work.
 
 > **Image placeholder (alt-text suggestion):** "Typical testosterone level transformation on TRT — week 0 vs week 12, week 24, and week 52, showing serum total T trajectory toward mid-normal range."
 
@@ -144,7 +144,7 @@ Re-scoring at months 3 and 6 — alongside repeat labs — is the industry-stand
 
 For patients motivated by body-composition outcomes, a baseline and 6-month DEXA scan provides objective lean-mass, fat-mass, and bone-density data. DEXA is optional and not required to manage TRT.
 
-For costs related to monitoring and follow-up, see our [TRT cost breakdown](/trt-cost/). For potential adverse effects to watch during your "after" period, see [TRT side effects](/trt-side-effects/). To learn more about our Miami clinic, visit our [Miami TRT clinic page](/trt-clinic-miami/) or meet our [providers](/providers/) and [medical reviewer](/medical-reviewer/).
+For costs related to monitoring and follow-up, see our [TRT cost breakdown](/trt-cost/). For potential adverse effects to watch during your "after" period, see [TRT side effects](/trt-side-effects/). To learn more about our Miami program, visit our [Miami TRT therapy guide](/trt-clinic-miami/) or meet our [providers](/providers/) and [medical reviewer](/medical-reviewer/).
 
 ## FAQ
 

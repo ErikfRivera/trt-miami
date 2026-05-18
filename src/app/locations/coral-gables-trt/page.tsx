@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { PageStub } from "@/components/page-stub";
 import { SchemaGraph } from "@/components/schema-graph";
 import { buildBreadcrumbList, buildServiceAreaService } from "@/lib/schema";
@@ -30,8 +31,21 @@ export default function CoralGablesTrtPage() {
           { name: "Locations", path: "/locations/" },
           { name: "Coral Gables", path: PAGE_PATH },
         ]}
+        body={
+          <p>
+            Coral Gables patients are seen at our Miami clinic — protocols,
+            lab cadence, and pricing match the broader{" "}
+            <Link
+              href="/trt-clinic-miami/"
+              className="font-medium text-zinc-900 underline-offset-2 hover:underline dark:text-zinc-100"
+            >
+              Miami testosterone therapy
+            </Link>
+            {" "}guide.
+          </p>
+        }
         relatedLinks={[
-          { label: "TRT clinic in Miami", href: "/trt-clinic-miami/" },
+          { label: "Miami TRT therapy overview", href: "/trt-clinic-miami/" },
           { label: "All service areas", href: "/locations/" },
         ]}
       />

@@ -188,16 +188,17 @@ export default function HialeahPage() {
         </p>
         <p className="text-zinc-700 dark:text-zinc-300">
           We do not run a Hialeah-specific protocol. The evaluation, the lab
-          panel, and the treatment options are the same as for any patient at
-          our{" "}
+          panel, and the treatment options are the same as for any patient
+          accessing{" "}
           <Link
             href={moneyPagePath}
             className="font-medium text-zinc-900 underline underline-offset-2 hover:no-underline dark:text-zinc-100"
           >
-            Miami TRT clinic
+            TRT in Miami
           </Link>{" "}
-          — what changes from city to city is the logistics of getting to a
-          visit, which is what the rest of this page is about.
+          from a sibling neighborhood — what changes from city to city is the
+          logistics of getting to a visit, which is what the rest of this page
+          is about.
         </p>
       </section>
 

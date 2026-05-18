@@ -96,7 +96,7 @@ Other situations that warrant individualized review include uncontrolled severe 
 
 ## How Strong Health Miami monitors TRT safety
 
-At Strong Health Miami, testosterone replacement therapy is provided under Florida-licensed physician supervision, with a monitoring schedule built directly around Endocrine Society [2] and AUA [3] guidance.
+At Strong Health Miami, testosterone replacement therapy is provided under Florida-licensed physician supervision, with a monitoring schedule built directly around Endocrine Society [2] and AUA [3] guidance. For the program-level overview of [Miami TRT therapy](/trt-clinic-miami/) — protocols, labs, and what to expect at consult — start with our editorial guide.
 
 ### Baseline panel
 

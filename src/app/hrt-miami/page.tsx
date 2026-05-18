@@ -227,7 +227,7 @@ export default function HrtMiamiPage() {
               href="/trt-clinic-miami/"
               className="font-medium text-zinc-900 underline-offset-2 hover:underline dark:text-zinc-100"
             >
-              TRT Clinic Miami
+              testosterone replacement therapy in Miami
             </Link>
             ,{" "}
             <Link
@@ -280,6 +280,16 @@ export default function HrtMiamiPage() {
               </ul>
             </article>
           </div>
+          <p className="max-w-3xl text-base leading-7 text-zinc-700 dark:text-zinc-300">
+            For men, the testosterone-side equivalent of HRT is{" "}
+            <Link
+              href="/trt-clinic-miami/"
+              className="font-medium text-zinc-900 underline-offset-2 hover:underline dark:text-zinc-100"
+            >
+              TRT therapy in Miami
+            </Link>
+            {" "}— a dedicated guide to protocols, lab work, and what to expect.
+          </p>
           <p className="max-w-3xl text-sm leading-6 text-zinc-500 dark:text-zinc-400">
             Symptoms alone are not a diagnosis. Lab work is required to confirm
             hormone deficiency and rule out other causes.

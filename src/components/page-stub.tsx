@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import Link from "next/link";
 import type { BreadcrumbItem } from "@/components/breadcrumb-schema";
 import { business } from "@/lib/business";
@@ -8,6 +9,8 @@ export type PageStubProps = {
   heading: string;
   intro: string;
   breadcrumbs: readonly BreadcrumbItem[];
+  /** Optional in-body content rendered between the intro and the CTA. */
+  body?: ReactNode;
   /** Optional related links shown above the contact CTA. */
   relatedLinks?: readonly { label: string; href: SitePath }[];
 };
@@ -20,7 +23,7 @@ export type PageStubProps = {
 // PageStub is UI-only. The page owns its JSON-LD: include
 // `buildBreadcrumbList(...)` (and any other schema) in the page's
 // `<SchemaGraph nodes>` so the graph emits once per route (STR-134).
-export function PageStub({ eyebrow, heading, intro, breadcrumbs, relatedLinks }: PageStubProps) {
+export function PageStub({ eyebrow, heading, intro, breadcrumbs, body, relatedLinks }: PageStubProps) {
   return (
     <>
       <div className="mx-auto flex w-full max-w-4xl flex-col gap-10 px-6 py-16 sm:py-24">
@@ -57,6 +60,15 @@ export function PageStub({ eyebrow, heading, intro, breadcrumbs, relatedLinks }:
           </h1>
           <p className="max-w-2xl text-lg text-zinc-600 dark:text-zinc-400">{intro}</p>
         </header>
+
+        {body ? (
+          <section
+            aria-label="Page overview"
+            className="flex flex-col gap-4 text-base leading-7 text-zinc-700 dark:text-zinc-300"
+          >
+            {body}
+          </section>
+        ) : null}
 
         <section
           aria-labelledby="cta-heading"

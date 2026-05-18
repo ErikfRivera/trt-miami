@@ -21,7 +21,7 @@ Below, we walk through industry-typical pricing ranges for each modality, the li
 
 ## What goes into the cost of TRT in Miami
 
-A defensible TRT program — one that aligns with Endocrine Society and AUA guidance [1][2] — has five cost components. Telehealth subscription clinics often advertise a low monthly number by quietly omitting one or more of them.
+A defensible TRT program — one that aligns with Endocrine Society and AUA guidance [1][2] — has five cost components. A [TRT therapy program in Miami](/trt-clinic-miami/) typically bundles labs, follow-ups, and protocol adjustments rather than billing them à la carte. Telehealth subscription clinics often advertise a low monthly number by quietly omitting one or more of these components.
 
 ### Initial consult and physical
 
@@ -50,7 +50,7 @@ A subset of patients need anastrozole for elevated estradiol or other supportive
 
 ## Strong Health Miami pricing
 
-Strong Health Miami is a transparent, cash-pay-first clinic. Our published rates for injections, pellets, and gels include the monitoring cadence required by the Endocrine Society and AUA — not a stripped-down protocol designed to fit a telehealth subscription price. Because pricing pages decay quickly and we refresh figures quarterly, please [contact us for current Strong Health pricing](/contact/), or see the [Strong Health Miami clinic page](/trt-clinic-miami/) for an overview of programs, [providers](/providers/), and locations.
+Strong Health Miami is a transparent, cash-pay-first clinic. Our published rates for injections, pellets, and gels include the monitoring cadence required by the Endocrine Society and AUA — not a stripped-down protocol designed to fit a telehealth subscription price. Because pricing pages decay quickly and we refresh figures quarterly, please [contact us for current Strong Health pricing](/contact/), or see our [Strong Health Miami TRT overview](/trt-clinic-miami/) for an overview of programs, [providers](/providers/), and locations.
 
 ## TRT injection cost in Miami
 
@@ -112,7 +112,7 @@ TRT is generally a long-term therapy. You can stop at any time, but symptoms typ
 
 ---
 
-**Schedule a consultation with Strong Health Miami.** For verified, current pricing and to confirm what is included in each program, [contact us](/contact/) or visit our [Miami TRT clinic page](/trt-clinic-miami/). Reviewed by our [medical reviewer](/medical-reviewer/).
+**Schedule a consultation with Strong Health Miami.** For verified, current pricing and to confirm what is included in each program, [contact us](/contact/) or visit our [Miami TRT therapy guide](/trt-clinic-miami/). Reviewed by our [medical reviewer](/medical-reviewer/).
 
 ## References
 

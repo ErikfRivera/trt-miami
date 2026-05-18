@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { PageStub } from "@/components/page-stub";
 import { SchemaGraph } from "@/components/schema-graph";
 import { buildBreadcrumbList, buildServiceAreaService } from "@/lib/schema";
@@ -30,8 +31,21 @@ export default function PinecrestTrtPage() {
           { name: "Locations", path: "/locations/" },
           { name: "Pinecrest", path: PAGE_PATH },
         ]}
+        body={
+          <p>
+            Pinecrest patients drive a short stretch north on US-1 to follow
+            the same{" "}
+            <Link
+              href="/trt-clinic-miami/"
+              className="font-medium text-zinc-900 underline-offset-2 hover:underline dark:text-zinc-100"
+            >
+              Miami TRT therapy
+            </Link>
+            {" "}protocols and lab cadence used across Miami-Dade.
+          </p>
+        }
         relatedLinks={[
-          { label: "TRT clinic in Miami", href: "/trt-clinic-miami/" },
+          { label: "Miami TRT therapy overview", href: "/trt-clinic-miami/" },
           { label: "All service areas", href: "/locations/" },
         ]}
       />

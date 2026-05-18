@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { PageStub } from "@/components/page-stub";
 import { SchemaGraph } from "@/components/schema-graph";
 import { buildBreadcrumbList, buildServiceAreaService } from "@/lib/schema";
@@ -30,8 +31,22 @@ export default function DoralTrtPage() {
           { name: "Locations", path: "/locations/" },
           { name: "Doral", path: PAGE_PATH },
         ]}
+        body={
+          <p>
+            Doral and West Miami-Dade patients are seen at the same
+            clinic that anchors our{" "}
+            <Link
+              href="/trt-clinic-miami/"
+              className="font-medium text-zinc-900 underline-offset-2 hover:underline dark:text-zinc-100"
+            >
+              Testosterone Replacement Therapy in Miami
+            </Link>
+            {" "}program, with the 836 cutting most commute times to under 25
+            minutes.
+          </p>
+        }
         relatedLinks={[
-          { label: "TRT clinic in Miami", href: "/trt-clinic-miami/" },
+          { label: "Miami TRT therapy overview", href: "/trt-clinic-miami/" },
           { label: "All service areas", href: "/locations/" },
         ]}
       />

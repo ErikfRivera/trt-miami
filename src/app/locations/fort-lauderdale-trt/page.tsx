@@ -402,6 +402,17 @@ export default function FortLauderdaleTrtPage() {
             Quarterly lab draws can be scheduled at any LabCorp or Quest
             location near you — your provider sends the order.
           </p>
+          <p className="text-zinc-700 dark:text-zinc-300">
+            Patients coming down from Broward typically pair this with our{" "}
+            <Link
+              href="/trt-clinic-miami/"
+              className="font-medium text-zinc-900 underline-offset-2 hover:underline dark:text-zinc-100"
+            >
+              TRT therapy in Miami-Dade
+            </Link>
+            {" "}guide for the protocols and lab cadence used at the Aventura
+            clinic.
+          </p>
         </section>
 
         {/* H2.5 — What TRT costs in Fort Lauderdale --------------------- */}

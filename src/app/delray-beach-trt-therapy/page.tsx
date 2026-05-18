@@ -154,12 +154,12 @@ export default function DelrayBeachTrtPage() {
             Strong Health brings physician-supervised TRT to Delray Beach and
             Palm Beach County. Florida-licensed doctors, full diagnostic
             bloodwork, and transparent self-pay pricing — same clinical standard
-            as our{" "}
+            as{" "}
             <Link
               href="/trt-clinic-miami/"
               className="font-medium text-zinc-900 underline-offset-2 hover:underline dark:text-zinc-100"
             >
-              Miami TRT clinic
+              TRT therapy in Miami-Dade
             </Link>
             .
           </p>

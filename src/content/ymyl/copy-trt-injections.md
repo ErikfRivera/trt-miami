@@ -128,6 +128,8 @@ Many insurers cover medically necessary TRT when total testosterone is documente
 
 ### Initial consult, diagnostic labs, first injection timeline
 
+If you're new to testosterone replacement, [TRT in Miami](/trt-clinic-miami/) covers protocols, lab work, and what to expect before starting an injectable plan.
+
 A typical path to a first injection at a Miami TRT clinic looks like this:
 
 1. **Initial consult (telehealth or in-clinic).** Symptom review, medical history, candidacy assessment.

@@ -104,7 +104,7 @@ Side-effect frequencies are broadly similar across modalities, but the *pattern*
 
 ## How Strong Health Miami monitors and manages side effects
 
-Side-effect management is, in practice, a monitoring program. The pattern Strong Health Miami follows mirrors industry-standard practice and Endocrine Society guidance [7]:
+Side-effect management is, in practice, a monitoring program. The full [TRT therapy in Miami](/trt-clinic-miami/) guide covers the monitoring cadence in more detail; the pattern Strong Health Miami follows mirrors industry-standard practice and Endocrine Society guidance [7]:
 
 - **Comprehensive baseline workup.** Total testosterone (on two early-morning draws), free testosterone, SHBG, estradiol, hematocrit, CBC, CMP, lipid panel, PSA (in men 40+), and LH/FSH.
 - **Symptom screening.** Sleep-apnea symptoms, urinary symptoms, family-planning intent, breast tenderness, mood, and acne.
@@ -138,7 +138,7 @@ This is why baseline labs and a documented symptom diary matter — they separat
 
 ## Long-term TRT side effects — what the evidence shows
 
-Long-term safety data has improved substantially in the past decade. The TRAVERSE trial (NEJM 2023) randomized middle-aged and older men with hypogonadism and cardiovascular risk to testosterone gel versus placebo and found testosterone non-inferior for major adverse cardiovascular events; a small absolute increase in pulmonary embolism, atrial fibrillation, and acute kidney injury was reported in the testosterone arm [3]. The NIH risk review catalogues the same long-term considerations — erythrocytosis, sleep-apnea worsening, prostate monitoring, and fertility suppression — as the main signals warranting follow-up [2]. Mayo, Cleveland Clinic, and Harvard frame the long-term picture similarly: managed monitoring, not avoidance [4][5][6]. For men in Miami-Dade weighing the decision, the practical implication is that long-term TRT is reasonable when paired with structured monitoring and a clinician willing to change course when the labs say so. For broader safety context, see our overview at the [TRT clinic in Miami](/trt-clinic-miami/).
+Long-term safety data has improved substantially in the past decade. The TRAVERSE trial (NEJM 2023) randomized middle-aged and older men with hypogonadism and cardiovascular risk to testosterone gel versus placebo and found testosterone non-inferior for major adverse cardiovascular events; a small absolute increase in pulmonary embolism, atrial fibrillation, and acute kidney injury was reported in the testosterone arm [3]. The NIH risk review catalogues the same long-term considerations — erythrocytosis, sleep-apnea worsening, prostate monitoring, and fertility suppression — as the main signals warranting follow-up [2]. Mayo, Cleveland Clinic, and Harvard frame the long-term picture similarly: managed monitoring, not avoidance [4][5][6]. For men in Miami-Dade weighing the decision, the practical implication is that long-term TRT is reasonable when paired with structured monitoring and a clinician willing to change course when the labs say so. For broader safety context, see our [Miami TRT therapy overview](/trt-clinic-miami/).
 
 ## FAQ
 
