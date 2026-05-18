@@ -137,7 +137,7 @@ AndroGel 1% is 50 mg/5 g packet; 1.62% delivers 40.5 mg per 2-pump actuation and
 Both are possible class effects, not gel-specific. They reflect raised androgen levels and are typically managed by dose adjustment or DHT-modifying co-therapy if clinically appropriate.
 
 **How much does testosterone gel cost in Miami?**
-See [/trt-cost/](/trt-cost/) and [/does-insurance-cover-trt/](/does-insurance-cover-trt/). Self-pay AndroGel/Testim is typically the highest-cost TRT modality month-over-month; generics are available.
+See our [TRT cost breakdown](/trt-cost/) and [insurance coverage for TRT](/does-insurance-cover-trt/). Self-pay AndroGel/Testim is typically the highest-cost TRT modality month-over-month; generics are available.
 
 ## References
 

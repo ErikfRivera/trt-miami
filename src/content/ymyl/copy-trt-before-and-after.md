@@ -70,7 +70,7 @@ Bone-density gains on TRT are slower than soft-tissue changes — meaningful imp
 
 ### Cardiometabolic markers (lipid, A1C, BP)
 
-Lipid and glycemic markers tend to move modestly. The TRAVERSE cardiovascular outcomes trial reported no increased major adverse cardiovascular event risk in middle-aged and older men with hypogonadism on TRT vs placebo over a mean 33-month follow-up — an important "after" data point for safety [5]. Read more on the [/is-trt-safe/](/is-trt-safe/) page.
+Lipid and glycemic markers tend to move modestly. The TRAVERSE cardiovascular outcomes trial reported no increased major adverse cardiovascular event risk in middle-aged and older men with hypogonadism on TRT vs placebo over a mean 33-month follow-up — an important "after" data point for safety [5]. See our [TRT safety profile](/is-trt-safe/) for the full cardiovascular evidence summary.
 
 ## TRT before-and-after photos — what's realistic and what's misleading
 
@@ -98,7 +98,7 @@ The most reliable "before and after" picture on TRT is the lab panel. The table 
 
 ### Total testosterone trajectory
 
-On weekly testosterone cypionate, serum total T typically rises to a steady-state mid-normal range by week 6, measured midway between injections [3]. On pellets, levels peak early after insertion and decline over 3–4 months. Topical [gels](/trt-gels/) reach steady state within 2–4 weeks of consistent daily application. See [/trt-injections/](/trt-injections/) and [/trt-pellets/](/trt-pellets/) for modality-specific timelines.
+On weekly testosterone cypionate, serum total T typically rises to a steady-state mid-normal range by week 6, measured midway between injections [3]. On pellets, levels peak early after insertion and decline over 3–4 months. Topical [gels](/trt-gels/) reach steady state within 2–4 weeks of consistent daily application. See our [TRT injections protocol](/trt-injections/) and [TRT pellets protocol](/trt-pellets/) pages for modality-specific timelines.
 
 ### Free testosterone
 
@@ -144,7 +144,7 @@ Re-scoring at months 3 and 6 — alongside repeat labs — is the industry-stand
 
 For patients motivated by body-composition outcomes, a baseline and 6-month DEXA scan provides objective lean-mass, fat-mass, and bone-density data. DEXA is optional and not required to manage TRT.
 
-For costs related to monitoring and follow-up, see [/trt-cost/](/trt-cost/). For potential adverse effects to watch during your "after" period, see [/trt-side-effects/](/trt-side-effects/). To learn more about our Miami clinic, visit our [Miami TRT clinic page](/trt-clinic-miami/) or meet our [providers](/providers/) and [medical reviewer](/medical-reviewer/).
+For costs related to monitoring and follow-up, see our [TRT cost breakdown](/trt-cost/). For potential adverse effects to watch during your "after" period, see [TRT side effects](/trt-side-effects/). To learn more about our Miami clinic, visit our [Miami TRT clinic page](/trt-clinic-miami/) or meet our [providers](/providers/) and [medical reviewer](/medical-reviewer/).
 
 ## FAQ
 

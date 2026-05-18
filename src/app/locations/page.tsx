@@ -77,6 +77,18 @@ export default function LocationsHubPage() {
             </li>
           ))}
         </ul>
+        <p className="max-w-3xl text-base leading-7 text-zinc-700 dark:text-zinc-300">
+          Every area page above routes to a single Miami-Dade clinic for in-person
+          care. If you&apos;re comparing options across neighborhoods, start with our
+          flagship guide to{" "}
+          <Link
+            href="/trt-clinic-miami/"
+            className="font-medium text-zinc-900 underline-offset-2 hover:underline dark:text-zinc-100"
+          >
+            Testosterone replacement in Miami-Dade
+          </Link>
+          {" "}for pricing, protocols, and what to expect at consult.
+        </p>
       </div>
     </>
   );

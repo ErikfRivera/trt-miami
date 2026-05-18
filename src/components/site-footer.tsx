@@ -3,11 +3,16 @@ import { business } from "@/lib/business";
 
 const footerLinks = [
   { href: "/", label: "Home" },
-  { href: "/trt-clinic-miami/", label: "TRT Clinic Miami" },
+  // STR-183 — money-page footer anchor now carries the target keyword
+  // ("TRT Therapy in Miami") per the STR-8 interlinking brief. Destination
+  // unchanged (canonical money page in current flat IA is /trt-clinic-miami/;
+  // /fl/miami/trt-therapy/ 301s here, see lib/redirects.ts).
+  { href: "/trt-clinic-miami/", label: "TRT Therapy in Miami" },
   { href: "/hrt-miami/", label: "HRT Miami" },
   { href: "/bioidentical-hormones-miami/", label: "Bioidentical Hormones Miami" },
-  { href: "/peptide-therapy/", label: "Peptide Therapy Miami" },
-  { href: "/locations/", label: "Locations" },
+  { href: "/peptide-therapy/", label: "Peptide Therapy in Miami" },
+  { href: "/delray-beach-trt-therapy/", label: "TRT in Delray Beach" },
+  { href: "/locations/", label: "All Florida locations" },
   // STR-67 — inbound link #2 of 5 to /locations/fort-lauderdale-trt/.
   // Anchor matches the cannibalization rule in STR-52 §5 ("Fort Lauderdale",
   // never "TRT Miami" or "TRT Fort Lauderdale Miami").

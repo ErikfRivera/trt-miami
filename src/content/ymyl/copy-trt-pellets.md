@@ -116,7 +116,7 @@ The site is numbed with local lidocaine and the insertion through a 3–4 mm inc
 Yes — pellet extrusion happens in a small percentage of placements (single-digit % in published series). Proper insertion depth, post-procedure activity restrictions, and avoiding aggressive workouts for 72 hours minimize the risk [1].
 
 **What is the cost of testosterone pellets in Miami?**
-See [/trt-cost/](/trt-cost/). Self-pay pellet protocols in Miami typically run $650–$1,500 per insertion (every 3–6 months); insurance coverage varies — see [/does-insurance-cover-trt/](/does-insurance-cover-trt/).
+See our [TRT cost breakdown](/trt-cost/). Self-pay pellet protocols in Miami typically run $650–$1,500 per insertion (every 3–6 months); insurance coverage varies — see [does insurance cover TRT](/does-insurance-cover-trt/).
 
 **Pellets vs injections — which is better?**
 It depends on lifestyle and lab response. Pellets give steady kinetics and no weekly injection; injections allow rapid dose adjustment. Strong Health clinicians review both with you during the initial consult.
