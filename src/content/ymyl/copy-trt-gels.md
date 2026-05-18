@@ -1,6 +1,6 @@
 ---
 title: "Testosterone Gel TRT in Miami: AndroGel & Testim | Strong Health"
-meta_description: "Daily testosterone gel TRT in Miami — AndroGel, Testim, Fortesta. Physician-prescribed, lab-monitored, with clear guidance on application and transfer safety."
+meta_description: "Daily testosterone gel TRT in Miami — AndroGel, Testim, Fortesta. Physician-prescribed, lab-monitored, with clear application and transfer safety."
 slug: /trt-gels/
 schema:
   - MedicalWebPage

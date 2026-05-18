@@ -1,7 +1,7 @@
 ---
 route: /trt-side-effects/
 title: "TRT Side Effects: Full List, Risks, and Management | Strong Health"
-meta_description: "What are the side effects of TRT? Common, notable, and rare effects across injections, pellets, and gels — plus how Strong Health Miami monitors and manages them."
+meta_description: "Side effects of TRT — common, notable, and rare effects across injections, pellets, and gels, and how Strong Health Miami monitors and manages them."
 h1: "TRT Side Effects: Common, Notable, and Rare"
 word_count_target: 1900-2200
 brief: STR-136#document-brief-trt-side-effects

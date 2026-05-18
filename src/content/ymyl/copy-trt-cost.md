@@ -1,6 +1,6 @@
 ---
 title: "TRT Cost in Miami: Real Monthly Pricing | Strong Health"
-meta_description: "What does TRT actually cost in Miami? Real monthly pricing for injections, pellets, and gels — labs, visits, medication. Self-pay and insurance options explained."
+meta_description: "TRT cost in Miami — monthly pricing for injections, pellets, and gels covering labs, visits, and medication, with self-pay and insurance options."
 slug: /trt-cost/
 schema:
   - MedicalWebPage
