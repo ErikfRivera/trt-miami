@@ -36,6 +36,15 @@ const { citations: trtMiamiCitations, lastReviewed: trtMiamiLastReviewed } = pag
 // `datePublished`; `dateModified` tracks the latest medical review cadence.
 const PAGE_DATE_PUBLISHED = "2026-05-14" as const;
 
+// Next scheduled review = last reviewed + 180d, matching the 180-day cadence
+// used by CitationBlock and the YMYL cohort. Keeps STR-203's reviewer
+// attribution in lockstep with TRT_FAQ_LAST_REVIEWED without a runtime branch.
+const TRT_FAQ_NEXT_REVIEW = (() => {
+  const d = new Date(`${TRT_FAQ_LAST_REVIEWED}T00:00:00Z`);
+  d.setUTCDate(d.getUTCDate() + 180);
+  return d.toISOString().slice(0, 10);
+})();
+
 // og:url is resolved via `pageMetadata` → `absoluteUrl(PAGE_PATH)` so it
 // points at the canonical subdomain (miami.stronghealth.com). STR-135 caught
 // the original `${business.url}${PAGE_PATH}` shipping a cross-domain og:url.
@@ -491,13 +500,16 @@ export default function TrtClinicMiamiPage() {
           <p className="text-sm text-zinc-500 dark:text-zinc-400">
             Medically reviewed by{" "}
             <Link
-              href="/contact/"
+              href={activeReviewer.href}
               className="font-medium text-zinc-700 underline-offset-2 hover:underline dark:text-zinc-300"
             >
               {activeReviewer.name}
             </Link>
             . Last reviewed{" "}
-            <time dateTime={TRT_FAQ_LAST_REVIEWED}>{TRT_FAQ_LAST_REVIEWED}</time>.
+            <time dateTime={TRT_FAQ_LAST_REVIEWED}>{TRT_FAQ_LAST_REVIEWED}</time>
+            {". Next scheduled review: "}
+            <time dateTime={TRT_FAQ_NEXT_REVIEW}>{TRT_FAQ_NEXT_REVIEW}</time>
+            {"."}
           </p>
           <FaqAccordion items={trtClinicMiamiFaqs} />
           <p className="text-xs italic text-zinc-500 dark:text-zinc-400">
