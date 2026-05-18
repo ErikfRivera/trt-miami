@@ -1,6 +1,6 @@
 ---
 route: /is-trt-safe/
-title: "Is TRT Safe? Evidence, Risks & Who Should Avoid It | Strong Health"
+title: "Is TRT Safe? Evidence & Risks | Strong Health"
 meta_description: "Is TRT safe? The 2023 TRAVERSE trial and AUA guidelines say yes for diagnosed hypogonadism, with monitoring. What the evidence actually shows."
 h1: "Is TRT Safe?"
 word_count_target: "2000-2400"

@@ -1,6 +1,6 @@
 ---
 route: /trt-injections/
-title: "TRT Injections in Miami: Cypionate, Enanthate & SubQ | Strong Health"
+title: "TRT Injections in Miami: Cypionate & SubQ | Strong Health"
 meta_description: "Testosterone injection therapy in Miami — weekly cypionate, enanthate, or subQ under physician supervision. Sourced overview and typical pricing."
 h1: "TRT Injections in Miami"
 word_count_target: 1800-2100

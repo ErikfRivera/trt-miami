@@ -1,5 +1,5 @@
 ---
-title: "TRT Before and After: Realistic Timeline by Week & Month | Miami"
+title: "TRT Before and After: Miami Timeline | Strong Health"
 meta_description: "What to expect on TRT — energy by week 1, libido by week 4, body comp by month 3. Realistic Miami timelines, lab data, and composite patient cases."
 slug: /trt-before-and-after/
 schema:
