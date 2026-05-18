@@ -98,15 +98,7 @@ export default function AboutPage() {
               historically meant long waits at academic medical centers or reliance on
               telemedicine-only models that skip the in-person evaluation. Strong Health was
               founded to close that gap: a physical Miami clinic, a licensed physician on-site,
-              and protocols that start with labs — not with a self-report quiz. Our flagship
-              program is{" "}
-              <Link
-                href="/trt-clinic-miami/"
-                className="font-medium text-zinc-900 underline-offset-2 hover:underline dark:text-zinc-100"
-              >
-                Testosterone Replacement Therapy in Miami
-              </Link>
-              , alongside HRT for women and adjunct services like peptide therapy.
+              and protocols that start with labs — not with a self-report quiz.
             </p>
             <p>
               Miami&apos;s climate also matters. High heat and humidity affect androgen binding
