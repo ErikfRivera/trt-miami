@@ -354,3 +354,52 @@ export const trtMiamiGuideFaqs: readonly FaqEntry[] = [
       "A qualified TRT provider should require two early-morning testosterone blood tests before prescribing, conduct a complete baseline evaluation (CBC, lipid panel, PSA, estradiol, LH/FSH, comprehensive metabolic panel), have a Florida-licensed physician supervise or directly provide care, monitor labs at 30 days and every 6–12 months thereafter, and be willing to adjust or discontinue therapy if response is inadequate. Red flags include prescribing based on symptoms alone, skipping pre-treatment labs, offering testosterone for athletic performance, or not monitoring hematocrit and PSA regularly. A Florida licensed physician must be involved in prescribing; telehealth-only models are legal in Florida but must include laboratory oversight.",
   },
 ] as const;
+
+// Cost child page FAQ set — six Q&As per STR-82 brief v3 §4 / §6.3 (verbatim).
+// Sourced from a 2026-05-17 five-provider market scan; dollar figures are
+// attributed to named third-party clinics or explicit market ranges, never to
+// Strong Health. Powers the FAQPage JSON-LD on /fl/miami/trt-therapy/cost/.
+export const trtMiamiCostFaqs: readonly FaqEntry[] = [
+  {
+    id: "cost-how-much",
+    inSchema: true,
+    question: "How much does TRT cost in Miami?",
+    answer:
+      "TRT in Miami typically runs $99 to $300+ per month, depending on whether you choose a national telehealth provider or a local in-person clinic. Surveyed Miami in-person clinics cluster around $150–$250 per month for ongoing maintenance, with initial consultations and baseline labs adding $200–$300 (bundled or separate). Most local providers operate self-pay; some accept FSA/HSA and offer a superbill for out-of-network reimbursement.",
+  },
+  {
+    id: "cost-per-month",
+    inSchema: true,
+    question: "How much is TRT per month in Miami?",
+    answer:
+      "Surveyed monthly TRT pricing in Miami includes $169/month at South Florida Men's Health, $199/month at Florida Surgery & Weight Loss Center, and a published $100–$300/month range at Dr. Miami Beach. National telehealth providers (Hone Health, Low T Center) start near $99–$169/month but are mail-order rather than in-person. Most quoted monthly prices include medication, follow-up visits, and routine labs.",
+  },
+  {
+    id: "cost-insurance",
+    inSchema: true,
+    question: "Is TRT covered by insurance in Florida?",
+    answer:
+      "Coverage depends on the plan and diagnosis. Most commercial insurers in Florida cover TRT only when documented hypogonadism is clinically established and prior authorization is approved. Age-related testosterone decline is often excluded. Most surveyed Miami in-person clinics operate as self-pay practices and provide a superbill on request so patients can submit for out-of-network reimbursement; reimbursement is not guaranteed.",
+  },
+  {
+    id: "cost-fsa-hsa",
+    inSchema: true,
+    question: "Can I use my FSA or HSA to pay for TRT?",
+    answer:
+      "Generally yes. Per IRS Publication 502, TRT visits, lab work, and medication prescribed by a physician for a diagnosed medical condition are typically FSA- and HSA-eligible. Many clinics accept FSA/HSA cards at point of sale. Confirm eligibility with your specific plan administrator before paying out of pocket — plan-level rules vary on which expense categories qualify.",
+  },
+  {
+    id: "cost-initial-visit",
+    inSchema: true,
+    question: "What's included in an initial TRT visit?",
+    answer:
+      "A typical initial TRT visit in Miami includes a physician consultation, a comprehensive hormone lab panel (total and free testosterone, SHBG, sensitive estradiol, LH, FSH, prolactin, CBC, CMP, lipids, PSA where clinically indicated, HbA1c, TSH), a personalized treatment protocol if low-T is confirmed, and — at some clinics — the first month of medication if therapy begins that day. Initial bundles in Miami commonly run $200–$300.",
+  },
+  {
+    id: "cost-why-varies",
+    inSchema: true,
+    question: "Why does TRT pricing vary so much between clinics?",
+    answer:
+      "Price variation reflects in-person vs. telehealth delivery (telehealth providers advertise lower fees by bypassing in-person overhead), what's bundled (some clinics include labs and follow-ups in the monthly price), medication form (injections are typically the most cost-effective; pellets, gels, and patches cost more over time), and clinic positioning (concierge clinics charge a premium).",
+  },
+] as const;

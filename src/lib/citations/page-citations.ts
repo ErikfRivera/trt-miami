@@ -353,6 +353,41 @@ export const PAGE_CITATIONS: Partial<Record<SitePath, PageCitations>> = {
       },
     ],
   },
+  // STR-169 — editorial cost child page. Citations are the medical/regulatory
+  // backbone behind the visible body; outbound editorial links to IRS Pub 502
+  // and the Endocrine Society JCEM article ship inline in body prose per the
+  // STR-82 brief v3 §5 outbound-link plan (those hosts are deliberately out of
+  // the CitationBlock allowlist).
+  "/fl/miami/trt-therapy/cost/": {
+    lastReviewed: "2026-05-17",
+    citations: [
+      {
+        title: "Testosterone Therapy in Men with Hypogonadism: An Endocrine Society Clinical Practice Guideline",
+        url: "https://pubmed.ncbi.nlm.nih.gov/29562364/",
+        publisher: "Endocrine Society",
+        year: 2018,
+        pmid: "29562364",
+      },
+      {
+        title: "American Urological Association: Evaluation and Management of Testosterone Deficiency",
+        url: "https://www.auanet.org/guidelines-and-quality/guidelines/testosterone-deficiency-guideline",
+        publisher: "American Urological Association",
+        year: 2022,
+      },
+      {
+        title: "Testosterone Therapy: Potential Benefits and Risks as You Age",
+        url: "https://www.mayoclinic.org/healthy-lifestyle/sexual-health/in-depth/testosterone-therapy/art-20045728",
+        publisher: "Mayo Clinic",
+        year: 2024,
+      },
+      {
+        title: "Testosterone Therapy Overview",
+        url: "https://www.mayoclinic.org/tests-procedures/testosterone-therapy/about/pac-20385001",
+        publisher: "Mayo Clinic",
+        year: 2024,
+      },
+    ],
+  },
 };
 
 export function pageCitations(path: SitePath): PageCitations {

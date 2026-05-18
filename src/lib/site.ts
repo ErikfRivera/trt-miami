@@ -66,6 +66,8 @@ export const routes: readonly SiteRoute[] = [
 
   // Miami editorial guide (STR-9)
   { path: "/fl/miami/trt-therapy/", changeFrequency: "weekly", priority: 0.95, locale: "en" },
+  // Miami cost child page (STR-169) — targets the `trt cost` cluster (2,100 vol)
+  { path: "/fl/miami/trt-therapy/cost/", changeFrequency: "weekly", priority: 0.9, locale: "en" },
 
   // Adjacent service (already live)
   { path: "/peptide-therapy/", changeFrequency: "weekly", priority: 0.9, locale: "en" },
