@@ -1,5 +1,5 @@
 ---
-title: "Does Insurance Cover TRT in Miami? | Strong Health TRT"
+title: "Does Insurance Cover TRT in Miami? | Strong Health"
 meta_description: "Insurance often covers TRT for diagnosed hypogonadism. What major insurers and Medicare typically pay for in Miami — and how to qualify."
 slug: /does-insurance-cover-trt/
 template: MedicalWebPage

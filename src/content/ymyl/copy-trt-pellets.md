@@ -1,5 +1,5 @@
 ---
-title: "Testosterone Pellet Therapy in Miami | Strong Health TRT"
+title: "Testosterone Pellet Therapy in Miami | Strong Health"
 meta_description: "In-office testosterone pellet implants in Miami — Testopel and bioidentical options, 3–6 month duration, physician-placed under local anesthesia."
 slug: /trt-pellets/
 schema:
