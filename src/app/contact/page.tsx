@@ -4,21 +4,28 @@ import { LocationMap } from "@/components/location-map";
 import { NapBlock } from "@/components/nap-block";
 import { SchemaGraph } from "@/components/schema-graph";
 import { business } from "@/lib/business";
-import { alternatesFor } from "@/lib/hreflangMap";
 import { buildBreadcrumbList, buildMedicalBusiness } from "@/lib/schema";
+import { pageMetadata } from "@/lib/seo";
 
 const PAGE_PATH = "/contact/" as const;
+const PAGE_TITLE = "Contact Strong Health Miami | TRT Therapy Consultations";
+const PAGE_DESCRIPTION = `Contact ${business.name} in Miami, FL. Call ${business.phone.display} or request a callback about TRT therapy.`;
 
 const schemaNodes = [
   buildMedicalBusiness({}),
   buildBreadcrumbList([{ name: "Home", path: "/" }, { name: "Contact", path: PAGE_PATH }], PAGE_PATH),
 ];
 
-export const metadata: Metadata = {
-  title: "Contact",
-  description: `Contact ${business.name} in Miami, FL. Call ${business.phone.display} or request a callback about TRT therapy.`,
-  alternates: alternatesFor(PAGE_PATH),
-};
+// STR-13: switched from raw `metadata` to pageMetadata() helper so og:url /
+// og:title / twitter:title resolve to /contact/ instead of falling through to
+// layout defaults (which had og:url pointing at the homepage). Same regression
+// pattern STR-135 fixed elsewhere — this route was missed.
+export const metadata: Metadata = pageMetadata({
+  path: PAGE_PATH,
+  title: PAGE_TITLE,
+  description: PAGE_DESCRIPTION,
+  socialTitle: "Contact Strong Health Miami — TRT Therapy",
+});
 
 export default function ContactPage() {
   return (

@@ -22,6 +22,25 @@ export type RedirectEntry = Redirect & {
 };
 
 export const redirectRegistry: readonly RedirectEntry[] = [
+  // STR-13: collapse the two obvious homepage-variant slugs. Without these,
+  // Vercel/Next resolves `/index/` to the homepage body with a 200 (we saw
+  // `x-matched-path: /` in prod headers), which lets a crawler treat it as a
+  // soft-duplicate even with a canonical pointing home. `/home/` 404s today.
+  // Sources end in `/` per the convention below; naked `/index` and `/home`
+  // are first 308'd to the slashed form by Next's trailing-slash module, then
+  // matched here. Two-hop chain on naked URLs is the documented trade-off.
+  {
+    source: "/index/",
+    destination: "/",
+    permanent: true,
+    reason: "Prevent /index/ from being indexed as a homepage duplicate (currently 200s).",
+  },
+  {
+    source: "/home/",
+    destination: "/",
+    permanent: true,
+    reason: "Obvious homepage variant; current behavior 404s — make it a single 301.",
+  },
   // Scaffold → canonical IA migration (STR-57).
   // NOTE: /fl/miami/trt-therapy/ redirect removed — STR-9 built the real page there.
   {
