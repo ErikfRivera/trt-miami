@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { GoogleAnalytics } from "@/components/google-analytics";
+import { PhoneClickTracker } from "@/components/phone-click-tracker";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { StickyMobileCallBar } from "@/components/sticky-mobile-call-bar";
@@ -91,6 +92,7 @@ export default function RootLayout({
         <main id="main" className="flex-1 pb-24 lg:pb-0">{children}</main>
         <SiteFooter />
         <StickyMobileCallBar />
+        <PhoneClickTracker />
         <GoogleAnalytics />
       </body>
     </html>

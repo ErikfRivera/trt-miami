@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
-import { NapBlock } from "@/components/nap-block";
+import { LeadForm } from "@/components/lead-form";
 import { LocationMap } from "@/components/location-map";
+import { NapBlock } from "@/components/nap-block";
 import { SchemaGraph } from "@/components/schema-graph";
 import { business } from "@/lib/business";
 import { alternatesFor } from "@/lib/hreflangMap";
@@ -15,7 +16,7 @@ const schemaNodes = [
 
 export const metadata: Metadata = {
   title: "Contact",
-  description: `Contact ${business.name} in Miami, FL. Call ${business.phone.display} to schedule a consultation.`,
+  description: `Contact ${business.name} in Miami, FL. Call ${business.phone.display} or request a callback about TRT therapy.`,
   alternates: alternatesFor(PAGE_PATH),
 };
 
@@ -28,17 +29,54 @@ export default function ContactPage() {
           Contact
         </p>
         <h1 className="text-4xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-5xl">
-          Visit {business.name}
+          Talk to {business.name}
         </h1>
         <p className="max-w-2xl text-lg text-zinc-600 dark:text-zinc-400">
-          Our clinic is located in downtown Miami. Call to book a consultation
-          or drop by during business hours.
+          Call us, or leave a few details and we&apos;ll contact you to discuss
+          next steps for TRT therapy in Miami.
         </p>
       </header>
 
-      <div className="grid gap-8 lg:grid-cols-2 lg:items-start">
-        <NapBlock />
-        <LocationMap />
+      <div className="grid gap-10 lg:grid-cols-[1.1fr_1fr] lg:items-start">
+        <section
+          aria-labelledby="lead-form-heading"
+          className="rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm sm:p-8 dark:border-zinc-800 dark:bg-zinc-950"
+        >
+          <h2
+            id="lead-form-heading"
+            className="text-2xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50"
+          >
+            Request a callback
+          </h2>
+          <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
+            We&apos;ll reach out within one business day. Please don&apos;t share
+            medical history through this form — we&apos;ll cover that on the
+            call.
+          </p>
+          <div className="mt-6">
+            <LeadForm />
+          </div>
+        </section>
+
+        <aside className="flex flex-col gap-8">
+          <div>
+            <h2 className="text-sm font-semibold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
+              Or call directly
+            </h2>
+            <a
+              href={business.phone.href}
+              data-phone-surface="contact_sidebar"
+              className="mt-2 inline-flex h-12 items-center justify-center rounded-full bg-zinc-900 px-6 text-sm font-semibold text-white transition-colors hover:bg-zinc-700 dark:bg-zinc-50 dark:text-zinc-900 dark:hover:bg-zinc-200"
+            >
+              Call {business.phone.display}
+            </a>
+            <p className="mt-2 text-xs text-zinc-500 dark:text-zinc-400">
+              Mon–Fri 8a–6p · Sat 9a–1p
+            </p>
+          </div>
+          <NapBlock />
+          <LocationMap />
+        </aside>
       </div>
     </div>
   );
