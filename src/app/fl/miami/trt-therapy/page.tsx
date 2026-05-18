@@ -4,6 +4,7 @@ import { CitationBlock } from "@/components/citation-block";
 import { FaqAccordion } from "@/components/faq-accordion";
 import { SchemaGraph } from "@/components/schema-graph";
 import { pageCitations } from "@/lib/citations/page-citations";
+import { activeReviewer } from "@/lib/medical-director";
 import { primaryReviewer } from "@/lib/providers/registry";
 import { schemaEligible, trtMiamiGuideFaqs, TRT_FAQ_DISCLAIMER } from "@/lib/faq-content";
 import {
@@ -18,6 +19,7 @@ import { pageMetadata } from "@/lib/seo";
 
 const PAGE_PATH = "/fl/miami/trt-therapy/" as const;
 const LAST_REVIEWED = "2026-05-17" as const;
+const NEXT_REVIEW = "2026-11-13" as const;
 const DATE_PUBLISHED = "2026-05-17" as const;
 const HEADLINE = "TRT in Miami: A Complete Guide to Testosterone Replacement Therapy" as const;
 
@@ -100,13 +102,16 @@ export default function TrtMiamiGuidePage() {
           <p className="text-sm text-zinc-500 dark:text-zinc-400">
             Medically reviewed by{" "}
             <Link
-              href="/medical-reviewer/"
+              href={activeReviewer.href}
               className="font-medium text-zinc-700 underline-offset-2 hover:underline dark:text-zinc-300"
             >
-              {primaryReviewer.name}
+              {activeReviewer.name}
             </Link>
             . Last reviewed{" "}
-            <time dateTime={LAST_REVIEWED}>{LAST_REVIEWED}</time>.
+            <time dateTime={LAST_REVIEWED}>{LAST_REVIEWED}</time>
+            {". Next scheduled review: "}
+            <time dateTime={NEXT_REVIEW}>{NEXT_REVIEW}</time>
+            {"."}
           </p>
         </header>
 
@@ -381,10 +386,10 @@ export default function TrtMiamiGuidePage() {
             <time dateTime={LAST_REVIEWED}>{LAST_REVIEWED}</time>. Medical
             reviewer:{" "}
             <Link
-              href="/medical-reviewer/"
+              href={activeReviewer.href}
               className="font-medium text-zinc-700 underline-offset-2 hover:underline dark:text-zinc-300"
             >
-              {primaryReviewer.name}
+              {activeReviewer.name}
             </Link>
             .
           </p>
