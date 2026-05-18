@@ -1,45 +1,53 @@
 import type { Metadata } from "next";
 import { CitationBlock } from "@/components/citation-block";
-import { PageStub } from "@/components/page-stub";
 import { SchemaGraph } from "@/components/schema-graph";
+import { YmylDocPage } from "@/components/ymyl-doc-page";
 import { pageCitations } from "@/lib/citations/page-citations";
 import { primaryReviewer } from "@/lib/providers/registry";
-import { buildBreadcrumbList, buildMedicalWebPage, buildPageCitationSchema } from "@/lib/schema";
+import {
+  buildBreadcrumbList,
+  buildFaqPage,
+  buildMedicalWebPage,
+  buildPageCitationSchema,
+} from "@/lib/schema";
 import { pageMetadata } from "@/lib/seo";
+import { loadYmylDoc } from "@/lib/ymyl/doc";
 
 const PAGE_PATH = "/trt-side-effects/" as const;
+const doc = loadYmylDoc("copy-trt-side-effects");
 const { citations, lastReviewed } = pageCitations(PAGE_PATH);
 
 const schemaNodes = [
-  buildMedicalWebPage({ pagePath: PAGE_PATH, lastReviewed, specialty: "Endocrinology" }),
+  buildMedicalWebPage({
+    pagePath: PAGE_PATH,
+    lastReviewed,
+    specialty: "Endocrinology",
+    dateModified: lastReviewed,
+  }),
+  buildFaqPage(doc.faqs, PAGE_PATH),
+  buildBreadcrumbList(
+    [{ name: "Home", path: "/" }, { name: "TRT side effects", path: PAGE_PATH }],
+    PAGE_PATH,
+  ),
   buildPageCitationSchema(PAGE_PATH, citations),
-  buildBreadcrumbList([{ name: "Home", path: "/" }, { name: "TRT side effects", path: PAGE_PATH }], PAGE_PATH),
 ];
 
 export const metadata: Metadata = pageMetadata({
   path: PAGE_PATH,
-  title: "TRT Side Effects: What to Watch For — Strong Health Miami",
-  description:
-    "Common and uncommon side effects of testosterone replacement therapy and how we monitor for them. Detailed page content in progress.",
+  title: doc.frontmatter.title,
+  description: doc.frontmatter.meta_description,
 });
 
 export default function TrtSideEffectsPage() {
   return (
     <>
       <SchemaGraph nodes={schemaNodes} />
-      <PageStub
+      <YmylDocPage
+        doc={doc}
+        lastReviewed={lastReviewed}
         eyebrow="TRT Side Effects · Miami, FL"
-        heading="TRT side effects"
-        intro="Common and uncommon side effects of testosterone replacement therapy and how we monitor for them. Detailed page content in progress."
-        breadcrumbs={[
-          { name: "Home", path: "/" },
-          { name: "TRT side effects", path: PAGE_PATH },
-        ]}
-        relatedLinks={[
-          { label: "TRT clinic in Miami", href: "/trt-clinic-miami/" },
-        ]}
-      />
-      <div className="mx-auto w-full max-w-4xl px-6 pb-16">
+        breadcrumbLabel="TRT side effects"
+      >
         <CitationBlock
           citations={citations}
           reviewer={{
@@ -50,7 +58,7 @@ export default function TrtSideEffectsPage() {
           lastReviewed={lastReviewed}
           pagePath={PAGE_PATH}
         />
-      </div>
+      </YmylDocPage>
     </>
   );
 }
