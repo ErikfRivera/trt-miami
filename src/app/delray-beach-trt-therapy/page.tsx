@@ -31,6 +31,15 @@ const PAGE_PATH = "/delray-beach-trt-therapy/" as const;
 // canonical host helper rather than a copy of `business.url`.
 const canonicalUrl = absoluteUrl(PAGE_PATH);
 
+// Next scheduled review = last reviewed + 180d, matching the 180-day cadence
+// used by CitationBlock and the YMYL cohort. Keeps STR-205's reviewer
+// attribution in lockstep with TRT_FAQ_LAST_REVIEWED without a runtime branch.
+const TRT_FAQ_NEXT_REVIEW = (() => {
+  const d = new Date(`${TRT_FAQ_LAST_REVIEWED}T00:00:00Z`);
+  d.setUTCDate(d.getUTCDate() + 180);
+  return d.toISOString().slice(0, 10);
+})();
+
 export const metadata: Metadata = {
   title: {
     absolute: "TRT Delray Beach, FL | Strong Health TRT Therapy Clinic",
@@ -501,13 +510,16 @@ export default function DelrayBeachTrtPage() {
           <p className="text-sm text-zinc-500 dark:text-zinc-400">
             Medically reviewed by{" "}
             <Link
-              href="/contact/"
+              href={activeReviewer.href}
               className="font-medium text-zinc-700 underline-offset-2 hover:underline dark:text-zinc-300"
             >
               {activeReviewer.name}
             </Link>
             . Last reviewed{" "}
-            <time dateTime={TRT_FAQ_LAST_REVIEWED}>{TRT_FAQ_LAST_REVIEWED}</time>.
+            <time dateTime={TRT_FAQ_LAST_REVIEWED}>{TRT_FAQ_LAST_REVIEWED}</time>
+            {". Next scheduled review: "}
+            <time dateTime={TRT_FAQ_NEXT_REVIEW}>{TRT_FAQ_NEXT_REVIEW}</time>
+            {"."}
           </p>
           <FaqAccordion items={trtClinicDelrayFaqs} />
           <p className="text-xs italic text-zinc-500 dark:text-zinc-400">
