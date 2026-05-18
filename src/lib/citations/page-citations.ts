@@ -311,6 +311,48 @@ export const PAGE_CITATIONS: Partial<Record<SitePath, PageCitations>> = {
       },
     ],
   },
+  "/fl/miami/trt-therapy/": {
+    lastReviewed: "2026-05-17",
+    citations: [
+      {
+        title: "Testosterone Therapy in Men with Hypogonadism: An Endocrine Society Clinical Practice Guideline",
+        url: "https://pubmed.ncbi.nlm.nih.gov/29562364/",
+        publisher: "Endocrine Society",
+        year: 2018,
+        pmid: "29562364",
+      },
+      {
+        title: "American Urological Association: Evaluation and Management of Testosterone Deficiency",
+        url: "https://www.auanet.org/guidelines-and-quality/guidelines/testosterone-deficiency-guideline",
+        publisher: "American Urological Association",
+        year: 2022,
+      },
+      {
+        title: "Cardiovascular Safety of Testosterone-Replacement Therapy (TRAVERSE Trial)",
+        url: "https://www.nejm.org/doi/10.1056/NEJMoa2212906",
+        publisher: "New England Journal of Medicine",
+        year: 2023,
+      },
+      {
+        title: "Effects of Testosterone Treatment in Older Men (T-Trials)",
+        url: "https://www.nejm.org/doi/10.1056/NEJMoa1506119",
+        publisher: "New England Journal of Medicine",
+        year: 2016,
+      },
+      {
+        title: "Testosterone Therapy Overview",
+        url: "https://www.mayoclinic.org/tests-procedures/testosterone-therapy/about/pac-20385001",
+        publisher: "Mayo Clinic",
+        year: 2024,
+      },
+      {
+        title: "Testosterone deficiency — NIDDK",
+        url: "https://www.niddk.nih.gov/health-information/urologic-diseases/testosterone-deficiency",
+        publisher: "National Institute of Diabetes and Digestive and Kidney Diseases",
+        year: 2024,
+      },
+    ],
+  },
 };
 
 export function pageCitations(path: SitePath): PageCitations {

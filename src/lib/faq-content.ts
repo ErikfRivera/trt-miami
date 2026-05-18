@@ -265,3 +265,92 @@ export const TRT_FAQ_LAST_REVIEWED = "2026-05-15" as const;
 
 export const TRT_FAQ_DISCLAIMER =
   "This page is for general education and does not replace a consultation with a licensed clinician. Decisions about testosterone replacement therapy must be made with a qualified medical provider based on your individual lab results and medical history." as const;
+
+// Editorial FAQ set for /fl/miami/trt-therapy/ (scenario-b, no clinic framing).
+// Follows the STR-22 v3 brief, 12 questions, third-person educational copy only.
+export const trtMiamiGuideFaqs: readonly FaqEntry[] = [
+  {
+    id: "guide-what-is-trt",
+    inSchema: true,
+    question: "What is testosterone replacement therapy (TRT)?",
+    answer:
+      "Testosterone replacement therapy (TRT) is a prescription medical treatment that restores serum testosterone to a normal physiological range in men diagnosed with clinically low testosterone (hypogonadism). It is FDA-approved only for men with documented testosterone deficiency caused by a medical condition — not as a general anti-aging or performance treatment. Delivery forms include injections, topical gels, transdermal patches, buccal tablets, and subcutaneous pellets.",
+  },
+  {
+    id: "guide-diagnosis",
+    inSchema: true,
+    question: "How is low testosterone diagnosed?",
+    answer:
+      "The American Urological Association requires at least two early-morning serum testosterone measurements on separate days, both showing total testosterone below 300 ng/dL, combined with consistent clinical symptoms (fatigue, low libido, reduced muscle mass, mood changes, or erectile difficulty). Because testosterone follows a diurnal rhythm and fluctuates with illness or stress, a single low reading is insufficient for diagnosis. Free testosterone measurement is recommended when total testosterone is borderline or SHBG is abnormal.",
+  },
+  {
+    id: "guide-cost",
+    inSchema: true,
+    question: "What does TRT cost in Miami?",
+    answer:
+      "TRT costs in Miami typically range from $150 to $400 per month depending on the delivery method (injectable testosterone is least expensive; pellet implantation is most), the frequency of monitoring labs, and whether care is billed through insurance or a cash-pay membership program. Generic injectable testosterone cypionate — the most widely prescribed form — costs under $30/month in medication alone; total program costs vary by provider model. See our detailed TRT cost guide for a full Miami price breakdown.",
+  },
+  {
+    id: "guide-insurance",
+    inSchema: true,
+    question: "Does insurance cover TRT in Miami?",
+    answer:
+      "TRT can be covered by insurance when prescribed for documented hypogonadism confirmed by qualifying lab values and symptoms. Coverage depends on plan formulary, deductible, and the specific testosterone formulation — generic injectable testosterone is most commonly covered, while long-acting pellets and branded gels are frequently excluded or require prior authorization. Many Miami patients pay out of pocket through HSA/FSA funds or cash-pay programs. Our does-insurance-cover-TRT guide walks through how to verify your benefits.",
+  },
+  {
+    id: "guide-safety",
+    inSchema: true,
+    question: "Is TRT safe?",
+    answer:
+      "For men with confirmed hypogonadism who are monitored with regular blood work, TRT has a well-characterized safety profile. The landmark 2023 TRAVERSE trial (NEJM) found no significant increase in major adverse cardiovascular events in men with or at high risk for cardiovascular disease. Risks that require monitoring include polycythemia (elevated red cell count, roughly 20% of treated men), PSA elevation, sleep apnea worsening, and reduced fertility. TRT is contraindicated in untreated prostate or male breast cancer, recent MI or stroke, and men trying to conceive.",
+  },
+  {
+    id: "guide-timeline",
+    inSchema: true,
+    question: "How long does it take for TRT to work?",
+    answer:
+      "Most men report early improvements in energy, mood, and libido within 3–4 weeks of starting TRT. Improvements in muscle mass and body composition typically build over 3–6 months; sexual function benefits accumulate over a similar timeframe. The Endocrine Society recommends re-checking testosterone levels 30–90 days after initiation and reassessing clinical response at 3–6 months. If symptoms have not improved by 6 months on adequate doses, the diagnosis should be reconsidered.",
+  },
+  {
+    id: "guide-side-effects",
+    inSchema: true,
+    question: "What are the most common side effects of TRT?",
+    answer:
+      "Common side effects include acne, oily skin, fluid retention, mild breast tenderness, and testicular atrophy from suppression of the HPG axis. Lab abnormalities include elevated hematocrit (polycythemia, ~20% of treated men), modest PSA rise, and suppressed LH/FSH. Fertility impairment is expected with exogenous testosterone. Rare but serious effects — cardiovascular events, deep vein thrombosis, hepatotoxicity with oral formulations — are monitored via regular labs. Monitoring protocols typically include CBC, testosterone level, PSA, and hematocrit at 30 days, then every 6–12 months.",
+  },
+  {
+    id: "guide-fertility",
+    inSchema: true,
+    question: "Will TRT affect fertility?",
+    answer:
+      "Yes. Exogenous testosterone suppresses LH and FSH, which reduces intratesticular testosterone and shuts down spermatogenesis. The AUA strongly advises against starting TRT in men who are currently trying to conceive. Men who want to preserve fertility while treating low testosterone have alternatives — clomiphene citrate, hCG, or a combination — that stimulate endogenous testosterone production without the suppressive effect on sperm. Recovery of spermatogenesis after stopping TRT can take 6–18+ months and is not guaranteed.",
+  },
+  {
+    id: "guide-modalities",
+    inSchema: true,
+    question: "What is the difference between TRT injections, pellets, and gels?",
+    answer:
+      "Injections (testosterone cypionate or enanthate, weekly) produce the largest serum swings but are inexpensive and allow dose titration. Gels and solutions (applied daily) provide stable levels but carry a small transfer risk to partners or children, and are often not covered by insurance. Subdermal pellets (implanted every 3–6 months) offer the most stable levels with no daily administration but require a minor office procedure and cannot be easily dose-adjusted once implanted. Buccal tablets and nasal gels are niche options with specific adherence or transfer profiles. The best delivery method depends on lifestyle, insurance, and individual hormone kinetics.",
+  },
+  {
+    id: "guide-hrt-vs-trt",
+    inSchema: true,
+    question: "Is HRT the same as TRT?",
+    answer:
+      "TRT is a subset of hormone replacement therapy (HRT). HRT is a broader term that includes estrogen therapy for menopausal women, thyroid hormone replacement, and other endocrine treatments. When used in the context of men's health, HRT and TRT are often used interchangeably to describe testosterone supplementation, though TRT is the more precise clinical term for testosterone-specific treatment. Women's hormone therapy — estrogen with or without progesterone — is a distinct treatment class. Some men also pursue broader 'male HRT' that includes DHEA, growth hormone secretagogues, or thyroid optimization alongside testosterone.",
+  },
+  {
+    id: "guide-weight-loss",
+    inSchema: true,
+    question: "Can TRT help with weight loss or muscle gain?",
+    answer:
+      "Restoring testosterone to a normal range in genuinely deficient men produces measurable changes in body composition: modest lean mass gains and reductions in fat mass, typically over 6–12 months. A 2011 systematic review (Saad et al., Obesity Reviews) found significant reductions in waist circumference and BMI in hypogonadal men treated with testosterone. The effect is modest compared with diet and resistance training and is not a substitute for them. TRT is not indicated for men with normal testosterone who want to improve body composition — the risk-benefit calculation is unfavorable in eugonadal men.",
+  },
+  {
+    id: "guide-evaluate-provider",
+    inSchema: true,
+    question: "How do you evaluate a TRT provider in Miami?",
+    answer:
+      "A qualified TRT provider should require two early-morning testosterone blood tests before prescribing, conduct a complete baseline evaluation (CBC, lipid panel, PSA, estradiol, LH/FSH, comprehensive metabolic panel), have a Florida-licensed physician supervise or directly provide care, monitor labs at 30 days and every 6–12 months thereafter, and be willing to adjust or discontinue therapy if response is inadequate. Red flags include prescribing based on symptoms alone, skipping pre-treatment labs, offering testosterone for athletic performance, or not monitoring hematocrit and PSA regularly. A Florida licensed physician must be involved in prescribing; telehealth-only models are legal in Florida but must include laboratory oversight.",
+  },
+] as const;

@@ -64,6 +64,9 @@ export const routes: readonly SiteRoute[] = [
   // South-FL geo expansion spoke (STR-100)
   { path: "/delray-beach-trt-therapy/", changeFrequency: "monthly", priority: 0.85, locale: "en" },
 
+  // Miami editorial guide (STR-9)
+  { path: "/fl/miami/trt-therapy/", changeFrequency: "weekly", priority: 0.95, locale: "en" },
+
   // Adjacent service (already live)
   { path: "/peptide-therapy/", changeFrequency: "weekly", priority: 0.9, locale: "en" },
 
