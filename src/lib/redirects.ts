@@ -23,12 +23,7 @@ export type RedirectEntry = Redirect & {
 
 export const redirectRegistry: readonly RedirectEntry[] = [
   // Scaffold → canonical IA migration (STR-57).
-  {
-    source: "/fl/miami/trt-therapy/",
-    destination: "/trt-clinic-miami/",
-    permanent: true,
-    reason: "Preserve 1,238 GSC impressions / 3 clicks (90d to 2026-05-14).",
-  },
+  // NOTE: /fl/miami/trt-therapy/ redirect removed — STR-9 built the real page there.
   {
     source: "/fl/miami/hialeah/",
     destination: "/locations/hialeah-trt/",
@@ -42,7 +37,9 @@ export const redirectRegistry: readonly RedirectEntry[] = [
     reason: "Preserve 112 impressions / 4 clicks (90d). No standalone hub for /fl/miami/ in flat IA.",
   },
   {
-    source: "/fl/:rest*/",
+    // Negative lookahead excludes /fl/miami/trt-therapy/ — a real page added in STR-9.
+    // Next.js redirects run before filesystem routing so we must explicitly carve it out.
+    source: "/fl/:path((?!miami\\/trt-therapy).*)/",
     destination: "/",
     permanent: true,
     reason: "Catch-all for any other /fl/* requests. Keeps crawlers off 404s during migration.",
