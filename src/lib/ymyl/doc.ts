@@ -162,6 +162,13 @@ export function loadYmylDoc(slug: string): YmylDoc {
   let bodyClean = stripReferencesAndTrailingDivider(bodyWithoutFaq);
   bodyClean = stripFaqStrayHr(bodyClean);
 
+  const leak = bodyClean.match(/\{\{[A-Z_]+\}\}/);
+  if (leak) {
+    throw new Error(
+      `YMYL doc ${slug}: unsubstituted placeholder ${leak[0]} remains in body after byline strip — fix the source or extend the byline regex in loadYmylDoc`,
+    );
+  }
+
   const doc: YmylDoc = {
     slug,
     frontmatter: fm,

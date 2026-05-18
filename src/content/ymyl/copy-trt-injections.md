@@ -12,8 +12,8 @@ date_modified: "{{LAST_UPDATED}}"
 brief: STR-136#document-brief-trt-injections
 ---
 
-*By {{AUTHOR_NAME}}, {{AUTHOR_CREDENTIALS}} — [our physicians](/providers/)*
-*[Medically reviewed by](/medical-reviewer/) {{REVIEWER_NAME}}, {{REVIEWER_CREDENTIALS}} on {{REVIEW_DATE}}*
+By {{AUTHOR_NAME}}, {{AUTHOR_CREDENTIALS}}
+Medically reviewed by {{REVIEWER_NAME}}, {{REVIEWER_CREDENTIALS}} on {{REVIEW_DATE}}
 
 # TRT Injections in Miami
 
