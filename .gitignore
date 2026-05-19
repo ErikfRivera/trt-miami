@@ -37,6 +37,9 @@ yarn-error.log*
 # vercel
 .vercel
 
+# netlify (local plugin build artifacts; STR-170 fallback only)
+.netlify
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts

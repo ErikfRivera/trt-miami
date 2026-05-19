@@ -6,45 +6,78 @@ type Status = "idle" | "submitting" | "success" | "error";
 
 type SubmitResponse = {
   ok?: boolean;
+  id?: string;
   message?: string;
-  degraded?: boolean;
   fieldErrors?: Record<string, string>;
 };
 
-type GtagFn = (
-  command: "event",
-  eventName: string,
-  params?: Record<string, unknown>,
-) => void;
+type WindowWithGtag = Window & {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  gtag?: (...args: any[]) => void;
+  dataLayer?: unknown[];
+};
 
-declare global {
-  interface Window {
-    dataLayer?: unknown[];
-    gtag?: GtagFn;
-  }
-}
-
-function fireLeadEvent(): void {
+function fireLeadEvent(leadId: string | undefined): void {
   if (typeof window === "undefined") return;
-  if (typeof window.gtag === "function") {
-    window.gtag("event", "generate_lead", {
-      currency: "USD",
-      value: 0,
-      lead_source: "trt_miami_contact_form",
-    });
+  const w = window as WindowWithGtag;
+  const params = {
+    lead_id: leadId,
+    lead_source: "trt_miami_contact_form",
+    currency: "USD",
+    value: 0,
+  };
+  if (typeof w.gtag === "function") {
+    w.gtag("event", "lead_submit", params);
     return;
   }
-  if (Array.isArray(window.dataLayer)) {
-    window.dataLayer.push({
-      event: "generate_lead",
-      currency: "USD",
-      value: 0,
-      lead_source: "trt_miami_contact_form",
-    });
+  if (Array.isArray(w.dataLayer)) {
+    w.dataLayer.push({ event: "lead_submit", ...params });
   }
 }
 
-export function LeadForm() {
+function readUtmParams(): Record<string, string> {
+  if (typeof window === "undefined") return {};
+  const params = new URLSearchParams(window.location.search);
+  const out: Record<string, string> = {};
+  for (const key of ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content"]) {
+    const v = params.get(key);
+    if (v) out[key] = v;
+  }
+  return out;
+}
+
+function readClientId(measurementId: string | null): Promise<string> {
+  return new Promise((resolve) => {
+    if (typeof window === "undefined" || !measurementId) {
+      resolve("");
+      return;
+    }
+    const w = window as WindowWithGtag;
+    if (typeof w.gtag !== "function") {
+      resolve("");
+      return;
+    }
+    let resolved = false;
+    const done = (value: string) => {
+      if (resolved) return;
+      resolved = true;
+      resolve(value);
+    };
+    try {
+      w.gtag("get", measurementId, "client_id", (value: string) => done(value || ""));
+    } catch {
+      done("");
+    }
+    setTimeout(() => done(""), 400);
+  });
+}
+
+type LeadFormProps = {
+  ga4MeasurementId?: string | null;
+  sourcePath?: string;
+};
+
+export function LeadForm({ ga4MeasurementId = null, sourcePath = "" }: LeadFormProps = {}) {
   const [status, setStatus] = useState<Status>("idle");
   const [message, setMessage] = useState<string>("");
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
@@ -65,6 +98,13 @@ export function LeadForm() {
     setFieldErrors({});
 
     const data = new FormData(event.currentTarget);
+    const resolvedSourcePath =
+      sourcePath || (typeof window !== "undefined" ? window.location.pathname : "");
+    if (resolvedSourcePath) data.set("sourcePath", resolvedSourcePath);
+    for (const [k, v] of Object.entries(readUtmParams())) data.set(k, v);
+    const clientId = await readClientId(ga4MeasurementId);
+    if (clientId) data.set("ga4ClientId", clientId);
+
     let response: Response;
     try {
       response = await fetch("/api/lead/", {
@@ -91,7 +131,7 @@ export function LeadForm() {
       setMessage(
         body.message ?? "Thanks. We'll contact you shortly to discuss next steps.",
       );
-      fireLeadEvent();
+      fireLeadEvent(body.id);
       formRef.current?.reset();
       return;
     }

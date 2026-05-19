@@ -4,6 +4,7 @@ import { LeadForm } from "@/components/lead-form";
 import { LocationMap } from "@/components/location-map";
 import { NapBlock } from "@/components/nap-block";
 import { SchemaGraph } from "@/components/schema-graph";
+import { ga4MeasurementId } from "@/lib/analytics";
 import { business } from "@/lib/business";
 import { buildBreadcrumbList, buildMedicalBusiness } from "@/lib/schema";
 import { pageMetadata } from "@/lib/seo";
@@ -69,7 +70,7 @@ export default function ContactPage() {
             call.
           </p>
           <div className="mt-6">
-            <LeadForm />
+            <LeadForm ga4MeasurementId={ga4MeasurementId} sourcePath={PAGE_PATH} />
           </div>
         </section>
 

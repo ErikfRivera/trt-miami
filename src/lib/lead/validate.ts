@@ -7,6 +7,13 @@ export type LeadInput = {
   contactMethod: ContactMethod;
   message: string;
   honeypot: string;
+  sourcePath: string;
+  utmSource: string;
+  utmMedium: string;
+  utmCampaign: string;
+  utmTerm: string;
+  utmContent: string;
+  ga4ClientId: string;
 };
 
 export type FieldErrors = Partial<Record<keyof LeadInput | "form", string>>;
@@ -43,6 +50,13 @@ export function parseLeadInput(form: FormData | Record<string, unknown>): LeadIn
     contactMethod,
     message: sanitizeString(get("message"), 1000),
     honeypot: sanitizeString(get("website"), 200),
+    sourcePath: sanitizeString(get("sourcePath"), 256),
+    utmSource: sanitizeString(get("utm_source"), 128),
+    utmMedium: sanitizeString(get("utm_medium"), 128),
+    utmCampaign: sanitizeString(get("utm_campaign"), 128),
+    utmTerm: sanitizeString(get("utm_term"), 128),
+    utmContent: sanitizeString(get("utm_content"), 128),
+    ga4ClientId: sanitizeString(get("ga4ClientId"), 64),
   };
 }
 
